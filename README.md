@@ -49,109 +49,109 @@ Released under the MIT license.
             <td>File upload button. <strong>Required.</strong></td>
         </tr>
         <tr>
-            <td>url</td>
+            <td><strong>url</strong></td>
             <td>String</td>
             <td>''</td>
             <td>Location of the server-side file upload handler. <strong>Required.</strong></td>
         </tr>		
         <tr>
-            <td>name</td>
+            <td><strong>name</strong></td>
             <td>String</td>
             <td>''</td>
             <td>File upload name. <strong>Required.</strong></td>
         </tr>
         <tr>
-            <td>data</td>
+            <td><strong>data</strong></td>
             <td>Object</td>
             <td>{}</td>
             <td>Additional data to be sent to the server.</td>
         </tr>
         <tr>
-            <td>autoSubmit</td>
+            <td><strong>autoSubmit</strong></td>
             <td>Boolean</td>
             <td>true</td>
             <td>By default, uploads commence as soon as a file is selected. Set to false to delay the upload and trigger manually.</td>
         </tr>
         <tr>
-            <td>responseType</td>
+            <td><strong>responseType</strong></td>
             <td>String</td>
             <td>'text'</td>
             <td>The type of data you're expecting back from the server. Default is plain text. Additional option is 'json'.</td>
         </tr>		
         <tr>
-            <td>debug</td>
+            <td><strong>debug</strong></td>
             <td>Boolean</td>
             <td>false</td>
             <td>Setting debug to true will log progress messages and server response in the console.</td>
         </tr>		
         <tr>
-            <td>hoverClass</td>
+            <td><strong>hoverClass</strong></td>
             <td>String</td>
             <td>''</td>
             <td>Class applied to upload button when mouse is hovered.</td>
         </tr>		
         <tr>
-            <td>focusClass</td>
+            <td><strong>focusClass</strong></td>
             <td>String</td>
             <td>''</td>
             <td>Class applied to upload button when focused.</td>
         </tr>	
         <tr>
-            <td>disabledClass</td>
+            <td><strong>disabledClass</strong></td>
             <td>String</td>
             <td>''</td>
             <td>Class applied to button when disabled.</td>
         </tr>		
         <tr>
-            <td>onChange(filename, extension)</td>
+            <td><strong>onChange(filename, extension)</strong></td>
             <td>Function</td>
             <td></td>
             <td>Function to be called when user selects a file. The function gets passed two arguments: a string containing the filename; a string containing the file extension.</td>
         </tr>
         <tr>
-            <td>onSubmit(filename, extension)</td>
+            <td><strong>onSubmit(filename, extension)</strong></td>
             <td>Function</td>
             <td></td>
             <td>Function to be called before file is uploaded. The function gets passed two arguments: a string containing the filename; a string containing the file extension. Return false stops upload.</td>
         </tr>
         <tr>
-            <td>onProgress(filename, pct)</td>
+            <td><strong>onProgress(filename, pct)</strong></td>
             <td>Function</td>
             <td></td>
             <td>Function to be called on the progress event for browsers that support XHR uploads. The function gets passed two arguments: a string containing the filename; an integer representing the upload completion percentage.</td>
         </tr>
         <tr>
-            <td>onComplete(filename, response)</td>
+            <td><strong>onComplete(filename, response)</strong></td>
             <td>Function</td>
             <td></td>
             <td>Function to be called when the upload is completed. The function gets passed two parameters: a string containing the filename; the data returned from the server, formatted according to the <code>responseType</code> setting. If <code>responseType</code> is 'json', the response will be evaluated as JSON and will return a Javascript object.</td>
         </tr>
         <tr>
-            <td>onError(filename, errorType, response)</td>
+            <td><strong>onError(filename, errorType, response)</strong></td>
             <td>Function</td>
             <td></td>
             <td>Function to be called if an error occurs during upload. The function gets passsed three parameters: a string containing the filename; a string containing the error type; a string containing the server response, if any.</td>
         </tr>
         <tr>
-            <td>startXHR(filename, fileSize)</td>
+            <td><strong>startXHR(filename, fileSize)</strong></td>
             <td>Function</td>
             <td></td>
             <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after <code>onSubmit</code> but prior to upload start. Return false stops upload. The function gets passed two arguments: a string containing the filename; a number that is the file size in kilobytes.</td>
         </tr>
         <tr>
-            <td>endXHR(filename)</td>
+            <td><strong>endXHR(filename)</strong></td>
             <td>Function</td>
             <td></td>
             <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after upload is completed but prior to <code>onComplete</code>. The function gets passed one argument: a string containing the filename.</td>
         </tr>
         <tr>
-            <td>startNonXHR(filename)</td>
+            <td><strong>startNonXHR(filename)</strong></td>
             <td>Function</td>
             <td></td>
             <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after <code>onSubmit</code> but prior to upload start. The function gets passed one argument: a string containing the filename. Return false stops upload.</td>
         </tr>
         <tr>
-            <td>endNonXHR(filename)</td>
+            <td><strong>endNonXHR(filename)</strong></td>
             <td>Function</td>
             <td></td>
             <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after upload is completed but prior to <code>onComplete</code>. The function gets passed one argument: a string containing the filename.</td>

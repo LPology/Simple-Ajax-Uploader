@@ -124,7 +124,7 @@ Released under the MIT license.
             <td>onComplete(filename, response)</td>
             <td>Function</td>
             <td></td>
-            <td>Function to be called when the upload is completed. The function gets passed two parameters: a string containing the filename; the data returned from the server, formatted according to the <code>responseType</code> setting.</td>
+            <td>Function to be called when the upload is completed. The function gets passed two parameters: a string containing the filename; the data returned from the server, formatted according to the <code>responseType</code> setting. If <code>responseType</code> is 'json', the response will be evaluated as JSON and will return a Javascript object.</td>
         </tr>
         <tr>
             <td>onError(filename, errorType, response)</td>
@@ -136,25 +136,25 @@ Released under the MIT license.
             <td>startXHR(filename, fileSize)</td>
             <td>Function</td>
             <td></td>
-            <td></td>
+            <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after <code>onSubmit</code> and prior to upload start. Return false stops upload.</td>
         </tr>
         <tr>
             <td>endXHR(filename)</td>
             <td>Function</td>
             <td></td>
-            <td></td>
+            <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after upload is completed and prior to <code>onComplete</code>.</td>
         </tr>
         <tr>
             <td>startIE(filename)</td>
             <td>Function</td>
             <td></td>
-            <td></td>
+            <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after <code>onSubmit</code> and prior to upload start. Return false stops upload.</td>
         </tr>
         <tr>
             <td>endIE(filename)</td>
             <td>Function</td>
             <td></td>
-            <td></td>
+            <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after upload is completed and prior to <code>onComplete</code>.</td>
         </tr>		
 	</tbody>
 </table>

@@ -75,8 +75,32 @@ Released under the MIT license.
         <tr>
             <td>responseType</td>
             <td>String</td>
-            <td>''</td>
+            <td>'text'</td>
             <td>The type of data you're expecting back from the server. Default is plain text. Additional option is 'json'.</td>
+        </tr>		
+        <tr>
+            <td>debug</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>Setting debug to true will log progress messages and server response in the console.</td>
+        </tr>		
+        <tr>
+            <td>hoverClass</td>
+            <td>String</td>
+            <td>''</td>
+            <td>Class applied to upload button when mouse is hovered.</td>
+        </tr>		
+        <tr>
+            <td>focusClass</td>
+            <td>String</td>
+            <td>''</td>
+            <td>Class applied to upload button when focused.</td>
+        </tr>	
+        <tr>
+            <td>disabledClass</td>
+            <td>String</td>
+            <td>''</td>
+            <td>Class applied to button when disabled.</td>
         </tr>		
 	</tbody>
 </table>

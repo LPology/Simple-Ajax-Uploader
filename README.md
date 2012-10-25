@@ -67,7 +67,7 @@ Released under the MIT license.
             <td>Additional data to be sent to the server.</td>
         </tr>
         <tr>
-            <td><strong>autoSubmit</strong></td>
+            <td><strong>autoSubmit</strong><br />Default: true</td>
             <td>Boolean</td>
             <td>true</td>
             <td>By default, uploads commence as soon as a file is selected. Set to false to delay the upload and trigger manually.</td>

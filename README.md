@@ -46,19 +46,19 @@ Released under the MIT license.
             <td>button</td>
             <td>String, Element</td>
             <td>''</td>
-            <td>File upload button <strong>Required</strong></td>
+            <td>File upload button. <strong>Required.</strong></td>
         </tr>
         <tr>
             <td>url</td>
             <td>String</td>
             <td>''</td>
-            <td>Location of the server-side file upload handler. <strong>Required</strong></td>
+            <td>Location of the server-side file upload handler. <strong>Required.</strong></td>
         </tr>		
         <tr>
             <td>name</td>
             <td>String</td>
             <td>''</td>
-            <td>File upload name. <strong>Required</strong></td>
+            <td>File upload name. <strong>Required.</strong></td>
         </tr>		
 	</tbody>
 </table>

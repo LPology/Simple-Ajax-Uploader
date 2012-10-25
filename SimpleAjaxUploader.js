@@ -285,31 +285,34 @@ ss.verifyElem = function(elem) {
 * @constructor
 * @param button An element you want convert to upload button.
 * @param {Object} options
+
+* View README.md for documentation
+
 */
 ss.SimpleUpload = function(options) {
 
 	var self = this;
 
 	self._settings = {
-		button: '',				// File upload button
-		url: '',				// Location of the server-side upload script
-		name: '',				// File upload name
-		data: {},				// Additional data to send
-		autoSubmit: true,		// Submit file as soon as it's selected
-		responseType: 'text',		// The type of data that you're expecting back from the server.
-		debug: false,			// Setting debug to true will log server response in the console
-		hoverClass: '',			// Class applied to button when mouse is hovered
-		focusClass: '',			// Class applied to button when button is focused
-		disabledClass: '',		// Class applied to button when disabled
-		onChange: function(filename, extension) {},				// Function to be called when user selects a file.
-		onSubmit: function(filename, extension) {},				// Function to be called before file is uploaded. Return false stops upload.
-		onProgress: function(filename, pct) {},					// Fires on progress, returns integer of 0-100 representing upload progress pct (Mozilla, Webkit, IE10 only)
-		onComplete: function(filename, response) {},			// Function to be called when upload is completed.
-		onError: function(filename, errorType, response) {},	// Function to be called if an error occurs during upload.
-		startXHR: function(filename, fileSize) {},				// Fires after onSubmit, prior to upload start, in XHR supported browsers. Return false stops upload.
-		endXHR: function(filename) {},							// Function to be called after upload is finished in XHR supported browsers.
-		startNonXHR: function(filename) {},						// Fires after onSubmit, prior to upload start, when iframe method is used. Return false stops upload.
-		endNonXHR: function(filename) {}						// Function to be called after upload is finished in non-XHR browsers.
+		button: '',				
+		url: '',				
+		name: '',				
+		data: {},				
+		autoSubmit: true,		
+		responseType: 'text',	
+		debug: false,			
+		hoverClass: '',			
+		focusClass: '',			
+		disabledClass: '',		
+		onChange: function(filename, extension) {},				
+		onSubmit: function(filename, extension) {},				
+		onProgress: function(filename, pct) {},					
+		onComplete: function(filename, response) {},			
+		onError: function(filename, errorType, response) {},	
+		startXHR: function(filename, fileSize) {},				
+		endXHR: function(filename) {},							
+		startNonXHR: function(filename) {},						
+		endNonXHR: function(filename) {}						
 	};
 	
 	ss.extendObj(self._settings, options);

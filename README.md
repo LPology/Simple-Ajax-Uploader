@@ -42,17 +42,17 @@ Released under the MIT license.
     </thead>
     <tbody>
         <tr>
-            <td><strong>button</strong></td>
+            <td><strong>button</strong><br />Default: <code>''</code></td>
             <td>String, Element</td>
             <td>File upload button. <strong>Required.</strong></td>
         </tr>
         <tr>
-            <td><strong>url</strong></td>
+            <td><strong>url</strong><br />Default: <code>''</code></td>
             <td>String</td>
             <td>Location of the server-side file upload handler. <strong>Required.</strong></td>
         </tr>		
         <tr>
-            <td><strong>name</strong></td>
+            <td><strong>name</strong><br />Default: <code>''</code></td>
             <td>String</td>
             <td>File upload name. <strong>Required.</strong></td>
         </tr>
@@ -77,17 +77,17 @@ Released under the MIT license.
             <td>Setting debug to true will log progress messages and server response in the console.</td>
         </tr>		
         <tr>
-            <td><strong>hoverClass</strong></td>
+            <td><strong>hoverClass</strong><br />Default: <code>''</code></td>
             <td>String</td>
             <td>Class applied to upload button when mouse is hovered.</td>
         </tr>		
         <tr>
-            <td><strong>focusClass</strong></td>
+            <td><strong>focusClass</strong><br />Default: <code>''</code></td>
             <td>String</td>
             <td>Class applied to upload button when focused.</td>
         </tr>	
         <tr>
-            <td><strong>disabledClass</strong></td>
+            <td><strong>disabledClass</strong><br />Default: <code>''</code></td>
             <td>String</td>
             <td>Class applied to button when disabled.</td>
         </tr>		

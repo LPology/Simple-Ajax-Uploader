@@ -138,3 +138,21 @@ Released under the MIT license.
         </tr>		
 	</tbody>
 </table>
+
+### Instance Methods ###
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+			<th>Parameters</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>setData(data)</strong></td>
+			<td><code>data</code> (object)</td>
+            <td>Replaces the data to be sent to the server. Note that all previously set data is entirely removed and replaced.</td>
+        </tr>
+	</tbody>
+</table>

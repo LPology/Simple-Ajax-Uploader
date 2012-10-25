@@ -59,6 +59,24 @@ Released under the MIT license.
             <td>String</td>
             <td>''</td>
             <td>File upload name. <strong>Required.</strong></td>
+        </tr>
+        <tr>
+            <td>data</td>
+            <td>Object</td>
+            <td>{}</td>
+            <td>Additional data to be sent to the server.</td>
+        </tr>
+        <tr>
+            <td>autoSubmit</td>
+            <td>Boolean</td>
+            <td>true</td>
+            <td>By default, uploads commence as soon as a file is selected. Set to false to delay the upload and trigger manually.</td>
+        </tr>
+        <tr>
+            <td>responseType</td>
+            <td>String</td>
+            <td>''</td>
+            <td>The type of data you're expecting back from the server. Default is plain text. Additional option is 'json'.</td>
         </tr>		
 	</tbody>
 </table>

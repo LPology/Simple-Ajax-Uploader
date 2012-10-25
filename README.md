@@ -31,7 +31,7 @@ var uploader = new ss.SimpleUpload({
 ### License ###
 Released under the MIT license.
 
-### Properties ###
+### Settings ###
 <table>
     <thead>
         <tr>
@@ -101,6 +101,12 @@ Released under the MIT license.
             <td>String</td>
             <td>''</td>
             <td>Class applied to button when disabled.</td>
+        </tr>		
+        <tr>
+            <td>onChange(filename, extension)</td>
+            <td>Function</td>
+            <td></td>
+            <td>Function to be called when user selects a file.</td>
         </tr>		
 	</tbody>
 </table>

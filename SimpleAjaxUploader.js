@@ -286,7 +286,7 @@ ss.verifyElem = function(elem) {
 * @param button An element you want convert to upload button.
 * @param {Object} options
 
-* View README.md for documentation
+  View README.md for documentation
 
 */
 ss.SimpleUpload = function(options) {

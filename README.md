@@ -106,7 +106,7 @@ Released under the MIT license.
             <td>onChange(filename, extension)</td>
             <td>Function</td>
             <td></td>
-            <td>Function to be called when user selects a file.</td>
+            <td>Function to be called when user selects a file. The function gets passed two arguments: a string containing the filename; a string containing the file's extension.</td>
         </tr>		
 	</tbody>
 </table>

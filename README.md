@@ -159,5 +159,10 @@ Released under the MIT license.
 			<td><i>none</i></td>
             <td>Disables upload functionality.</td>
         </tr>		
+        <tr>
+            <td><strong>enable()</strong></td>
+			<td><i>none</i></td>
+            <td>Restores upload functionality.</td>
+        </tr>			
 	</tbody>
 </table>

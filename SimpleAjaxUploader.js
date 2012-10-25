@@ -721,8 +721,6 @@ ss.SimpleUpload.prototype = {
 			iframe = self._createIframe(),
 			form = self._createForm(iframe),
 			prop;
-			
-		settings.startNonXHR.call(self, filename);
 		
 		if (false === settings.startNonXHR.call(self, filename)) {
 			self.enable();

@@ -106,7 +106,55 @@ Released under the MIT license.
             <td>onChange(filename, extension)</td>
             <td>Function</td>
             <td></td>
-            <td>Function to be called when user selects a file. The function gets passed two arguments: a string containing the filename; a string containing the file's extension.</td>
+            <td>Function to be called when user selects a file. The function gets passed two arguments: a string containing the filename; a string containing the file extension.</td>
+        </tr>
+        <tr>
+            <td>onSubmit(filename, extension)</td>
+            <td>Function</td>
+            <td></td>
+            <td>Function to be called before file is uploaded. The function gets passed two arguments: a string containing the filename; a string containing the file extension. Return false stops upload.</td>
+        </tr>
+        <tr>
+            <td>onProgress(filename, pct)</td>
+            <td>Function</td>
+            <td></td>
+            <td>Function to be called on the progress event for browsers that support XHR uploads. The function gets passed two arguments: a string containing the filename; an integer representing the upload completion percentage.</td>
+        </tr>
+        <tr>
+            <td>onComplete(filename, response)</td>
+            <td>Function</td>
+            <td></td>
+            <td>Function to be called when the upload is completed. The function gets passed two parameters: a string containing the filename; the data returned from the server, formatted according to the <code>responseType</code> setting.</td>
+        </tr>
+        <tr>
+            <td>onError(filename, errorType, response)</td>
+            <td>Function</td>
+            <td></td>
+            <td>Function to be called if an error occurs during upload. The function gets passsed three parameters: a string containing the filename; a string containing the error type; a string containing the server response, if any.</td>
+        </tr>
+        <tr>
+            <td>startXHR(filename, fileSize)</td>
+            <td>Function</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>endXHR(filename)</td>
+            <td>Function</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>startIE(filename)</td>
+            <td>Function</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>endIE(filename)</td>
+            <td>Function</td>
+            <td></td>
+            <td></td>
         </tr>		
 	</tbody>
 </table>

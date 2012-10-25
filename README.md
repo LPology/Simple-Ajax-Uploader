@@ -136,25 +136,25 @@ Released under the MIT license.
             <td>startXHR(filename, fileSize)</td>
             <td>Function</td>
             <td></td>
-            <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after <code>onSubmit</code> and prior to upload start. Return false stops upload.</td>
+            <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after <code>onSubmit</code> and prior to upload start. Return false stops upload. The function gets passed two arguments: a string containing the filename; a number that is the file size in kilobytes.</td>
         </tr>
         <tr>
             <td>endXHR(filename)</td>
             <td>Function</td>
             <td></td>
-            <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after upload is completed and prior to <code>onComplete</code>.</td>
+            <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after upload is completed and prior to <code>onComplete</code>. The function gets passed one argument: a string containing the filename.</td>
         </tr>
         <tr>
             <td>startNonXHR(filename)</td>
             <td>Function</td>
             <td></td>
-            <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after <code>onSubmit</code> and prior to upload start. Return false stops upload.</td>
+            <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after <code>onSubmit</code> and prior to upload start. The function gets passed one argument: a string containing the filename. Return false stops upload.</td>
         </tr>
         <tr>
             <td>endNonXHR(filename)</td>
             <td>Function</td>
             <td></td>
-            <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after upload is completed and prior to <code>onComplete</code>.</td>
+            <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after upload is completed and prior to <code>onComplete</code>. The function gets passed one argument: a string containing the filename.</td>
         </tr>		
 	</tbody>
 </table>

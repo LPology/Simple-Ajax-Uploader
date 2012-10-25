@@ -5,7 +5,7 @@ Javascript plugin for AJAX-style file uploading with progress support.
 
 ### Features ###
 * Uses XMLHttpRequest and HTML5 file API with fall back to iframe method for Internet Explorer.
-* Provides individual methods for XHR-supported browsers and Internet Explorer for greater control over user experience.
+* Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads. This allows for much greater control over user experience.
 * Requires no external libraries.
 * Fast and lightweight - only about 3.2KB when minified and gzipped.
 * Tested in IE7+, Firefox 4+, Safari 4+, and Chrome.
@@ -119,7 +119,7 @@ Released under the MIT license.
         <tr>
             <td><strong>startXHR(filename, fileSize)</strong></td>
             <td>Function</td>
-            <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after <code>onSubmit</code> but prior to upload start. Return false stops upload. The function gets passed two arguments: a string containing the filename; a number that is the file size in kilobytes.</td>
+            <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after <code>onSubmit</code> but prior to upload start. The function gets passed two arguments: a string containing the filename; a number that is the file size in kilobytes. Return false stops upload.</td>
         </tr>
         <tr>
             <td><strong>endXHR(filename)</strong></td>

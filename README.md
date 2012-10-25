@@ -145,13 +145,13 @@ Released under the MIT license.
             <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after upload is completed and prior to <code>onComplete</code>.</td>
         </tr>
         <tr>
-            <td>startIE(filename)</td>
+            <td>startNonXHR(filename)</td>
             <td>Function</td>
             <td></td>
             <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after <code>onSubmit</code> and prior to upload start. Return false stops upload.</td>
         </tr>
         <tr>
-            <td>endIE(filename)</td>
+            <td>endNonXHR(filename)</td>
             <td>Function</td>
             <td></td>
             <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after upload is completed and prior to <code>onComplete</code>.</td>

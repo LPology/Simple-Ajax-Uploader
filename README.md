@@ -3,6 +3,9 @@ Simple Ajax Uploader
 
 Javascript plugin for AJAX-style file uploading with progress support.
 
+### Overview ###
+Simple Ajax Uploader is a tool for incorporating AJAX-style file uploading across all major browsers. It attempts to make the development process more efficient by abstracting away common tasks (like calculating upload progress percentage), while still 
+
 ### Features ###
 * Uses XMLHttpRequest and HTML5 file API with fall back to iframe method for Internet Explorer.
 * Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads. This allows for much greater control over user experience.

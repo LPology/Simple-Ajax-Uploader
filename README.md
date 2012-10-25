@@ -151,8 +151,13 @@ Released under the MIT license.
     <tbody>
         <tr>
             <td><strong>setData(data)</strong></td>
-			<td><code>data</code> (object)</td>
+			<td><code>data</code> (Object)</td>
             <td>Replaces the data to be sent to the server. Note that all previously set data is entirely removed and replaced.</td>
         </tr>
+        <tr>
+            <td><strong>disable()</strong></td>
+			<td><i>none</i></td>
+            <td>Disables upload functionality.</td>
+        </tr>		
 	</tbody>
 </table>

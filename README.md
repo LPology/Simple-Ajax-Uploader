@@ -1,7 +1,7 @@
 Simple Ajax Uploader
 ============================
 
-Javascript plugin for ajax-style file uploading with progress bar support.
+Javascript plugin for AJAX-style file uploading with progress support.
 
 ### Features ###
 * Uses XMLHttpRequest and HTML5 file API with fall back to iframe method for Internet Explorer.
@@ -30,3 +30,35 @@ var uploader = new ss.SimpleUpload({
 
 ### License ###
 Released under the MIT license.
+
+### Properties ###
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>button</td>
+            <td>String, Element</td>
+            <td>""</td>
+            <td>File upload button</td>
+        </tr>
+        <tr>
+            <td>url</td>
+            <td>String</td>
+            <td>""</td>
+            <td>Location of the server-side file upload handler.</td>
+        </tr>		
+        <tr>
+            <td>name</td>
+            <td>String</td>
+            <td>""</td>
+            <td>File upload name.</td>
+        </tr>		
+	</tbody>
+</table>

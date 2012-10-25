@@ -61,7 +61,7 @@ Released under the MIT license.
             <td>File upload name. <strong>Required.</strong></td>
         </tr>
         <tr>
-            <td><strong>data</strong></td>
+            <td><strong>data</strong><br />Default: <code>{}</code></td>
             <td>Object</td>
             <td>{}</td>
             <td>Additional data to be sent to the server.</td>
@@ -73,13 +73,13 @@ Released under the MIT license.
             <td>By default, uploads commence as soon as a file is selected. Set to false to delay the upload and trigger manually.</td>
         </tr>
         <tr>
-            <td><strong>responseType</strong></td>
+            <td><strong>responseType</strong><br />Default: <code>'text'</code></td>
             <td>String</td>
             <td>'text'</td>
             <td>The type of data you're expecting back from the server. Default is plain text. Additional option is 'json'.</td>
         </tr>		
         <tr>
-            <td><strong>debug</strong></td>
+            <td><strong>debug</strong><br />Default: <code>false</code></td>
             <td>Boolean</td>
             <td>false</td>
             <td>Setting debug to true will log progress messages and server response in the console.</td>

@@ -107,9 +107,9 @@ Released under the MIT license.
             <td>Function to be called before file is uploaded. The function gets passed two arguments: a string containing the filename; a string containing the file extension. Return false stops upload.</td>
         </tr>
         <tr>
-            <td><strong>onProgress(filename, pct)</strong></td>
+            <td><strong>onProgress(pct)</strong></td>
             <td>Function</td>
-            <td>Function to be called on the progress event for browsers that support XHR uploads. The function gets passed two arguments: a string containing the filename; an integer representing the upload completion percentage.</td>
+            <td>Function to be called on the progress event for browsers that support XHR uploads. The function gets passed one argument: an integer representing the upload completion percentage.</td>
         </tr>
         <tr>
             <td><strong>onComplete(filename, response)</strong></td>

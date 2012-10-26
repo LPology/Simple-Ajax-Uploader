@@ -306,7 +306,7 @@ ss.SimpleUpload = function(options) {
 		disabledClass: '',		
 		onChange: function(filename, extension) {},				
 		onSubmit: function(filename, extension) {},				
-		onProgress: function(filename, pct) {},					
+		onProgress: function(pct) {},					
 		onComplete: function(filename, response) {},			
 		onError: function(filename, errorType, response) {},	
 		startXHR: function(filename, fileSize) {},				
@@ -616,7 +616,7 @@ ss.SimpleUpload.prototype = {
 			queryURL,
 			progress_pct;
 						
-			settings.onProgress.call(self, filename, 0);		
+			settings.onProgress.call(self, 0);		
 			
 			if (false === settings.startXHR.call(self, filename, fileSize)) {
 				self.enable();
@@ -639,7 +639,7 @@ ss.SimpleUpload.prototype = {
 			ss.addEvent(xhr.upload, 'progress', function(event) {
 				if (event.lengthComputable) {
 					progress_pct = Math.round( ( event.loaded / event.total ) * 100);			
-					settings.onProgress.call(self, filename, progress_pct);
+					settings.onProgress.call(self, progress_pct);
 				}
 			});
 			

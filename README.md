@@ -155,6 +155,11 @@ Released under the MIT license.
     </thead>
     <tbody>
         <tr>
+            <td><strong>submit()</strong></td>
+			<td><i>none</i></td>
+            <td>Begins the file upload process. Note that if <code>autoSubmit</code> is set to <code>true</code> (the default value), the upload process will begin immediately after the user selects a file.</td>
+        </tr>	
+        <tr>
             <td><strong>setData(data)</strong></td>
 			<td><code>data</code> (Object)</td>
             <td>Replaces the data to be sent to the server. Note that all previously set data is entirely removed and replaced.</td>

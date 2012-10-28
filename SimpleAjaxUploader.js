@@ -553,16 +553,8 @@ ss.SimpleUpload.prototype = {
 	*/
 	_createForm: function(iframe) {
 		var settings = this._settings,
-			//data = settings.data,
 			form = ss.toElement('<form method="post" enctype="multipart/form-data"></form>');
-			//queryString,
-			//queryURL;
-			
-		// Build query string from user data
-		//queryString = ss.obj2string(data);
-		//queryURL = settings.url + '?' + queryString;		
-	
-		//form.setAttribute('action', queryURL);
+
 		form.setAttribute('action', settings.url);		
 		form.setAttribute('target', iframe.name);                                   
 		form.style.display = 'none';

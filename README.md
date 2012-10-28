@@ -157,7 +157,7 @@ Released under the MIT license.
         <tr>
             <td><strong>submit()</strong></td>
 			<td><i>none</i></td>
-            <td>Begins the file upload process. Note that if <code>autoSubmit</code> is set to <code>true</code> (the default value), there is no need to call <code>submit()</code>. The upload process will begin immediately after the user selects a file.</td>
+            <td>Begins the file upload process. Note that if <code>autoSubmit</code> is set to <code>true</code> (the default value), there is no need to manually call <code>submit()</code>. The upload process will begin immediately after the user selects a file.</td>
         </tr>	
         <tr>
             <td><strong>setData(data)</strong></td>

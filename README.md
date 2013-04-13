@@ -34,6 +34,8 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
+### Using the included PHP class ###
+
 Basic example of how to handle uploads on the server using the included PHP class:
 
 ```php

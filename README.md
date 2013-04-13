@@ -36,7 +36,7 @@ var uploader = new ss.SimpleUpload({
 
 UploadHandler.php:
 
-```
+```php
 <?php
 require('Uploader.php');
 

@@ -34,7 +34,7 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
-UploadHandler.php:
+Basic example for how to handle uploads on the server:
 
 ```php
 <?php

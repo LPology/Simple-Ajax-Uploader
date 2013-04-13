@@ -3,7 +3,7 @@
  * Simple Ajax Uploader
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
- * Copyright 2012 LPology, LLC  
+ * Copyright 2013 LPology, LLC  
  * Released under the MIT license 
 
  View the documentation for an example of how to use this class.

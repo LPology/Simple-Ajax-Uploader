@@ -58,8 +58,7 @@ You can also save the uploaded file with a different name by setting the `newFil
 ```php
 $Upload = new FileUpload('uploadfile');
 $extension = $Upload->getExtension(); // Get the extension of the uploaded file
-$customName = 'someFileName';
-$Upload->newFileName = $customName.'.'.$extension;
+$Upload->newFileName = 'someFileName'.'.'.$extension;
 $result = $Upload->handleUpload($upload_dir, $valid_extensions);
 ```
 

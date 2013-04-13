@@ -2,7 +2,7 @@
  * Simple Ajax Uploader
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
- * Copyright 2012 LPology, LLC  
+ * Copyright 2012-2013 LPology, LLC  
  * Released under the MIT license 
  */ 
 
@@ -155,8 +155,7 @@ ss.getBox = function(el) {
 * @param {Object} styles
 */
 ss.addStyles = function(el, styles) {
-	var name;
-    for (name in styles) {
+    for (var name in styles) {
         if (styles.hasOwnProperty(name)) {
             el.style[name] = styles[name];
         }

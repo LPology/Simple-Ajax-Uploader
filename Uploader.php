@@ -56,8 +56,7 @@ class FileUploadPOSTForm {
 /**
 * Main class for handling file uploads
 */
-class FileUpload {
-  
+class FileUpload {  
   public $uploadDir;                    // File upload directory (include trailing slash)
   public $allowedExtensions;            // Array of permitted file extensions
   public $sizeLimit = 10485760;         // Max file upload size in bytes (default 10MB)

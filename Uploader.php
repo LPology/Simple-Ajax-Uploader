@@ -157,7 +157,7 @@ class FileUpload {
       return false;
     }	            
     if (!is_writable($this->uploadDir)) {
-      $this->setErrorMsg('Upload directory '.$this->uploadDir.' is not writable');
+      $this->setErrorMsg('Upload directory is not writable');
       return false;
     }	       				    
     if ($this->fileSize > $this->sizeLimit) {

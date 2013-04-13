@@ -70,14 +70,14 @@ class FileUpload {
   private $errorMsg;                    // Error message if handleUpload() returns false (use getErrorMsg() to retrieve)
   private $handler; 
   
-	function __construct($uploadName) {
-		if (isset($_GET[$uploadName])) {
-			$this->handler = new FileUploadXHR(); // XHR upload
-		} elseif (isset($_FILES[$uploadName])) {
-			$this->handler = new FileUploadPOSTForm(); // Form-based upload
-		} else {
-			$this->handler = false;
-		}	   
+  function __construct($uploadName) {
+    if (isset($_GET[$uploadName])) {
+      $this->handler = new FileUploadXHR(); // XHR upload
+    } elseif (isset($_FILES[$uploadName])) {
+      $this->handler = new FileUploadPOSTForm(); // Form-based upload
+    } else {
+      $this->handler = false;
+    }	   
     
     if ($this->handler) {
       $this->handler->uploadName = $uploadName;
@@ -98,9 +98,9 @@ class FileUpload {
     return $this->fileSize;
   }                 
 
-	public function getExtension() {
-		return $this->fileExtension;
-	}  
+  public function getExtension() {
+    return $this->fileExtension;
+  }  
   
   public function getErrorMsg() {
     return $this->errorMsg;
@@ -114,9 +114,9 @@ class FileUpload {
     if (!is_array($allowedExtensions)) {
       return false;
     }    
-		if (!in_array(strtolower($ext), array_map('strtolower', $allowedExtensions))) {
+    if (!in_array(strtolower($ext), array_map('strtolower', $allowedExtensions))) {
       return false;      
-		}    
+    }    
     return true;
   }  
 				    
@@ -132,7 +132,7 @@ class FileUpload {
     return $dir . DIRECTORY_SEPARATOR;
   }    
 					
-	public function handleUpload($uploadDir = null, $allowedExtensions = null) {
+  public function handleUpload($uploadDir = null, $allowedExtensions = null) {
     if ($this->handler === false) {
       $this->setErrorMsg('Incorrect upload name or no file uploaded');
       return false;    
@@ -147,33 +147,33 @@ class FileUpload {
     
     $this->uploadDir = $this->fixDir($this->uploadDir);    
     
-		if ($this->newFileName !== null) {
+    if ($this->newFileName !== null) {
       $this->fileName = $this->newFileName;
-			$this->savedFile = $this->uploadDir.$this->newFileName;
-		}	else {
-			$this->savedFile = $this->uploadDir.$this->fileName;
-		}
+      $this->savedFile = $this->uploadDir.$this->newFileName;
+    }	else {
+      $this->savedFile = $this->uploadDir.$this->fileName;
+    }
              
-		if ($this->fileSize == 0) {
+    if ($this->fileSize == 0) {
       $this->setErrorMsg('File is empty');
       return false;
-		}	            
-		if (!is_writable($this->uploadDir)) {
+    }	            
+    if (!is_writable($this->uploadDir)) {
       $this->setErrorMsg('Upload directory '.$this->uploadDir.' is not writable');
       return false;
-		}	       				    
-		if ($this->fileSize > $this->sizeLimit) {
+    }	       				    
+    if ($this->fileSize > $this->sizeLimit) {
       $this->setErrorMsg('File size exceeds limit');
       return false;    
-		}        
-		if (!$this->checkExtension($this->fileExtension, $this->allowedExtensions)) {
+    }        
+    if (!$this->checkExtension($this->fileExtension, $this->allowedExtensions)) {
       $this->setErrorMsg('Invalid file type');
       return false;      
-		}					    
-		if (!$this->handler->Save($this->savedFile)) {
+    }					    
+    if (!$this->handler->Save($this->savedFile)) {
       $this->setErrorMsg('File could not be saved');
       return false;     
-		}		
+    }		
     
     return true;
 	}

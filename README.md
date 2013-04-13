@@ -53,7 +53,7 @@ if (!$result) {
 }
 ```
 
-### Settings for `SimpleAjaxUploader.js` ###:
+### Settings for `SimpleAjaxUploader.js`: ###
 <table>
     <thead>
         <tr>

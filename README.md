@@ -53,9 +53,6 @@ if (!$result) {
 }
 ```
 
-### License ###
-Released under the MIT license.
-
 ### Settings for `SimpleAjaxUploader.js` ###
 <table>
     <thead>
@@ -196,3 +193,6 @@ Released under the MIT license.
         </tr>			
 	</tbody>
 </table>
+
+### License ###
+Released under the MIT license.

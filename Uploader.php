@@ -15,12 +15,12 @@
 */
 class FileUploadXHR {
   public $uploadName;
-	public function Save($savePath) {
+  public function Save($savePath) {
     if (file_put_contents($savePath, fopen('php://input', 'r'))) {	
       return true;
     }
     return false;
-	}  
+  }  
   public function getFileName() {
     return $_GET[$this->uploadName];
   }
@@ -39,12 +39,12 @@ class FileUploadXHR {
 */
 class FileUploadPOSTForm {
   public $uploadName;
-	public function Save($savePath) {
+  public function Save($savePath) {
     if (move_uploaded_file($_FILES[$this->uploadName]['tmp_name'], $savePath)) {
       return true;
-		}
+    }
     return false;
-	}  
+  }  
   public function getFileName() {
     return $_FILES[$this->uploadName]['name'];
   }  

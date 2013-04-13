@@ -64,7 +64,7 @@ $Upload->newFileName = 'customFileName.'.$ext;
 $result = $Upload->handleUpload($upload_dir, $valid_extensions);
 ```
 
-To access the new file, use the `getSavedFile()` method to get the file path after the upload is finished:
+To access the new file, use the `getSavedFile()` method to get the file's path after the upload is completed:
 ```php
 $Upload = new FileUpload('uploadfile');
 $result = $Upload->handleUpload($upload_dir, $valid_extensions);

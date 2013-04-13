@@ -64,13 +64,13 @@ $Upload->newFileName = 'customFileName.'.$ext;
 $result = $Upload->handleUpload($upload_dir, $valid_extensions);
 ```
 
-The `savedFile` property will contain the path to the new file after the upload is finished:
+To access the new file, use the `getSavedFile()` method to get the file path after the upload is finished:
 ```php
 $Upload = new FileUpload('uploadfile');
 $result = $Upload->handleUpload($upload_dir, $valid_extensions);
 
 if ($result) {
-  $path = $Upload->savedFile;
+  $path = $Upload->getSavedFile();
   $imgsize = getimagesize($path);
   // image resizing stuff...
 }

@@ -176,6 +176,6 @@ class FileUpload {
     }		
     
     return true;
-	}
+  }
 	
 }

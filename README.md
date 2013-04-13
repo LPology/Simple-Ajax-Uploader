@@ -69,7 +69,7 @@ $result = $Upload->handleUpload($upload_dir, $valid_extensions);
 
 if ($result) {
   $path = $Upload->savedFile;
-  $data = getimagesize($path);
+  $imgsize = getimagesize($path);
   // image resizing stuff...
 }
 ```

@@ -53,6 +53,15 @@ if (!$result) {
 }
 ```
 
+You can also save the uploaded file with a different name by setting the `newFileName` property:
+
+```php
+$Upload = new FileUpload('uploadfile');
+$extension = $Upload->getExtension(); // Get the file extension
+$Upload->newFileName = 'newName.'.$extension;
+$result = $Upload->handleUpload($upload_dir, $valid_extensions);
+```
+
 ### Settings for `SimpleAjaxUploader.js` ###
 <table>
     <thead>

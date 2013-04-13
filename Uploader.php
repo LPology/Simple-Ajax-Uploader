@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple Ajax Uploader
  * https://github.com/LPology/Simple-Ajax-Uploader

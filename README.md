@@ -56,7 +56,7 @@ if (!$result) {
 ### License ###
 Released under the MIT license.
 
-### Settings ###
+### Settings for `SimpleAjaxUploader.js` ###
 <table>
     <thead>
         <tr>

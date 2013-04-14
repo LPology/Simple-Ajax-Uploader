@@ -34,7 +34,7 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
-### Using `Uploader.php` ###
+### Using Uploader.php ###
 
 Basic example of how to handle uploads on the server using the included PHP class:
 
@@ -77,7 +77,7 @@ if ($result) {
 ```
 
 
-### Settings for `SimpleAjaxUploader.js` ###
+### Settings for SimpleAjaxUploader.js ###
 <table>
     <thead>
         <tr>

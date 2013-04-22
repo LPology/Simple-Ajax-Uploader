@@ -12,6 +12,7 @@ This project began life as a rewrite of Andrew Valum's original Ajax Upload plug
 
 ### Features ###
 * Uses XMLHttpRequest and HTML5 file API with fall back to iframe method for Internet Explorer.
+* Use any HTML element as the upload button.
 * Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads. This allows for much greater control over user experience.
 * Requires no external libraries.
 * Fast and lightweight - only about 3.2KB when minified and gzipped.

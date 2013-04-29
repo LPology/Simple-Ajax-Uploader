@@ -160,7 +160,7 @@ ss.addStyles = function(el, styles) {
 /**
 * Function places an absolutely positioned
 * element on top of the specified element
-* copying position and dimentions.
+* copying position and dimensions.
 */ 
 ss.copyLayout = function(from, to) {
     var box = ss.getBox(from);

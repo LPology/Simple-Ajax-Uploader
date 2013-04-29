@@ -58,22 +58,16 @@ ss.addEvent = function(elem, type, fn) {
  * Parses a JSON string and returns a Javascript object
  */
  ss.evalJSON = function(data) {
-	var obj;
+  var obj;
 	if (!data || typeof data !== 'string') {
 		return false;
 	}		
-	data = ss.trim(data);
-	
+	data = ss.trim(data);	
 	if (window.JSON && window.JSON.parse) {
+    return window.JSON.parse(data);
+  }	else {
 		try {
-			obj = window.JSON.parse(data);
-		}
-		catch (e) {
-			return false;
-		}
-	} else {
-		try {
-			obj = eval("(" + data + ")");
+      obj = eval("(" + data + ")");
 		}
 		catch (e) {
 			return false;

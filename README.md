@@ -72,14 +72,22 @@ In both cases, everything is handled internally - feature detection, calculation
 
 This behavior is enabled simply by providing the URL to uploadProgress.php in the `progressUrl` option.
 
-1. Install the APC extension, if you have not already done so
-sudo pecl install apc
+### Installing the APC extension ###
 
-Accept the default settings, and then enable the extension:
+```
+sudo pecl install apc
+```
+
+Accept the default settings, and then create a configuration file:
+
 sudo vi /etc/php.d/apc.ini
 
+Add these two lines and save:
+
+```
 extension=apc.so
 apc.rfc1867 = 1
+```
 
 Restart your web server for the changes to take effect.
 

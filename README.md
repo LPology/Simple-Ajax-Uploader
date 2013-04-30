@@ -36,7 +36,7 @@ var uploader = new ss.SimpleUpload({
 ```
 
 ### Cross-Browser Upload Progress Bars - Full Example ###
-Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre IE10).
+Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre-IE10).
 
 It requires PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below).
 

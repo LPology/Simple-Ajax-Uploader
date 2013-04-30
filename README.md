@@ -58,12 +58,10 @@ var uploader = new ss.SimpleUpload({
       progress.style.width = pct + '%';
     },
   onSubmit: function() {
-      btn.value = 'Uploading...';
       progressOuter.style.display = 'inline-block';
     },		
   onComplete:	function() {
-      progressOuter.style.display = 'none';
-      btn.value = 'Choose another file';      
+      progressOuter.style.display = 'none';   
     }
 });
 ```

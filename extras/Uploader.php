@@ -2,13 +2,13 @@
 
 /**
  * Simple Ajax Uploader
- * Version 1.3
+ * Version 1.4
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2013 LPology, LLC  
- * Released under the MIT license 
-
- View the documentation for an example of how to use this class. 
+ * Released under the MIT license
+ *
+ * View the documentation for an example of how to use this class. 
  */ 
 
 /**

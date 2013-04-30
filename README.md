@@ -35,6 +35,68 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
+### Cross-Browser Progress Bar Example ###
+Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre IE10).
+
+It requires PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below).
+
+```javascript
+var btn = document.getElementById('upload-btn'),
+    sizeBox = document.getElementById('pic-size'),
+    progress = document.getElementById('progress-inner'),
+    progressOuter = document.getElementById('progress-outer');
+	
+var uploader = new ss.SimpleUpload({
+  button: btn,
+  url: 'uploadScript.php',
+  progressUrl: 'uploadProgress.php',
+  name: 'uploadFile',
+  hoverClass: 'btn-hover',
+  focusClass: 'active',
+  disabledClass: 'disabled',
+  responseType: 'json',
+  startXHR: function(filename, size) {
+      sizeBox.innerHTML = size + 'K';
+    },
+  onUpdateFileSize: function(size) {
+      if (size) {
+        sizeBox.innerHTML = size + 'K';
+      }
+    },    
+  onProgress: function(pct) {
+      progress.style.width = pct + '%';
+    },
+  onSubmit: function() {
+      btn.value = 'Uploading...';
+      progressOuter.style.display = 'inline-block';
+    },		
+  onComplete:	function() {
+      progressOuter.style.display = 'none';
+      sizeBox.innerHTML = '';								
+      btn.value = 'Choose another file';      
+    }
+});
+```
+
+When the plugin detects browsers that support the HTML5 File API, the `progress` event is used. For other browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php (included).
+
+In both cases, everything is handled internally - feature detection, calculation, key handling, etc., with completion percentage passed to the `onProgress` callback.
+
+This behavior is enabled simply by providing the URL to uploadProgress.php in the `progressUrl` option.
+
+1. Install the APC extension, if you have not already done so
+sudo pecl install apc
+
+Accept the default settings, and then enable the extension:
+sudo vi /etc/php.d/apc.ini
+
+extension=apc.so
+apc.rfc1867 = 1
+
+Restart your web server for the changes to take effect.
+
+If APC is already installed, you may still need to add `apc.rfc1867 = 1` to apc.ini, as it is not enabled by default.
+
 ### Using Uploader.php ###
 
 Basic example of how to handle uploads on the server using the included PHP class:

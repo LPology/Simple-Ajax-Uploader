@@ -42,7 +42,6 @@ It requires PHP with the APC extension installed and the `apc.rfc1867` option en
 
 ```javascript
 var btn = document.getElementById('upload-btn'),
-    sizeBox = document.getElementById('pic-size'),
     progress = document.getElementById('progress-inner'),
     progressOuter = document.getElementById('progress-outer');
 	
@@ -54,15 +53,7 @@ var uploader = new ss.SimpleUpload({
   hoverClass: 'btn-hover',
   focusClass: 'active',
   disabledClass: 'disabled',
-  responseType: 'json',
-  startXHR: function(filename, size) {
-      sizeBox.innerHTML = size + 'K';
-    },
-  onUpdateFileSize: function(size) {
-      if (size) {
-        sizeBox.innerHTML = size + 'K';
-      }
-    },    
+  responseType: 'json',    
   onProgress: function(pct) {
       progress.style.width = pct + '%';
     },
@@ -72,7 +63,6 @@ var uploader = new ss.SimpleUpload({
     },		
   onComplete:	function() {
       progressOuter.style.display = 'none';
-      sizeBox.innerHTML = '';								
       btn.value = 'Choose another file';      
     }
 });

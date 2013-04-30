@@ -72,7 +72,9 @@ In both cases, everything is handled internally - feature detection, calculation
 
 To enable this behavior, just provide the URL for uploadProgress.php in the `progressUrl` option.
 
-### Installing the APC extension ###
+**Installing the APC extension**
+
+The APC extension for PHP is required to retrieve progress updates if you want to support 
 
 ```
 sudo pecl install apc

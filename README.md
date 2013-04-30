@@ -70,7 +70,7 @@ When the plugin detects browsers that support the HTML5 File API, the `progress`
 
 In both cases, everything is handled internally - feature detection, calculation, key handling, etc., with completion percentage passed to the `onProgress` callback.
 
-To enable this behavior, just provide the URL to uploadProgress.php in the `progressUrl` option.
+To enable this behavior, just provide the URL for uploadProgress.php in the `progressUrl` option.
 
 ### Installing the APC extension ###
 

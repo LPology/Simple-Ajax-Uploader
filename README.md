@@ -84,7 +84,7 @@ Accept the default settings, and then create a configuration file:
 sudo vi /etc/php.d/apc.ini
 ```
 
-Add these two lines and save:
+Add these two lines and then save:
 
 ```
 extension=apc.so

@@ -38,7 +38,7 @@ var uploader = new ss.SimpleUpload({
 ### Cross-Browser Upload Progress Bars - Full Example ###
 Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre-IE10).
 
-It requires PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below).
+It requires PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below), and uses the included uploadProgress.php script.
 
 ```javascript
 var btn = document.getElementById('upload-btn'),
@@ -66,7 +66,7 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
-When the plugin detects browsers that support the HTML5 File API, the `progress` event is used. For other browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php (included).
+When the plugin detects browsers that support the HTML5 File API, the `progress` event is used. For other browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php.
 
 In both cases, everything is handled internally - feature detection, calculation, key handling, etc., with completion percentage passed to the `onProgress` callback.
 

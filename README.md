@@ -48,7 +48,7 @@ var btn = document.getElementById('upload-btn'),
 var uploader = new ss.SimpleUpload({
   button: btn,
   url: 'uploadScript.php',
-  progressUrl: 'uploadProgress.php',
+  progressUrl: 'uploadProgress.php', // Setting this option enables cross-browser progress support
   name: 'uploadFile',
   hoverClass: 'btn-hover',
   focusClass: 'active',

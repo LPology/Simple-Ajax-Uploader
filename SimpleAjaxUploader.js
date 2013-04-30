@@ -302,7 +302,7 @@ ss.SimpleUpload = function(options) {
     button: '',				
     url: '',
     progressUrl: false,
-    checkProgressInterval: 100,
+    checkProgressInterval: 50,
     keyParamName: 'APC_UPLOAD_PROGRESS',    
     name: '',				
     data: {},				
@@ -652,8 +652,12 @@ ss.SimpleUpload.prototype = {
 						
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState === 4) {
-					settings.endXHR.call(self, filename, fileSize);				
-					self._handleXHRresponse(xhr, filename);
+          if (xhr.status === 200) {
+            settings.endXHR.call(self, filename, fileSize);				
+            self._handleXHRresponse(xhr, filename);          
+          } else {
+            self.log('Progress key error. Status: '+xhr.status+' Response: '+xhr.responseText);
+          } 
 				}
 			};			
 			
@@ -663,7 +667,6 @@ ss.SimpleUpload.prototype = {
       }      
 			xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 			xhr.setRequestHeader('X-File-Name', encodeURIComponent(filename));
-			xhr.setRequestHeader('Cache-Control', 'no-cache');
 			xhr.setRequestHeader('Content-Type', 'application/octet-stream');
 			self.log('commencing upload');
 			xhr.send(self._input.files[0]);				
@@ -811,13 +814,15 @@ ss.SimpleUpload.prototype = {
         url = self._settings.progressUrl + '?progresskey=' + encodeURIComponent(key) + '&_='+time,
         response;
 		xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        response = ss.evalJSON(xhr.responseText);
-        if (response && response.success === true) {
-          self._settings.onUpdateFileSize.call(self, response.size);
-          self._settings.onProgress.call(self, response.pct);
-          if (response.pct < 100) {
-            self._startProgressTimer();
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          response = ss.evalJSON(xhr.responseText);
+          if (response && response.success === true) {
+            self._settings.onUpdateFileSize.call(self, response.size);
+            self._settings.onProgress.call(self, response.pct);
+            if (response.pct < 100) {
+              self._startProgressTimer();
+            }        
           }
         } else {
           self.log('Progress error. Status: '+xhr.status+' Response: '+xhr.responseText);
@@ -842,14 +847,16 @@ ss.SimpleUpload.prototype = {
         url = self._settings.progressUrl + '?getkey='+time,
         response;
 		xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        response = ss.evalJSON(xhr.responseText);
-        if (response && response.key) {
-          self._uploadProgressKey = response.key;
-        }
-      } else {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          response = ss.evalJSON(xhr.responseText);
+          if (response && response.key) {
+            self._uploadProgressKey = response.key;
+          }
+        } else {
           self.log('Progress key error. Status: '+xhr.status+' Response: '+xhr.responseText);
-        }          
+        }
+      }          
     };        
     xhr.open('GET', url, true);
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

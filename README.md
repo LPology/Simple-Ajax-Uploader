@@ -66,6 +66,7 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
+**How it works**
 When the plugin detects browsers that support the HTML5 File API, the `progress` event is used. For other browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php.
 
 In both cases, everything is handled internally - feature detection, calculation, key handling, etc., with completion percentage passed to the `onProgress` callback.

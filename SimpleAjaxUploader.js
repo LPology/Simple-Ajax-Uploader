@@ -792,7 +792,7 @@ ss.SimpleUpload.prototype = {
   },
 
   /**
-	* Creates input field for the progress key to be sent with the uploaded file
+  * Creates input field for the progress key to be sent with the uploaded file
   * (for fallback upload progress support)
   */     
   _startProgressTimer: function() {
@@ -803,7 +803,7 @@ ss.SimpleUpload.prototype = {
   },
 
   /**
-	* Retrieves upload progress updates from the server
+  * Retrieves upload progress updates from the server
   * (for fallback upload progress support)
   */   
   _getUploadProgress: function() {
@@ -837,7 +837,7 @@ ss.SimpleUpload.prototype = {
   },
 
   /**
-	* Gets the unique key from the server used to identify which upload we want to know about.
+  * Gets the unique key from the server used to identify which upload we want to know about.
   * (for fallback upload progress support)
   */  
   _getUploadProgressKey: function() {
@@ -846,7 +846,7 @@ ss.SimpleUpload.prototype = {
         time = new Date().getTime(),
         url = self._settings.progressUrl + '?getkey='+time,
         response;
-		xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           response = ss.evalJSON(xhr.responseText);
@@ -865,38 +865,38 @@ ss.SimpleUpload.prototype = {
     xhr.send();        
   },  
 	
-	/**
-	* Validates input and directs to either XHR method or iFrame method
-	*/
-	submit: function() {                        
-		var self = this,
+  /**
+  * Validates input and directs to either XHR method or iFrame method
+  */
+  submit: function() {                        
+    var self = this,
         settings = self._settings,
         filename;		
-		
-		if (self._disabled || !self._input || self._input.value === '') {                
-			return;                
-		}
-		
-		filename = self._filename;
-	
-		// User returned false to cancel upload
-		if (false === settings.onSubmit.call(self, filename, ss.getExt(filename))) {
-			self._clearInput();                
-			return;
-		}
-		
-		self.disable();
-				
-		// Use XHR in browsers that support it, otherwise fall back to iframe method
-		if (self._XhrIsSupported) {
-			self.log('XHR upload supported');
-			self._uploadXhr();		
-		} else {
+    
+    if (self._disabled || !self._input || self._input.value === '') {                
+      return;                
+    }
+    
+    filename = self._filename;
+  
+    // User returned false to cancel upload
+    if (false === settings.onSubmit.call(self, filename, ss.getExt(filename))) {
+      self._clearInput();                
+      return;
+    }
+    
+    self.disable();
+        
+    // Use XHR in browsers that support it, otherwise fall back to iframe method
+    if (self._XhrIsSupported) {
+      self.log('XHR upload supported');
+      self._uploadXhr();		
+    } else {
       if (settings.progressUrl !== false && self._uploadProgressKey !== null) {
         self._doProgressUpdates = true;
       }      
-			self.log('XHR upload not supported, using iFrame method');
-			self._uploadIframe();
-		}			
-	}	
+      self.log('XHR upload not supported, using iFrame method');
+      self._uploadIframe();
+    }			
+  }	
 };

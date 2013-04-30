@@ -779,7 +779,7 @@ ss.SimpleUpload.prototype = {
   },
   
   /**
-	* Creates input field for the progress key to be sent with the uploaded file
+  * Creates input field for the progress key to be sent with the uploaded file
   * (for fallback upload progress support)
   */    
   _createKeyField: function() {
@@ -790,7 +790,7 @@ ss.SimpleUpload.prototype = {
     input.value = self._uploadProgressKey;
     return input;
   },
-
+  
   /**
   * Creates input field for the progress key to be sent with the uploaded file
   * (for fallback upload progress support)
@@ -813,7 +813,7 @@ ss.SimpleUpload.prototype = {
         time = new Date().getTime(),
         url = self._settings.progressUrl + '?progresskey=' + encodeURIComponent(key) + '&_='+time,
         response;
-		xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           response = ss.evalJSON(xhr.responseText);
@@ -829,11 +829,11 @@ ss.SimpleUpload.prototype = {
         }
       }                 
     };        
-		xhr.open('GET', url, true);
+    xhr.open('GET', url, true);
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.setRequestHeader('Accept', 'application/json, text/javascript, */*; q=0.01');
     xhr.setRequestHeader('Cache-Control', 'no-cache');
-		xhr.send();
+    xhr.send();
   },
 
   /**

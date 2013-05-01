@@ -138,7 +138,7 @@ if ($result) {
 }
 ```
 
-<hr />
+
 
 ### API Reference ###
 <table>

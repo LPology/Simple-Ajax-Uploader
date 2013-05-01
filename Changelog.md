@@ -5,7 +5,7 @@ ChangeLog
 * Fixed XHR status check logic that could allow false alarm calls to onError callback
 * Removed redundant XHR status check
 * Returning false from a callback no longer clears the file field. Not sure why it ever did to begin with.
-* A status check now occurs prior to progress update requests to prevent potential loop caused by server error
+* A status check now occurs prior to progress update requests to prevent potential loop that could be caused by a server error
 * Parsing JSON in older browsers no longer uses eval because it's evil.
 
 ### Version 1.4  ###

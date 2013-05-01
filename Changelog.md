@@ -6,7 +6,7 @@ ChangeLog
 * Removed redundant XHR status check
 * Returning false from a callback no longer clears the file field. Not sure why it ever did to begin with.
 * A status check now occurs prior to progress update requests to prevent potential loop that could be caused by a server error
-* Parsing JSON in older browsers no longer uses eval because it's evil.
+* Parsing JSON in older browsers no longer uses eval because it's evil
 
 ### Version 1.4  ###
 This release includes a major overhaul that adds functionality for implementing cross-browser upload progress support. Through feature detection and abstraction, it is now possible for the 'onProgress' callback function to maintain consistent behavior across browsers. 

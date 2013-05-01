@@ -6,7 +6,7 @@ Javascript plugin for AJAX-style file uploading with progress support.
 Live demo: http://www.lpology.com/code/ajaxuploader/
 
 ### Overview ###
-Simple Ajax Uploader allows developers to easily add AJAX-style file upload functionality to web applications. It abstracts away standard tasks (like browser feature detection) while maintaining wide latitude for customization.
+Simple Ajax Uploader allows developers to easily add Ajax file upload functionality to web applications. It abstracts away standard tasks (like browser feature detection) while maintaining wide latitude for customization.
 
 The project began life as a rewrite of Andrew Valum's original Ajax Upload plugin. Continuing the simplistic design and customizable nature of Andrew's original plugin is a top priority.
 

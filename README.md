@@ -19,7 +19,7 @@ The project began life as a rewrite of Andrew Valum's original Ajax Upload plugi
 * Use any HTML element as the upload button.
 * Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads. This allows for much greater control over user experience.
 
-### Quick Start Setup ###
+### Quick Start Example ###
 Include SimpleAjaxUploader.js into your page, and initialize the uploader when the DOM is ready:
 
 ```javascript

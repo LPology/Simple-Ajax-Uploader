@@ -94,7 +94,7 @@ Note: If APC is already installed, you may still need to add `apc.rfc1867 = 1` t
 
 ### Using Uploader.php ###
 
-<strong>Note:</strong> This PHP class is included for convenience. It's not required to use PHP with Simple Ajax Uploader. The plugin is agnostic to server configuration, so go nuts.
+<strong>Note:</strong> A PHP file upload class is included for convenience. It's not required to use PHP with Simple Ajax Uploader. The plugin is agnostic to server configuration, so use any language you prefer to handle uploads.
 
 ```php
 <?php

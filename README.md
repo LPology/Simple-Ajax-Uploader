@@ -12,11 +12,12 @@ This project began life as a rewrite of Andrew Valum's original Ajax Upload plug
 
 ### Features ###
 * Uses XMLHttpRequest and HTML5 file API with fall back to iframe method for Internet Explorer.
+* No external libraries required - use it with or without jQuery.
+* Works in all major browsers: IE7+, Firefox 4+, Safari 4+, Chrome, and Opera.
+* Fast and lightweight - only 3.9KB, minified and gzipped.
+* Built-in support for implementing truly cross-browser progress bars.
 * Use any HTML element as the upload button.
 * Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads. This allows for much greater control over user experience.
-* Requires no external libraries.
-* Fast and lightweight - only about 3.2KB when minified and gzipped.
-* Tested in IE7+, Firefox 4+, Safari 4+, and Chrome.
 
 ### Getting Started ###
 1. Include SimpleAjaxUploader.js into your page:

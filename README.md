@@ -33,7 +33,7 @@ var uploader = new ss.SimpleUpload({
 
 There are 3 required parameters:
 
-`button` - The HTML element you're using as the upload button
+`button` - HTML element to be used as the upload button
 
 `url` - URL of the server side upload handler
 

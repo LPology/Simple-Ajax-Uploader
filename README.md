@@ -34,7 +34,9 @@ var uploader = new ss.SimpleUpload({
 There are 3 required parameters:
 
 <strong>button</strong> - HTML element to be used as the upload button
+
 <strong>url</strong> - URL of the server side upload handler
+
 <strong>name</strong> - The parameter name of the uploaded file
 
 ### Cross-Browser Upload Progress Bars - Full Example ###

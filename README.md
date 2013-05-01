@@ -25,7 +25,7 @@ Just include SimpleAjaxUploader.js into your page, and initialize the uploader w
 ```javascript
 
 var uploader = new ss.SimpleUpload({
-	button: 'upload-btn', // HTML element to use as upload button
+	button: 'upload-btn', // HTML element used as upload button
 	url: '/PathTo/UploadHandler', // URL of server-side upload handler
 	name: 'uploadfile' // Parameter name of the uploaded file
 });

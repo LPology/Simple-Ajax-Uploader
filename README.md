@@ -1,14 +1,14 @@
 Simple Ajax Uploader
 ============================
 
-Javascript plugin for cross-browser Ajax file uploading with progress support.
+Javascript plugin for cross-browser Ajax file uploading with progress support. It makes file uploading easy for developers and pleasant for users.
 
 Live demo: http://www.lpology.com/code/ajaxuploader/
 
 ### Overview ###
-Simple Ajax Uploader allows developers to easily add Ajax file upload functionality to web applications. It abstracts away standard tasks (like browser feature detection) while maintaining wide latitude for customization.
+Simple Ajax Uploader allows developers to easily add Ajax file upload functionality to web applications. It abstracts away standard tasks and browser compatibility while preserving wide latitude for customized use.
 
-The project began life as a rewrite of Andrew Valum's original Ajax Upload plugin. Continuing the simplistic design and customizable nature of Andrew's original plugin is a top priority.
+The project began as a rewrite of Andrew Valum's original Ajax Upload plugin. Continuing the simplistic design and customizable nature of Andrew's original plugin is a top priority.
 
 ### Features ###
 * Uses XMLHttpRequest and HTML5 file API with fall back to iframe method for Internet Explorer 9 and older.
@@ -17,7 +17,7 @@ The project began life as a rewrite of Andrew Valum's original Ajax Upload plugi
 * Fast and lightweight - only 3.9KB, minified and gzipped.
 * Built-in support for implementing truly cross-browser progress bars.
 * Use any HTML element as the upload button.
-* Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads. This allows for much greater control over user experience.
+* Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads.
 
 ### Quick Start Example ###
 Include SimpleAjaxUploader.js into your page, and initialize the uploader when the DOM is ready:

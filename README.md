@@ -33,12 +33,9 @@ var uploader = new ss.SimpleUpload({
 
 There are 3 required parameters:
 
-`button` - HTML element to be used as the upload button
-
-`url` - URL of the server side upload handler
-
-`name` - The parameter name of the uploaded file
-
+<strong>button</strong> - HTML element to be used as the upload button
+<strong>url</strong> - URL of the server side upload handler
+<strong>name</strong> - The parameter name of the uploaded file
 
 ### Cross-Browser Upload Progress Bars - Full Example ###
 Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre-IE10).

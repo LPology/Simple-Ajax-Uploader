@@ -31,6 +31,8 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
+<hr />
+
 ### Cross-Browser Upload Progress Bars - Full Example ###
 Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre-IE10).
 
@@ -136,8 +138,9 @@ if ($result) {
 }
 ```
 
+<hr />
 
-### Settings for SimpleAjaxUploader.js ###
+### API Reference ###
 <table>
     <thead>
         <tr>

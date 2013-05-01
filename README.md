@@ -19,13 +19,13 @@ This project began life as a rewrite of Andrew Valum's original Ajax Upload plug
 * Tested in IE7+, Firefox 4+, Safari 4+, and Chrome.
 
 ### Getting Started ###
-Include `SimpleAjaxUploader.js` into your page:
+1. Include SimpleAjaxUploader.js into your page:
 
 ```html
 	<script type="text/javascript" src="SimpleAjaxUploader.js"></script>
 ```
 
-Initialize the uploader when the DOM is ready. There are three required parameters:
+2. Initialize the uploader when the DOM is ready. There are three required parameters:
 
 ```javascript
 var uploader = new ss.SimpleUpload({
@@ -38,7 +38,7 @@ var uploader = new ss.SimpleUpload({
 ### Cross-Browser Upload Progress Bars - Full Example ###
 Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre-IE10).
 
-It requires PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below), and uses uploadProgress.php (included).
+It uses PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below). Server requests are handled by uploadProgress.php in the extras folder.
 
 ```javascript
 var btn = document.getElementById('upload-btn'),

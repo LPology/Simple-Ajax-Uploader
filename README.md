@@ -22,8 +22,7 @@ The project began life as a rewrite of Andrew Valum's original Ajax Upload plugi
 ### Getting Started ###
 Just include SimpleAjaxUploader.js into your page, and initialize the uploader when the DOM is ready:
 
-```
-<script type="text/javascript" src="SimpleAjaxUploader.js"></script>
+```javascript
 
 var uploader = new ss.SimpleUpload({
 	button: 'upload-btn',

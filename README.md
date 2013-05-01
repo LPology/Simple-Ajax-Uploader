@@ -1,7 +1,7 @@
 Simple Ajax Uploader
 ============================
 
-Javascript plugin for AJAX-style file uploading with progress support.
+Javascript plugin for cross-browser Ajax file uploading with progress support.
 
 Live demo: http://www.lpology.com/code/ajaxuploader/
 

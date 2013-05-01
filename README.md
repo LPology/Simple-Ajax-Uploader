@@ -11,7 +11,7 @@ Simple Ajax Uploader allows developers to easily add AJAX-style file upload func
 The project began life as a rewrite of Andrew Valum's original Ajax Upload plugin. Continuing the simplistic design and customizable nature of Andrew's original plugin is a top priority.
 
 ### Features ###
-* Uses XMLHttpRequest and HTML5 file API with fall back to iframe method for Internet Explorer.
+* Uses XMLHttpRequest and HTML5 file API with fall back to iframe method for Internet Explorer 9 and older.
 * No external libraries required - use it with or without jQuery.
 * Works in all major browsers: IE7+, Firefox 4+, Safari 4+, Chrome, and Opera.
 * Fast and lightweight - only 3.9KB, minified and gzipped.

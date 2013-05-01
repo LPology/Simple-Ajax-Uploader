@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 1.4
+ * Version 1.4.1
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC  
@@ -69,24 +69,24 @@ ss.newXHR = function() {
 
 /**
  * Parses a JSON string and returns a Javascript object
+ * Parts borrowed from www.jquery.com
  */
- ss.evalJSON = function(data) {
-  var obj;
+ ss.parseJSON = function(data) {
   if (!data || typeof data !== 'string') {
     return false;
   }		
   data = ss.trim(data);	
   if (window.JSON && window.JSON.parse) {
     return window.JSON.parse(data);
-  }	else {
-    try {
-      obj = eval("(" + data + ")");
+  }	
+  if (data) {
+    if (/^[\],:{}\s]*$/.test( data.replace(/\\(?:["\\\/bfnrt]|u[\da-fA-F]{4})/g, "@" )
+      .replace(/"[^"\\\r\n]*"|true|false|null|-?(?:\d+\.|)\d+(?:[eE][+-]?\d+|)/g, "]" )
+      .replace(/(?:^|:|,)(?:\s*\[)+/g, "")) ) {  
+      return ( new Function( "return " + data ) )();
     }
-    catch (e) {
-      return false;
-    }
-  }
-  return obj;
+  }  
+  return false;
 };
 
 /**
@@ -307,7 +307,7 @@ ss.SimpleUpload = function(options) {
     name: '',				
     data: {},				
     autoSubmit: true,		
-    responseType: 'text',	
+    responseType: '',	
     debug: false,			
     hoverClass: '',			
     focusClass: '',			
@@ -331,21 +331,33 @@ ss.SimpleUpload = function(options) {
     throw new Error("Invalid button. Make sure the element you're passing exists."); 
   }
                             
-  self._input = null;			// DOM element
+  self._input = null;
   self._filename = null;
-  self._disabled = false;		// If disabled clicking on button won't do anything
-  self.enable();				// Enable uploading
-  self._rerouteClicks();		// Route button click to us
-  
+  self._disabled = false;		// If disabled, clicking on button won't do anything
+
+  // True in iframe uploads if _uploadProgressKey is not null and progressUrl set
   self._doProgressUpdates = false;
+  
+  // References the setTimeout for non-XHR progress requests
   self._timer = null;
-  self._uploadProgressKey = null; // Upload progress key from server  
+  
+  // Unique key for tracking upload progress requests in iframe uploads
+  // Is reset to a unique value returned by a call to uploadProgress.php after every upload (if enabled)
+  self._uploadProgressKey = null;
+  
+  // Set to true at start of iframe upload, then false upon completion
+  // Prevents possible loop that could result from inaccurate responses to progress requests
+  self._uploadIsActive = false;
   
   if (self._isXhrUploadSupported()) {
     self._XhrIsSupported = true; 
   } else {
     self._XhrIsSupported = false; 
-  }  
+  }
+  
+  // These two calls must always come at the end
+  self.enable();
+  self._rerouteClicks();
 };
 
 ss.SimpleUpload.prototype = {
@@ -404,8 +416,8 @@ ss.SimpleUpload.prototype = {
     self._disabled = false;
     
     // Get new upload progress key for non-XHR browsers
-    // Doing it here ensures that every upload will have a new key
-    if (!self._XhrIsSupported && self._settings.progressUrl) {
+    // Doing it here ensures that every upload will have the required unique key
+    if (self._XhrIsSupported === false && self._settings.progressUrl) {
       self._getUploadProgressKey();
     }
   },
@@ -474,7 +486,6 @@ ss.SimpleUpload.prototype = {
       self._filename = filename;
               
       if (false === self._settings.onChange.call(self, filename, ss.getExt(filename))) {
-        self._clearInput();                
         return;
       }			
       // Submit when file selected if autoSubmit option is set
@@ -571,6 +582,20 @@ ss.SimpleUpload.prototype = {
     document.body.appendChild(form);		
     return form;
   },
+  
+  /**
+  * Creates hidden input fields for the form in iframe method
+  * @param {String} name Input field name
+  * @param {String} value Value assigned to the input
+  * @return {Element} input
+  */  
+  _createHiddenInput: function(name, value) {
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    return input;
+  },
 			
   /**
   * Handles server response for XHR uploads
@@ -581,22 +606,17 @@ ss.SimpleUpload.prototype = {
         response = ss.trim(xhr.responseText);
     
     self.log('server response received');
-    self.log('responseText = ' + response);
-    
-    if (xhr.status !== 200) {
-      self.log('server error: status: '+xhr.status);
-      settings.onError.call(self, filename, 'server error', xhr.responseText);
-    } else {
-      if (settings.responseType.toLowerCase() == 'json') {
-        response = ss.evalJSON(response);
-      }
-            
-      if (response === false) {
-        settings.onError.call(self, filename, 'parse error', xhr.responseText);
-      } else {
-        settings.onComplete.call(self, filename, response);
-      }
+    self.log('responseText = ' + response);   
+
+    if (settings.responseType.toLowerCase() == 'json') {
+      response = ss.parseJSON(response);
     }
+            
+    if (response === false) {
+      settings.onError.call(self, filename, 'parse error', xhr.responseText);
+    } else {
+      settings.onComplete.call(self, filename, response);
+    }    
   
     self.enable();	
     self._clearInput(); // Get ready for next request
@@ -619,10 +639,10 @@ ss.SimpleUpload.prototype = {
       
       if (false === settings.startXHR.call(self, filename, fileSize)) {
         self.enable();
-        self._clearInput();                
         return;
       }			
       
+      // Reset progress bars to 0%
       settings.onProgress.call(self, 0);
   
       data = settings.data;
@@ -657,6 +677,7 @@ ss.SimpleUpload.prototype = {
             self._handleXHRresponse(xhr, filename);          
           } else {
             self.log('Progress key error. Status: '+xhr.status+' Response: '+xhr.responseText);
+            settings.onError.call(self, filename, 'server error', xhr.responseText);
           } 
         }
       };			
@@ -672,6 +693,9 @@ ss.SimpleUpload.prototype = {
       xhr.send(self._input.files[0]);				
   },
 	
+  /**
+  * Handles server response for iframe uploads
+  */
   _handleIframeResponse: function(iframe, file) {
     var self = this,
         settings = self._settings,
@@ -703,7 +727,7 @@ ss.SimpleUpload.prototype = {
     self.log('response = ' + textResponse);
   
     if (settings.responseType.toLowerCase() == 'json') {
-      response = ss.evalJSON(textResponse);
+      response = ss.parseJSON(textResponse);
     }
         
     if (response === false) {
@@ -715,7 +739,7 @@ ss.SimpleUpload.prototype = {
     // Get ready for next request
     ss.remove(iframe);
     self.enable();		
-    self._clearInput();				
+    self._clearInput();
   },	
 	
   /**
@@ -732,26 +756,23 @@ ss.SimpleUpload.prototype = {
       
     // Upload progress key field must come before the file field
     if (self._doProgressUpdates) {
-      var keyField = self._createKeyField();
+      var keyField = self._createHiddenInput(settings.keyParamName, self._uploadProgressKey);
       form.appendChild(keyField);
     }      
       
     if (false === settings.startNonXHR.call(self, filename)) {
-      self.enable();
-      self._clearInput();                
+      self.enable();    
       return;
-    }
+    }    
     
-    settings.onProgress.call(self, 0);			
+    // Reset progress bars to 0%
+    settings.onProgress.call(self, 0);
     
     data = settings.data;
       
     for (prop in data) {
       if (data.hasOwnProperty(prop)) {				
-        var input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = prop;
-        input.value = data[prop];
+        var input = self._createHiddenInput(prop, data[prop]);
         form.appendChild(input);				
       }
     }			
@@ -760,10 +781,19 @@ ss.SimpleUpload.prototype = {
         
     self.log('commencing upload');
     
+    // Must be true for progress update request
+    self._uploadIsActive = true;
+    
     ss.addEvent(iframe, 'load', function() {
-      if (self._doProgressUpdates) { // clear progress check timeout
+    
+      // Prevents further progress update requests
+      self._uploadIsActive = false;
+      
+      // Clear progress update request timeout
+      if (self._doProgressUpdates) {
         window.clearTimeout(self._timer);
-      }    
+      }
+      
       settings.endNonXHR.call(self, filename);
       ss.remove(form);
       self._handleIframeResponse(iframe, filename);
@@ -772,23 +802,10 @@ ss.SimpleUpload.prototype = {
     form.submit();
     
     if (self._doProgressUpdates) {
-      self.log('Commencing first progress check');      
+      self.log('Requesting first progress update');      
       // Making first call without timeout returns file size quicker
       self._getUploadProgress();
     }    
-  },
-  
-  /**
-  * Creates input field for the progress key to be sent with the uploaded file
-  * (for fallback upload progress support)
-  */    
-  _createKeyField: function() {
-    var self = this,
-        input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = self._settings.keyParamName;
-    input.value = self._uploadProgressKey;
-    return input;
   },
   
   /**
@@ -813,14 +830,15 @@ ss.SimpleUpload.prototype = {
         time = new Date().getTime(),
         url = self._settings.progressUrl + '?progresskey=' + encodeURIComponent(key) + '&_='+time,
         response;
+        
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          response = ss.evalJSON(xhr.responseText);
+          response = ss.parseJSON(xhr.responseText);
           if (response && response.success === true) {
             self._settings.onUpdateFileSize.call(self, response.size);
             self._settings.onProgress.call(self, response.pct);
-            if (response.pct < 100) {
+            if (response.pct < 100 && self._uploadIsActive === true) {
               self._startProgressTimer();
             }        
           }
@@ -828,7 +846,8 @@ ss.SimpleUpload.prototype = {
           self.log('Progress error. Status: '+xhr.status+' Response: '+xhr.responseText);
         }
       }                 
-    };        
+    };  
+    
     xhr.open('GET', url, true);
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.setRequestHeader('Accept', 'application/json, text/javascript, */*; q=0.01');
@@ -846,15 +865,19 @@ ss.SimpleUpload.prototype = {
         time = new Date().getTime(),
         url = self._settings.progressUrl + '?getkey='+time,
         response;
+        
+    // Prevent a previous key from allowing progress updates for another upload
+    self._uploadProgressKey = null;
+    
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          response = ss.evalJSON(xhr.responseText);
+          response = ss.parseJSON(xhr.responseText);
           if (response && response.key) {
             self._uploadProgressKey = response.key;
           }
-        } else {
-          self.log('Progress key error. Status: '+xhr.status+' Response: '+xhr.responseText);
+        } else {          
+          self.log('Error retrieving progress key. Server response: '+xhr.responseText);
         }
       }          
     };        
@@ -868,20 +891,16 @@ ss.SimpleUpload.prototype = {
   /**
   * Validates input and directs to either XHR method or iFrame method
   */
-  submit: function() {                        
+  submit: function() {
     var self = this,
-        settings = self._settings,
-        filename;		
+        settings = self._settings;	
     
     if (self._disabled || !self._input || self._input.value === '') {                
       return;                
     }
-    
-    filename = self._filename;
-  
+      
     // User returned false to cancel upload
-    if (false === settings.onSubmit.call(self, filename, ss.getExt(filename))) {
-      self._clearInput();                
+    if (false === settings.onSubmit.call(self, self._filename, ss.getExt(self._filename))) {
       return;
     }
     
@@ -892,10 +911,11 @@ ss.SimpleUpload.prototype = {
       self.log('XHR upload supported');
       self._uploadXhr();		
     } else {
+      self.log('XHR upload not supported, using iFrame method');    
       if (settings.progressUrl !== false && self._uploadProgressKey !== null) {
         self._doProgressUpdates = true;
+        self.log('progressUrl not defined, no upload progress');
       }      
-      self.log('XHR upload not supported, using iFrame method');
       self._uploadIframe();
     }			
   }	

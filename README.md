@@ -25,19 +25,11 @@ Just include SimpleAjaxUploader.js into your page, and initialize the uploader w
 ```javascript
 
 var uploader = new ss.SimpleUpload({
-	button: 'upload-btn',
-	url: '/PathTo/UploadHandler',
-	name: 'uploadfile'
+	button: 'upload-btn', // HTML element to use as upload button
+	url: '/PathTo/UploadHandler', // URL of server-side upload handler
+	name: 'uploadfile' // Parameter name of the uploaded file
 });
 ```
-
-There are 3 required parameters:
-
-<strong>button</strong> - HTML element to be used as the upload button
-
-<strong>url</strong> - URL of the server side upload handler
-
-<strong>name</strong> - The parameter name of the uploaded file
 
 ### Cross-Browser Upload Progress Bars - Full Example ###
 Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre-IE10).

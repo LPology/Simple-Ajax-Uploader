@@ -165,6 +165,11 @@ if ($result) {
             <td>Additional data to be sent to the server.</td>
         </tr>
         <tr>
+            <td><strong>multipart</strong><br />Default: <code>false</code></td>
+            <td>Boolean</td>
+            <td>Set to `true` for all files to be uploaded using multipart form instead of direct binary stream.</td>
+        </tr>        
+        <tr>
             <td><strong>autoSubmit</strong><br />Default: <code>true</code></td>
             <td>Boolean</td>
             <td>By default, uploads commence as soon as a file is selected. Set to false to delay the upload and trigger manually.</td>
@@ -177,7 +182,7 @@ if ($result) {
         <tr>
             <td><strong>debug</strong><br />Default: <code>false</code></td>
             <td>Boolean</td>
-            <td>Setting debug to true will log progress messages and server response in the console.</td>
+            <td>Setting `debug` to `true` will log progress messages and server response in the console.</td>
         </tr>		
         <tr>
             <td><strong>hoverClass</strong><br />Default: <code>''</code></td>

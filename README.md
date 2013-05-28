@@ -167,7 +167,12 @@ if ($result) {
         <tr>
             <td><strong>checkProgressInterval</strong><br />Default: <code>50</code></td>
             <td>Numeric</td>
-            <td>Length of delay (in milliseconds) between progress update checks. (Only if <code>progressURL</code> is set)</td>
+            <td>Length of delay (in milliseconds) between progress update checks. (Only applicable if <code>progressURL</code> is set)</td>
+        </tr>	   
+        <tr>
+            <td><strong>keyParamName</strong><br />Default: <code>'APC_UPLOAD_PROGRESS'</code></td>
+            <td>String</td>
+            <td>Name specified in PHP configuration to activate APC upload progress (PHP default value is "APC_UPLOAD_PROGRESS")</td>
         </tr>	        
         <tr>
             <td><strong>data</strong><br />Default: <code>{}</code></td>

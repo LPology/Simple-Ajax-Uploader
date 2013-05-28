@@ -172,7 +172,12 @@ if ($result) {
         <tr>
             <td><strong>keyParamName</strong><br />Default: <code>'APC_UPLOAD_PROGRESS'</code></td>
             <td>String</td>
-            <td>Name specified in PHP configuration to activate APC upload progress (PHP default value is "APC_UPLOAD_PROGRESS")</td>
+            <td>The name specified in PHP configuration to activate APC upload progress (PHP default value is "APC_UPLOAD_PROGRESS")</td>
+        </tr>	        
+        <tr>
+            <td><strong>onUpdateFileSize(filesize)</strong></td>
+            <td>Function</td>
+            <td>Function that is called after first upload progress update for the specific purpose of providing the upload file size in browsers that do not support the HTML5 File API. The function gets passed one argument: the size (in KB) of the uploaded file.</td>
         </tr>	        
         <tr>
             <td><strong>data</strong><br />Default: <code>{}</code></td>

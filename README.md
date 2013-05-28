@@ -268,7 +268,7 @@ The following items are only applicable if the <code>progressUrl</code> property
         <tr>
             <td><strong>checkProgressInterval</strong><br />Default: <code>50</code></td>
             <td>Integer</td>
-            <td>Length of delay (in milliseconds) between progress update checks.</td>
+            <td>Length of delay (in milliseconds) between completed progress update checks.</td>
         </tr>	
         <tr>
             <td><strong>keyParamName</strong><br />Default: <code>APC_UPLOAD_PROGRESS</code></td>

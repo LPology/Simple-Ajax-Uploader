@@ -162,7 +162,7 @@ if ($result) {
         <tr>
             <td><strong>progressUrl</strong><br />Default: <code>''</code></td>
             <td>String</td>
-            <td>Set to the location of uploadProgress.php to enable cross-browser upload progress tracking (see example above).</td>
+            <td>Set to the location of uploadProgress.php (included) to enable cross-browser upload progress tracking (see example above).</td>
         </tr>	                         
         <tr>
             <td><strong>data</strong><br />Default: <code>{}</code></td>

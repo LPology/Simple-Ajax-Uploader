@@ -273,7 +273,7 @@ The following items are only applicable if the <code>progressUrl</code> property
         <tr>
             <td><strong>keyParamName</strong><br />Default: <code>APC_UPLOAD_PROGRESS</code></td>
             <td>String</td>
-            <td>The name specified in PHP configuration to activate APC upload progress. This is the value of <code>apc.rfc1867_name</code> in PHP runtime config. (PHP default value is "APC_UPLOAD_PROGRESS") <a href="http://php.net/manual/en/apc.configuration.php#ini.apc.rfc1867-name">More...</a></td>
+            <td>The name specified in PHP configuration to activate APC upload progress. This is the value of <code>apc.rfc1867_name</code> in PHP runtime config. (PHP default value is "APC_UPLOAD_PROGRESS") <a href="http://php.net/manual/en/apc.configuration.php#ini.apc.rfc1867-name">More info</a></td>
         </tr>	        
         <tr>
             <td><strong>onUpdateFileSize(filesize)</strong></td>

@@ -7,9 +7,9 @@ Live demo: http://www.lpology.com/code/ajaxuploader/
 
 ### Contents ###
 
-<a href="#cross-browser">Cross-browser upload progress support - How To</a>
-<a href="#uploader-php">How to use Uploader.php</a>
-<a href="#api-ref">API Reference</a>
+<a href="#cross-browser">Cross-browser upload progress support - How To</a><br />
+<a href="#uploader-php">How to use Uploader.php</a><br />
+<a href="#api-ref">API Reference</a><br />
 
 ### Overview ###
 Simple Ajax Uploader allows developers to easily add Ajax file upload functionality to web applications. It abstracts away standard tasks and browser compatibility issues while preserving wide latitude for custom use.

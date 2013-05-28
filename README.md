@@ -177,7 +177,7 @@ if ($result) {
         <tr>
             <td><strong>onUpdateFileSize(filesize)</strong></td>
             <td>Function</td>
-            <td>Function that is called after first upload progress update for the specific purpose of providing the upload file size in browsers that do not support the HTML5 File API. The function gets passed one argument: the size (in KB) of the uploaded file.</td>
+            <td>This function serves the specific purpose of providing the upload file size in browsers that do not support the HTML5 File API. It is called after the first progress update. The function gets passed one argument: the size (in KB) of the uploaded file.</td>
         </tr>	        
         <tr>
             <td><strong>data</strong><br />Default: <code>{}</code></td>

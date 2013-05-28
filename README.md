@@ -162,7 +162,12 @@ if ($result) {
         <tr>
             <td><strong>progressUrl</strong><br />Default: <code>''</code></td>
             <td>String</td>
-            <td>Set to the location of uploadProgress.php to enable cross-browser upload progress updates.</td>
+            <td>Set to the location of uploadProgress.php to enable cross-browser upload progress updates (see example above).</td>
+        </tr>	        
+        <tr>
+            <td><strong>checkProgressInterval</strong><br />Default: <code>50</code></td>
+            <td>Numeric</td>
+            <td>Length of delay (in milliseconds) between progress update checks. (Only if <code>progressURL</code> is set)</td>
         </tr>	        
         <tr>
             <td><strong>data</strong><br />Default: <code>{}</code></td>

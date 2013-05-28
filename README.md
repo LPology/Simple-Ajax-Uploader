@@ -36,7 +36,7 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
-<h3 id="cross-browser">Cross-Browser Upload Progress Bars - Full Example</h3>
+### <a id="cross-browser"></a>Cross-Browser Upload Progress Bars - Full Example ###
 
 Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre-IE10).
 
@@ -98,7 +98,7 @@ Restart your web server for the changes to take effect.
 
 Note: If APC is already installed, you may still need to add `apc.rfc1867 = 1` to apc.ini, as it is not enabled by default.
 
-<h3 id="uploader-php">Using Uploader.php</h3>
+### <a id="uploader-php"></a>Using Uploader.php ###
 
 <strong>Note:</strong> This PHP class is included only for convenience. <strong>It is not required to use PHP with Simple Ajax Uploader.</strong> The plugin is agnostic to server configuration, so use any language you prefer.
 
@@ -140,7 +140,7 @@ if ($result) {
 }
 ```
 
-<h3 id="api-ref">API Reference</h3>
+### <a id="api-ref"></a>API Reference ###
 
 <table>
     <thead>

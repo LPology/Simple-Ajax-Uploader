@@ -167,7 +167,7 @@ if ($result) {
         <tr>
             <td><strong>multipart</strong><br />Default: <code>false</code></td>
             <td>Boolean</td>
-            <td>Set to `true` for all files to be uploaded using multipart form instead of direct binary stream.</td>
+            <td>Set to <code>true</code> for all files to be uploaded using multipart form instead of direct binary stream.</td>
         </tr>        
         <tr>
             <td><strong>autoSubmit</strong><br />Default: <code>true</code></td>
@@ -175,7 +175,7 @@ if ($result) {
             <td>By default, uploads commence as soon as a file is selected. Set to false to delay the upload and trigger manually.</td>
         </tr>
         <tr>
-            <td><strong>responseType</strong><br />Default: <code>'text'</code></td>
+            <td><strong>responseType</strong><br />Default: <code>text</code></td>
             <td>String</td>
             <td>The type of data you're expecting back from the server. Default is plain text. Additional option is 'json'.</td>
         </tr>		

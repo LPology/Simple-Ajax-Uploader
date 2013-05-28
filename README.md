@@ -254,7 +254,7 @@ if ($result) {
 
 ### API Reference - Cross-browser progress utilities ###
 
-These following are only applicable if the <code>progressUrl</code> property is set to the URL of uploadProgress.php:
+These following are only applicable if the <code>progressUrl</code> property is set to the URL of uploadProgress.php.
 
 <table>
     <thead>
@@ -267,8 +267,8 @@ These following are only applicable if the <code>progressUrl</code> property is 
     <tbody>
         <tr>
             <td><strong>checkProgressInterval</strong><br />Default: <code>50</code></td>
-            <td>Numeric</td>
-            <td>Length of delay (in milliseconds) between progress update checks. (Only applicable if <code>progressURL</code> is set)</td>
+            <td>Integer</td>
+            <td>Length of delay (in milliseconds) between progress update checks.</td>
         </tr>	
         <tr>
             <td><strong>keyParamName</strong><br />Default: <code>'APC_UPLOAD_PROGRESS'</code></td>

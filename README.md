@@ -6,7 +6,7 @@ A Javascript plugin for cross-browser Ajax file uploading with progress support.
 ### Contents ###
 
 * <a href="http://www.lpology.com/code/ajaxuploader/">Live demo</a><br />
-* [Cross-browser upload progress support - Full example](#cross-browser-upload-progress-bars---full-example)<br />
+* [Cross-browser upload progress support - Full example](#cross-browser)<br />
 * <a href="#uploader-php">How to use Uploader.php</a><br />
 * <a href="#api-ref">API Reference</a><br />
 
@@ -36,8 +36,7 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
-<a id="cross-browser"></a>
-### Cross-Browser Upload Progress Bars - Full Example ###
+### <a id="cross-browser"></a> Cross-Browser Upload Progress Bars - Full Example
 
 Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre-IE10).
 

@@ -36,7 +36,7 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
-### <a id="cross-browser"></a> Cross-Browser Upload Progress Bars - Full Example
+<a id="cross-browser"></a> Cross-Browser Upload Progress Bars - Full Example
 
 Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre-IE10).
 

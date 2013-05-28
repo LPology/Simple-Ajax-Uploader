@@ -1,6 +1,12 @@
 ChangeLog
 ============================
 
+### Version 1.4.2 ###
+* SimpleAjaxUploader.js - Added `multipart` option to allow multipart form upload instead of binary stream
+* Uploader.php - The check for form uploads is now first in the constructor to accomodate new `multipart` option
+* Uploader.php - Providing an array of valid file extensions is now optional. If not provided, all file types are allowed.
+* Added minified version of JS file
+
 ### Version 1.4.1 ###
 * Fixed XHR status check logic that could allow false alarm calls to onError callback
 * Removed redundant XHR status check

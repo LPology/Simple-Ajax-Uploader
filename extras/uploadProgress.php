@@ -2,7 +2,7 @@
 
 /**
  * Simple Ajax Uploader
- * Version 1.4.1
+ * Version 1.4.2
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC  

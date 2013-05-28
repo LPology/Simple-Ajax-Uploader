@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 1.4.1
+ * Version 1.4.2
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC  
@@ -289,7 +289,6 @@ ss.verifyElem = function(elem) {
 
 /**
 * @constructor
-* @param button An element you want convert to upload button.
 * @param {Object} options
 
   View README.md for documentation
@@ -306,7 +305,8 @@ ss.SimpleUpload = function(options) {
     keyParamName: 'APC_UPLOAD_PROGRESS',    
     name: '',				
     data: {},				
-    autoSubmit: true,		
+    autoSubmit: true,
+    multipart: false,
     responseType: '',	
     debug: false,			
     hoverClass: '',			
@@ -632,7 +632,6 @@ ss.SimpleUpload.prototype = {
         fileSize = Math.round(self._input.files[0].size / 1024),			
         params = {},			
         xhr = ss.newXHR(),
-        data,
         queryString,
         queryURL,
         progress_pct;						
@@ -645,13 +644,11 @@ ss.SimpleUpload.prototype = {
       // Reset progress bars to 0%
       settings.onProgress.call(self, 0);
   
-      data = settings.data;
-      
       // Add name property to query string
       params[settings.name] = filename;
       
       // Get any extra data from user
-      ss.extendObj(params, data);
+      ss.extendObj(params, settings.data);
       
       // Build query string
       queryString = ss.obj2string(params);
@@ -683,14 +680,23 @@ ss.SimpleUpload.prototype = {
       };			
       
       xhr.open('POST', queryURL, true);
+      xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+      xhr.setRequestHeader('X-File-Name', encodeURIComponent(filename));      
+      
       if (settings.responseType.toLowerCase() == 'json') {
         xhr.setRequestHeader('Accept', 'application/json, text/javascript, */*; q=0.01');
       }      
-      xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-      xhr.setRequestHeader('X-File-Name', encodeURIComponent(filename));
-      xhr.setRequestHeader('Content-Type', 'application/octet-stream');
-      self.log('commencing upload');
-      xhr.send(self._input.files[0]);				
+            
+      if (settings.multipart === true) {
+        var formData = new FormData();
+        formData.append(settings.name, self._input.files[0]);
+        self.log('commencing upload - multipart form');
+        xhr.send(formData);
+      } else {
+        xhr.setRequestHeader('Content-Type', 'application/octet-stream');                 
+        self.log('commencing upload - binary stream');
+        xhr.send(self._input.files[0]);
+      }
   },
 	
   /**
@@ -784,8 +790,7 @@ ss.SimpleUpload.prototype = {
     // Must be true for progress update request
     self._uploadIsActive = true;
     
-    ss.addEvent(iframe, 'load', function() {
-    
+    ss.addEvent(iframe, 'load', function() {    
       // Prevents further progress update requests
       self._uploadIsActive = false;
       
@@ -875,6 +880,7 @@ ss.SimpleUpload.prototype = {
           response = ss.parseJSON(xhr.responseText);
           if (response && response.key) {
             self._uploadProgressKey = response.key;
+            self.log('Upload progress key received. Key: '+response.key);
           }
         } else {          
           self.log('Error retrieving progress key. Server response: '+xhr.responseText);
@@ -895,7 +901,7 @@ ss.SimpleUpload.prototype = {
     var self = this,
         settings = self._settings;	
     
-    if (self._disabled || !self._input || self._input.value === '') {                
+    if (self._disabled || !self._input || self._input.value === '') {
       return;                
     }
       
@@ -914,8 +920,9 @@ ss.SimpleUpload.prototype = {
       self.log('XHR upload not supported, using iFrame method');    
       if (settings.progressUrl !== false && self._uploadProgressKey !== null) {
         self._doProgressUpdates = true;
-        self.log('progressUrl not defined, no upload progress');
-      }      
+      } else {
+        self.log('progressUrl not defined or progress key not available - no upload progress');      
+      }
       self._uploadIframe();
     }			
   }	

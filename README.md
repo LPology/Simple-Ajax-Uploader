@@ -167,7 +167,7 @@ if ($result) {
         <tr>
             <td><strong>multipart</strong><br />Default: <code>false</code></td>
             <td>Boolean</td>
-            <td>Set to <code>true</code> for all files to be uploaded using multipart forms instead of direct binary streams.</td>
+            <td>Set to <code>true</code> for all files to be uploaded using multipart form method instead of direct binary streams.</td>
         </tr>        
         <tr>
             <td><strong>autoSubmit</strong><br />Default: <code>true</code></td>

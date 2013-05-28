@@ -3,12 +3,7 @@ Simple Ajax Uploader
 
 A Javascript plugin for cross-browser Ajax file uploading with progress support.
 
-### Contents ###
-
-* <a href="http://www.lpology.com/code/ajaxuploader/">Live demo</a><br />
-* [Cross-browser upload progress support - Full example](#cross-browser)<br />
-* <a href="#uploader-php">How to use Uploader.php</a><br />
-* <a href="#api-ref">API Reference</a><br />
+Live demo: http://www.lpology.com/code/ajaxuploader/
 
 ### Overview ###
 Simple Ajax Uploader allows developers to easily add Ajax file upload functionality to web applications. It abstracts away standard tasks and browser compatibility issues while preserving wide latitude for custom use.
@@ -36,7 +31,7 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
-<a id="cross-browser">Cross-Browser Upload Progress Bars - Full Example</a>
+### Cross-Browser Upload Progress Bars - Full Example ###
 
 Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre-IE10).
 
@@ -98,7 +93,7 @@ Restart your web server for the changes to take effect.
 
 Note: If APC is already installed, you may still need to add `apc.rfc1867 = 1` to apc.ini, as it is not enabled by default.
 
-### <a id="uploader-php"></a>Using Uploader.php ###
+### Using Uploader.php ###
 
 <strong>Note:</strong> This PHP class is included only for convenience. <strong>It is not required to use PHP with Simple Ajax Uploader.</strong> The plugin is agnostic to server configuration, so use any language you prefer.
 
@@ -140,7 +135,7 @@ if ($result) {
 }
 ```
 
-### <a id="api-ref"></a>API Reference ###
+### API Reference ###
 
 <table>
     <thead>

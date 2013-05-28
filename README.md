@@ -160,6 +160,11 @@ if ($result) {
             <td>Upload parameter name. <strong>Required.</strong></td>
         </tr>
         <tr>
+            <td><strong>progressUrl</strong><br />Default: <code>''</code></td>
+            <td>String</td>
+            <td>Set to the location of uploadProgress.php to enable cross-browser upload progress updates.</td>
+        </tr>	        
+        <tr>
             <td><strong>data</strong><br />Default: <code>{}</code></td>
             <td>Object</td>
             <td>Additional data to be sent to the server.</td>
@@ -167,7 +172,7 @@ if ($result) {
         <tr>
             <td><strong>multipart</strong><br />Default: <code>false</code></td>
             <td>Boolean</td>
-            <td>Set to <code>true</code> for all files to be uploaded using multipart form method instead of direct binary streams.</td>
+            <td>Set to <code>true</code> for all files to be uploaded using multipart form method instead of direct binary stream.</td>
         </tr>        
         <tr>
             <td><strong>autoSubmit</strong><br />Default: <code>true</code></td>

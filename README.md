@@ -163,22 +163,7 @@ if ($result) {
             <td><strong>progressUrl</strong><br />Default: <code>''</code></td>
             <td>String</td>
             <td>Set to the location of uploadProgress.php to enable cross-browser upload progress updates (see example above).</td>
-        </tr>	        
-        <tr>
-            <td><strong>checkProgressInterval</strong><br />Default: <code>50</code></td>
-            <td>Numeric</td>
-            <td>Length of delay (in milliseconds) between progress update checks. (Only applicable if <code>progressURL</code> is set)</td>
-        </tr>	   
-        <tr>
-            <td><strong>keyParamName</strong><br />Default: <code>'APC_UPLOAD_PROGRESS'</code></td>
-            <td>String</td>
-            <td>The name specified in PHP configuration to activate APC upload progress (PHP default value is "APC_UPLOAD_PROGRESS")</td>
-        </tr>	        
-        <tr>
-            <td><strong>onUpdateFileSize(filesize)</strong></td>
-            <td>Function</td>
-            <td>This function serves the specific purpose of providing the upload file size in browsers that do not support the HTML5 File API. It is called after the first progress update. The function gets passed one argument: the size (in KB) of the uploaded file.</td>
-        </tr>	        
+        </tr>	                         
         <tr>
             <td><strong>data</strong><br />Default: <code>{}</code></td>
             <td>Object</td>
@@ -265,6 +250,37 @@ if ($result) {
             <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after upload is completed but prior to <code>onComplete</code>. The function gets passed one argument: a string containing the filename.</td>
         </tr>		
 	</tbody>
+</table>
+
+### API Reference - Cross-browser progress utilities ###
+
+These following are only applicable if the <code>progressUrl</code> property is set to the URL of uploadProgress.php:
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>checkProgressInterval</strong><br />Default: <code>50</code></td>
+            <td>Numeric</td>
+            <td>Length of delay (in milliseconds) between progress update checks. (Only applicable if <code>progressURL</code> is set)</td>
+        </tr>	
+        <tr>
+            <td><strong>keyParamName</strong><br />Default: <code>'APC_UPLOAD_PROGRESS'</code></td>
+            <td>String</td>
+            <td>The name specified in PHP configuration to activate APC upload progress (PHP default value is "APC_UPLOAD_PROGRESS")</td>
+        </tr>	        
+        <tr>
+            <td><strong>onUpdateFileSize(filesize)</strong></td>
+            <td>Function</td>
+            <td>This function serves the specific purpose of providing the upload file size in browsers that do not support the HTML5 File API. It is called after the first progress update. The function gets passed one argument: the size (in KB) of the uploaded file.</td>
+        </tr>	          
+    </tbody>
 </table>
 
 ### Instance Methods ###

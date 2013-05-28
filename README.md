@@ -254,7 +254,7 @@ if ($result) {
 
 ### API Reference - Cross-browser progress utilities ###
 
-These following are only applicable if the <code>progressUrl</code> property is set to the URL of uploadProgress.php.
+These following are only applicable if the <code>progressUrl</code> property is set to the URL of uploadProgress.php (see above for setup instructions).
 
 <table>
     <thead>

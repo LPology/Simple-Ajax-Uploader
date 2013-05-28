@@ -6,7 +6,7 @@ A Javascript plugin for cross-browser Ajax file uploading with progress support.
 ### Contents ###
 
 * <a href="http://www.lpology.com/code/ajaxuploader/">Live demo</a><br />
-* <a href="#cross-browser">Cross-browser upload progress support - Full example</a><br />
+* [Cross-browser upload progress support - Full example](#cross-browser)<br />
 * <a href="#uploader-php">How to use Uploader.php</a><br />
 * <a href="#api-ref">API Reference</a><br />
 

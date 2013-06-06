@@ -3,7 +3,7 @@ ChangeLog
 
 ### Version 1.5 ###
 * Added support for multiple file uploading, along with Gmail-style multiple progress bars for tracking each file.
-* Added new `maxSize` option for file size limits, `allowedExtensions` option for file type restrictions. Custom error messages for both.
+* Added new `maxSize` option for file size limits, `allowedExtensions` option for file type restrictions. Custom error messages supported for both.
 * Updated `verifyElem()` to use a better method of detecting if an upload button is a jQuery object.
 * Numerous code enhancements throughout - updated error handling, cleaner organization, performance improvements.
 * Patched some memory leaks created by circular references in event handlers.

@@ -287,7 +287,7 @@ See above for instructions and examples.
       <tr>
         <td><strong>setFileSizeBox(element)</strong></td>
         <td>Function</td>
-        <td>Designates an element as the container in which the file size will be inserted when the upload commences.</td>    
+        <td>Designates an element as the container in which the file size of the upload will be inserted upon commencement of the upload</td>    
       <tr>      
       <tr>
         <td><strong>setProgressContainer(element)</strong></td>

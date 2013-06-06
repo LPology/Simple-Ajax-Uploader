@@ -256,7 +256,7 @@ if ($result) {
 	</tbody>
 </table>
 
-### API Reference - Multi file uploading ###
+### API Reference - Multi-file uploading ###
 
 See above for instructions and examples.
 
@@ -272,7 +272,7 @@ See above for instructions and examples.
       <tr>
         <td><strong>multiple</strong><br />Default: <code>false</code></td>
         <td>Boolean</td>
-        <td>Set to `true` to enable multiple file uploading.</td>    
+        <td>Set <code>true</code> to enable multiple file uploading.</td>    
       <tr>    
       <tr>
         <td><strong>maxUploads</strong><br />Default: <code>3</code></td>

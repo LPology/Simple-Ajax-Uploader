@@ -272,7 +272,7 @@ See above for instructions and examples.
       <tr>
         <td><strong>multiple</strong><br />Default: <code>false</code></td>
         <td>Boolean</td>
-        <td>Set as <code>true</code> to enable multiple, concurrent file uploading.</td>    
+        <td>Set to <code>true</code> to enable multiple, concurrent file uploads.</td>    
       <tr>    
       <tr>
         <td><strong>maxUploads</strong><br />Default: <code>3</code></td>
@@ -287,7 +287,7 @@ See above for instructions and examples.
       <tr>
         <td><strong>setFileSizeBox(element)</strong></td>
         <td>Function</td>
-        <td>Designates an element to receive a string containing file size at the start of an upload.</td>    
+        <td>Designates an element as the container in which the file size will be inserted when the upload commences.</td>    
       <tr>      
       <tr>
         <td><strong>setProgressContainer(element)</strong></td>

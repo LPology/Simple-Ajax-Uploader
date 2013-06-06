@@ -258,6 +258,8 @@ if ($result) {
 
 ### API Reference - Multi-file uploading ###
 
+The three callback functions are for supporting multiple, concurrent progress bars -- one for each active upload.
+
 See above for instructions and examples.
 
 <table>

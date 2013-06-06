@@ -12,7 +12,7 @@ The project began as a rewrite of Andrew Valum's original Ajax Upload plugin. Th
 
 ### Features ###
 * Uses XMLHttpRequest and HTML5 File API with fall back to iframe method for Internet Explorer 9 and older.
-* Supports multiple, concurrent file uploads, even in non-HTML5 browsers.
+* Supports multiple, concurrent file uploads - even in non-HTML5 browsers.
 * No external libraries required - use it with or without jQuery.
 * Works in all major browsers: IE7+, Firefox 4+, Safari 4+, Chrome, and Opera.
 * Fast and lightweight - less than 5KB, minified and gzipped.
@@ -256,7 +256,7 @@ if ($result) {
 	</tbody>
 </table>
 
-### API Reference - Multiple file uploading ###
+### API Reference - Multi file uploading ###
 
 See above for instructions and examples.
 

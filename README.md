@@ -293,7 +293,7 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
       <tr>
         <td><strong>setProgressContainer(element)</strong></td>
         <td>Function</td>
-        <td>Designates an element to be removed from the DOM upon completion of an upload. Useful for cleaning up multiple, dynamic progress bars.</td>   
+        <td>Designates an element to be removed from the DOM upon completion of an upload. Useful for cleaning up dynamic progress bars.</td>   
       <tr>       
     </tbody>  
 </table>

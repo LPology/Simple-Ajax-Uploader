@@ -292,7 +292,7 @@ See above for instructions and examples.
       <tr>
         <td><strong>setProgressContainer(element)</strong></td>
         <td>Function</td>
-        <td>Designates an element to remove from the DOM when an upload is completed. Useful for removing progress bar, file size, etc. after upload.</td>    
+        <td>Designates an element to remove from the DOM upon completion of an upload. Useful for cleaning up multiple, dynamic progress bars.</td>   
       <tr>       
     </tbody>  
 </table>

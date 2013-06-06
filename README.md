@@ -272,27 +272,27 @@ See above for instructions and examples.
       <tr>
         <td><strong>multiple</strong><br />Default: <code>false</code></td>
         <td>Boolean</td>
-        <td>Set <code>true</code> to enable multiple file uploading.</td>    
+        <td>Set as <code>true</code> to enable multiple, concurrent file uploading.</td>    
       <tr>    
       <tr>
         <td><strong>maxUploads</strong><br />Default: <code>3</code></td>
         <td>Integer</td>
-        <td>Maximum number of simultaneous uploads</td>    
+        <td>Max number of simultaneous uploads</td>    
       <tr>       
       <tr>
         <td><strong>setProgressBar(element)</strong></td>
         <td>Function</td>
-        <td>Designates an element to be a progress bar. The width of the element will be updated as upload progresses.</td>    
+        <td>Designates an element as a progress bar. The width of the element will be updated as upload progresses.</td>    
       <tr>
       <tr>
         <td><strong>setFileSizeBox(element)</strong></td>
         <td>Function</td>
-        <td>Designate an element to receive a string containing file size at the start of an upload.</td>    
+        <td>Designates an element to receive a string containing file size at the start of an upload.</td>    
       <tr>      
       <tr>
         <td><strong>setProgressContainer(element)</strong></td>
         <td>Function</td>
-        <td>Designates an element to remove from the DOM when the associated upload is completed. Useful for removing progress bar, file size, etc. after upload.</td>    
+        <td>Designates an element to remove from the DOM when an upload is completed. Useful for removing progress bar, file size, etc. after upload.</td>    
       <tr>       
     </tbody>  
 </table>

@@ -1,7 +1,7 @@
 Simple Ajax Uploader
 ============================
 
-A Javascript plugin for cross-browser Ajax file uploading with progress support.
+A Javascript plugin for cross-browser Ajax file uploading. Supports multiple file uploading with progress bars.
 
 Live demo: http://www.lpology.com/code/ajaxuploader/
 
@@ -12,9 +12,10 @@ The project began as a rewrite of Andrew Valum's original Ajax Upload plugin. Th
 
 ### Features ###
 * Uses XMLHttpRequest and HTML5 File API with fall back to iframe method for Internet Explorer 9 and older.
+* Supports nultiple, concurrent file uploading, including browsers without `multiple` support.
 * No external libraries required - use it with or without jQuery.
 * Works in all major browsers: IE7+, Firefox 4+, Safari 4+, Chrome, and Opera.
-* Fast and lightweight - only 3.9KB, minified and gzipped.
+* Fast and lightweight - less than 5KB, minified and gzipped.
 * Built-in support for implementing truly cross-browser progress bars.
 * Use any HTML element as the upload button.
 * Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads.
@@ -135,7 +136,7 @@ if ($result) {
 }
 ```
 
-### API Reference ###
+### API Reference - General ###
 
 <table>
     <thead>
@@ -171,6 +172,7 @@ if ($result) {
             <td>Object</td>
             <td>Additional data to be sent to the server.</td>
         </tr>
+       
         <tr>
             <td><strong>multipart</strong><br />Default: <code>false</code></td>
             <td>Boolean</td>
@@ -253,6 +255,85 @@ if ($result) {
         </tr>		
 	</tbody>
 </table>
+
+### API Reference - Multiple file uploading ###
+
+See above for instructions and examples.
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>multiple</strong><br />Default: <code>false</code></td>
+        <td>Boolean</td>
+        <td>Set to `true` to enable multiple file uploading.</td>    
+      <tr>    
+      <tr>
+        <td><strong>maxUploads</strong><br />Default: <code>3</code></td>
+        <td>Integer</td>
+        <td>Maximum number of simultaneous uploads</td>    
+      <tr>       
+      <tr>
+        <td><strong>setProgressBar(element)</strong></td>
+        <td>Function</td>
+        <td>Designates an element to be a progress bar. The width of the element will be updated as upload progresses.</td>    
+      <tr>
+      <tr>
+        <td><strong>setFileSizeBox(element)</strong></td>
+        <td>Function</td>
+        <td>Designate an element to receive a string containing file size at the start of an upload.</td>    
+      <tr>      
+      <tr>
+        <td><strong>setProgressContainer(element)</strong></td>
+        <td>Function</td>
+        <td>Designates an element to remove from the DOM when the associated upload is completed. Useful for removing progress bar, file size, etc. after upload.</td>    
+      <tr>       
+    </tbody>  
+</table>
+
+### API Reference - User experience ###
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>allowedExtensions</strong><br />Default: <code>[]</code></td>
+      <td>Array</td>
+      <td>Only allow file uploading for these extensions (case insensitive). Ex: `allowedExtensions: ['jpg', 'jpeg', 'png', 'gif']` <strong>Note: </strong>This is not a security feature.</td>
+     </tr> 
+    <tr>
+      <td><strong>maxSize</strong><br />Default: <code>false</code></td>
+      <td>Integer</td>
+      <td>Maximum allowed file size (in kilobytes). Works only in HTML5 browsers (FF, Chrome, Safari, IE10+)</td>
+     </tr>      
+    <tr>
+      <td><strong>messages</strong><br />Default: <code>(in description)</code></td>
+      <td>Object</td>
+      <td>Provide a custom error message for display when a user selects the wrong file. Default:<br>
+      <code>
+        messages: {
+          extError: 'Invalid file type. Only {ext} files are permitted.',
+          sizeError: 'This file is larger than the {size} size limit.'
+        }      
+      </code>
+      `{ext}` and `{size}` are placeholders, `{ext}` will be a comma separated list of `allowedExtensions`.
+      </td>
+     </tr>      
+  </tbody>
+</table> 
+
 
 ### API Reference - Cross-browser progress utilities ###
 

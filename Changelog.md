@@ -1,10 +1,17 @@
 ChangeLog
 ============================
 
+### Version 1.5 ###
+* Added support for multiple file uploading, along with Gmail-style multiple progress bars for tracking each file
+* New `maxSize` option for size limits, `allowedExtensions` option for file type restrictions. Custom error messages for both
+* Updated `verifyElem()` to use a better method of detecting if an upload button is a jQuery object
+* Numerous code enhancements throughout - updated error handling, cleaner organization, performance improvements
+* Patched some memory leaks created by circular references in event handlers
+
 ### Version 1.4.2 ###
 * SimpleAjaxUploader.js - Added `multipart` option to allow multipart form upload instead of binary stream
 * Uploader.php - The check for form uploads is now first in the constructor to accomodate new `multipart` option
-* Uploader.php - Providing an array of valid file extensions is now optional. If not provided, all file types are allowed.
+* Uploader.php - Providing an array of valid file extensions is now optional. If not provided, all file types are allowed
 * Added minified version of JS file
 
 ### Version 1.4.1 ###

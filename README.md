@@ -277,17 +277,17 @@ See above for instructions and examples.
       <tr>
         <td><strong>maxUploads</strong><br />Default: <code>3</code></td>
         <td>Integer</td>
-        <td>Max number of simultaneous uploads</td>    
+        <td>Max number of simultaneous uploads.</td>    
       <tr>       
       <tr>
         <td><strong>setProgressBar(element)</strong></td>
         <td>Function</td>
-        <td>Designates an element as an upload progress bar. The CSS width % of the element will be updated as the upload progresses.</td>    
+        <td>Designates an element to serve as an upload progress bar. The CSS width % of the element will be updated as the upload progresses.</td>    
       <tr>
       <tr>
         <td><strong>setFileSizeBox(element)</strong></td>
         <td>Function</td>
-        <td>Designates an element as the container in which the size of an uploading file will be inserted.</td>    
+        <td>Designates an element as the container in which the file size of an uploading file will be inserted.</td>    
       <tr>      
       <tr>
         <td><strong>setProgressContainer(element)</strong></td>

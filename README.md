@@ -258,7 +258,7 @@ if ($result) {
 
 ### API Reference - Multi-file uploading ###
 
-These three functions - <code>setProgressBar()</code>, <code>setFileSizeBox()</code>, and <code>setProgressContainer</code> were created specifically to support multiple, concurrent progress bars.
+The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox()</code>, and <code>setProgressContainer</code> were created specifically for supporting multiple, concurrent upload progress bars. 
 
 See above for instructions and examples.
 

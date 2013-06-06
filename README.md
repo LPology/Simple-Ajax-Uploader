@@ -258,7 +258,7 @@ if ($result) {
 
 ### API Reference - Multi-file uploading ###
 
-The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox()</code>, and <code>setProgressContainer</code>, were written specifically to support multiple, concurrent progress bars, similar to those for Gmail attachments.
+The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox()</code>, and <code>setProgressContainer</code>, were written specifically to support multiple, concurrent progress bars, similar to those used in Gmail for attachments.
 
 See above for instructions and examples.
 

@@ -377,13 +377,22 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
       <br /><strong>Note: </strong>This is not a security feature.
       </td>
     </tr> 
+
+     
     <tr>
-      <td><strong>maxSize</strong><br />Default: <code>false</code></td>
-      <td>Integer</td>
-      <td>Maximum allowed file size (in kilobytes). Works only in HTML5 browsers.
+      <td><strong>messages</strong><br />Default: (in description)</td>
+      <td>Object</td>
+      <td>Provide a custom error message for display when a user selects the wrong file. Default:<br>
+      <code>
+        messages: {
+          extError: 'Invalid file type. Only {ext} files are permitted.',
+          sizeError: 'This file is larger than the {size} size limit.'
+        }      
+      </code>
+      <code>{ext}</code> and <code>{size}</code> are placeholders, <code>{ext}</code> will be a comma separated list of <code>allowedExtensions</code>.
       </td>
-    </tr>      
-    
+     </tr>     
+     
   </tbody>
 </table> 
 

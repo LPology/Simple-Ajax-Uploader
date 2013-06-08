@@ -729,12 +729,6 @@ ss.SimpleUpload.prototype = {
       this._settings.onComplete.call(this, filename, response);
     }
     
-    if (progressBar) {
-      ss.remove(progressBar);
-    }
-    if (fileSizeBox) {
-      ss.remove(fileSizeBox);
-    }
     if (progressContainer) {
       ss.remove(progressContainer);
     }
@@ -1000,7 +994,7 @@ ss.SimpleUpload.prototype = {
             if (response.pct < 100 && ss.contains(self._activeProgressKeys, key)) {          
               
               if (response.pct === 0 && response.size === 0 && counter >= self._maxUpdateFails) {
-                self.log('failed progress response limit reached');
+                self.log('reached limit of failed progress requests');
                 return;
               }
               

@@ -371,8 +371,8 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
     <tr>
       <td><strong>allowedExtensions</strong><br />Default: <code>[]</code></td>
       <td>Array</td>
-      <td>Only allow file uploading for these extensions (case insensitive). 
-      <br />Ex: <code>allowedExtensions: ['jpg', 'jpeg', 'png', 'gif']</code>
+      <td>Only allow file uploading for these extensions (case insensitive). Ex:
+      <br /><code>allowedExtensions: ['jpg', 'jpeg', 'png', 'gif']</code>
       <br /><strong>Note: </strong>This is not a security feature.</td>
      </tr> 
     <tr>

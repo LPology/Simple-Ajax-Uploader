@@ -52,7 +52,6 @@ These three functions play a significant role:
         progressUrl: '/lib/uploadProgress.php', // enables cross-browser progress support (more info below)
         responseType: 'json',
         name: 'imgfile',
-        data: { case_id: case_id }, // use data() to send additional info to the server
         multiple: true,
         allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'], // for example, if we were uploading pics
         hoverClass: 'ui-state-hover',

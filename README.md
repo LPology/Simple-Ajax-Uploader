@@ -84,7 +84,7 @@ Below is an example of how to implement multiple file uploading with progress ba
               alert(filename + 'upload failed');
               return false;
             }
-
+            // Stuff to do after finishing an upload...
           }
 	});
 ```

@@ -91,11 +91,11 @@ Below is an example of how to implement multiple file uploading with progress ba
 
 When a file is uploaded, a progress bar is dynamically created, the elements of which are assigned specific roles using these three functions:
 
-`setProgressBar(elem)` - This designates an element as the progress bar for an upload. 
+`setProgressBar(elem)` - Designates an element as the progress bar for an upload. 
 
-`setFileSizeBox(elem)` - Use this to specify an element in which to insert upload file size at the start of an upload.
+`setFileSizeBox(elem)` - Designates an element as the container in which the file size of an uploading file will be inserted.
 
-`setProgressContainer(elem)` - This designates an element that is to be removed from the DOM after the upload finishes. 
+`setProgressContainer(elem)` - Designates an element that is to be removed from the DOM after the upload finishes. 
 
 **Cross-browser progress support - How it works**
 

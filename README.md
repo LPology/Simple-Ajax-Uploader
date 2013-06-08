@@ -360,13 +360,7 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
 ### API Reference - User experience ###
 
 <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
+
   <tbody>
     <tr>
       <td><strong>allowedExtensions</strong><br />Default: <code>[]</code></td>

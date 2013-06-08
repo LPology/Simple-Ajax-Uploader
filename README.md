@@ -32,6 +32,65 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
+### Multiple File Uploads With Progress Support ###
+
+Below is an example of how to implement multiple file uploading with progress bars. Using only two callbacks, we achieve cross-browser, multiple file uploads with progress bar support for each individual file. 
+ 
+These three functions play a significant role:
+
+`setProgressBar(elem)` - This designates an element as the progress bar for an upload. 
+
+`setFileSizeBox(elem)` - Use this to specify an element in which to insert upload file size at the start of an upload.
+
+`setProgressContainer(elem)` - This designates an element that is to be removed from the DOM after the upload finishes. 
+
+ 
+```javascript  
+	var uploader = new ss.SimpleUpload({
+        button: 'uploadButton',
+        url: '/lib/img-save.php', // server side handler
+        progressUrl: '/lib/uploadProgress.php', // enables cross-browser progress support (more info below)
+        responseType: 'json',
+        name: 'imgfile',
+        data: { case_id: case_id }, // use data() to send additional info to the server
+        multiple: true,
+        allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'], // for example, if we were uploading pics
+        hoverClass: 'ui-state-hover',
+        focusClass: 'ui-state-focus',
+        activeClass: 'ui-state-focus',
+        disabledClass: 'disabled',   
+        onSubmit: function(filename, extension) {
+            var progress = document.createElement('div'),
+                bar = document.createElement('div'),
+                fileSize = document.createElement('div'),
+                wrapper = document.createElement('div');
+                
+            progress.className = 'progress';
+            bar.className = 'bar';            
+            fileSize.className = 'size';
+            progressWrapper.className = 'wrapper';
+            
+            progress.appendChild(bar); 
+            wrapper.innerHTML = '<div class="name">'+filename+'</div>'; // filename is passed to onSubmit()
+            wrapper.appendChild(size);
+            wrapper.appendChild(progress);
+                                       
+            pageElement.appendChild(wrapper); // just an element on the page to hold the progress bars    
+            
+            this.setProgressBar(bar); // will serve as the progress bar
+            this.setFileSizeBox(fileSize); // display file size beside progress bar
+            this.setProgressContainer(wrapper); // designate the containing div to be removed after upload
+          },		
+        onComplete:	function(filename, data) {
+            if (!data || !data.success) {
+              alert(file + 'upload failed');
+              return false;
+            }
+
+          }
+	});
+```
+
 ### Cross-Browser Upload Progress Bars - Full Example ###
 
 Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre-IE10).
@@ -312,7 +371,9 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
     <tr>
       <td><strong>allowedExtensions</strong><br />Default: <code>[]</code></td>
       <td>Array</td>
-      <td>Only allow file uploading for these extensions (case insensitive). Ex: `allowedExtensions: ['jpg', 'jpeg', 'png', 'gif']` <strong>Note: </strong>This is not a security feature.</td>
+      <td>Only allow file uploading for these extensions (case insensitive). 
+      <br />Ex: <code>allowedExtensions: ['jpg', 'jpeg', 'png', 'gif']</code>
+      <br /><strong>Note: </strong>This is not a security feature.</td>
      </tr> 
     <tr>
       <td><strong>maxSize</strong><br />Default: <code>false</code></td>

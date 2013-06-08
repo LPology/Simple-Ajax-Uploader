@@ -99,7 +99,7 @@ When a file is uploaded, a progress bar is dynamically created, the elements of 
 
 **Cross-browser progress support - How it works**
 
-When the plugin detects browsers that support the HTML5 File API, the `progress` event is used. For other browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php (included). This requires PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below).
+When the plugin detects browsers that support the HTML5 File API, the `progress` event is used. For other browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php (included in extras folder). This requires PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below).
 
 In both cases, everything is handled internally - feature detection, calculation, key handling, etc. To enable this behavior, just provide the URL for uploadProgress.php in the `progressUrl` option.
 

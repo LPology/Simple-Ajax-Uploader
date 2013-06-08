@@ -82,7 +82,7 @@ These three functions play a significant role:
           },		
         onComplete:	function(filename, data) {
             if (!data || !data.success) {
-              alert(file + 'upload failed');
+              alert(filename + 'upload failed');
               return false;
             }
 

@@ -97,43 +97,11 @@ When a file is uploaded, a progress bar is dynamically created, the elements of 
 
 `setProgressContainer(elem)` - This designates an element that is to be removed from the DOM after the upload finishes. 
 
-### Cross-Browser Upload Progress Bars - Full Example ###
+**Cross-browser progress support - How it works**
 
-Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre-IE10). It uses PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below). Server requests are handled by uploadProgress.php in the extras folder.
+When the plugin detects browsers that support the HTML5 File API, the `progress` event is used. For other browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php (included). This requires PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below).
 
-```javascript
-var btn = document.getElementById('upload-btn'),
-    progress = document.getElementById('progress-inner'),
-    progressOuter = document.getElementById('progress-outer');
-	
-var uploader = new ss.SimpleUpload({
-  button: btn,
-  url: 'uploadScript.php',
-  progressUrl: 'uploadProgress.php', // Setting this option enables cross-browser progress support
-  name: 'uploadFile',
-  hoverClass: 'btn-hover',
-  focusClass: 'active',
-  disabledClass: 'disabled',
-  responseType: 'json',    
-  onProgress: function(pct) {
-      progress.style.width = pct + '%';
-    },
-  onSubmit: function() {
-      progressOuter.style.display = 'inline-block';
-    },		
-  onComplete:	function() {
-      progressOuter.style.display = 'none';   
-    }
-});
-```
-
-**How it works**
-
-When the plugin detects browsers that support the HTML5 File API, the `progress` event is used. For other browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php.
-
-In both cases, everything is handled internally - feature detection, calculation, key handling, etc., with completion percentage passed to the `onProgress` callback.
-
-To enable this behavior, just provide the URL for uploadProgress.php in the `progressUrl` option.
+In both cases, everything is handled internally - feature detection, calculation, key handling, etc., with completion percentage passed to the `onProgress` callback. To enable this behavior, just provide the URL for uploadProgress.php in the `progressUrl` option.
 
 **Installing the APC extension**
 ```

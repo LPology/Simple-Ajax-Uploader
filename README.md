@@ -385,7 +385,7 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
      </tr>    
      
     <tr>
-      <td><strong>messages</strong><br />Default: (in description)</td>
+      <td><strong>messages</strong><br />Default: </td>
       <td>Object</td>
       <td>Provide a custom error message for display when a user selects the wrong file.
       </td>

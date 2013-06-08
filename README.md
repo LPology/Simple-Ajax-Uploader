@@ -342,7 +342,7 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
       <tr>
         <td><strong>setProgressBar(element)</strong></td>
         <td>Function</td>
-        <td>Designates an element to serve as an upload progress bar. The CSS width % of the element will be updated as the upload progresses.</td>    
+        <td>Designates an element to serve as an upload progress bar. The CSS width percentage of the element will be updated as the upload progresses.</td>    
       </tr>
       <tr>
         <td><strong>setFileSizeBox(element)</strong></td>

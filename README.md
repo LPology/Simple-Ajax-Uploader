@@ -71,12 +71,16 @@ Below is an example of how to implement multiple file uploading with progress ba
             progressBox.appendChild(wrapper); // just an element on the page to hold the progress bars    
             
             // Assign roles to each element of the progress bar
-            this.setProgressBar(bar); // will serve as the progress bar
+            this.setProgressBar(bar); // will serve as the actual progress bar
             this.setFileSizeBox(fileSize); // display file size beside progress bar
             this.setProgressContainer(wrapper); // designate the containing div to be removed after upload
-          },		
-        onComplete:	function(filename, data) {
-            if (!data) {
+          },
+          
+         // Do something after finishing the upload
+         // Note that the progress bar will be automatically removed because everything is encased in the "wrapper",
+         // which we designated to be removed with setProgressContainer() 
+        onComplete:	function(filename, response) {
+            if (!response) {
               alert(filename + 'upload failed');
               return false;
             }

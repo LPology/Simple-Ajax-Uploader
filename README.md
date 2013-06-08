@@ -77,8 +77,8 @@ Below is an example of how to implement multiple file uploading with progress ba
           },
           
          // Do something after finishing the upload
-         // Note that the progress bar will be automatically removed because everything 
-         // is encased in the "wrapper", which we designated to be removed using setProgressContainer() 
+         // Note that the progress bar will be automatically removed upon completion because everything 
+         // is encased in the "wrapper", which we designated to be removed with setProgressContainer() 
         onComplete:	function(filename, response) {
             if (!response) {
               alert(filename + 'upload failed');

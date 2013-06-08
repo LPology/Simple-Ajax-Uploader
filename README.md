@@ -99,9 +99,7 @@ When a file is uploaded, a progress bar is dynamically created, the elements of 
 
 ### Cross-Browser Upload Progress Bars - Full Example ###
 
-Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre-IE10).
-
-It uses PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below). Server requests are handled by uploadProgress.php in the extras folder.
+Below is a full example of how to implement an upload progress bar that works in older versions of Interner Explorer (pre-IE10). It uses PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below). Server requests are handled by uploadProgress.php in the extras folder.
 
 ```javascript
 var btn = document.getElementById('upload-btn'),

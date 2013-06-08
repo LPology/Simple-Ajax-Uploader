@@ -61,7 +61,7 @@ Below is an example of how to implement multiple file uploading with progress ba
             progress.className = 'progress';
             bar.className = 'bar';            
             fileSize.className = 'size';
-            progressWrapper.className = 'wrapper';
+            wrapper.className = 'wrapper';
             
             // Assemble the progress bar and add it to the page
             progress.appendChild(bar); 

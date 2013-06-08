@@ -388,12 +388,12 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
       <td><strong>messages</strong><br />Default: (in description)</td>
       <td>Object</td>
       <td>Provide a custom error message for display when a user selects the wrong file. Default:<br>
-      <code>
+      ```javascript
         messages: {
-          extError: 'Invalid file type. Only {ext} files are permitted.',<br />
+          extError: 'Invalid file type. Only {ext} files are permitted.',
           sizeError: 'This file is larger than the {size} size limit.'
         }      
-      </code>
+      ```javascript
       <code>{ext}</code> and <code>{size}</code> are placeholders, <code>{ext}</code> will be a comma separated list of <code>allowedExtensions</code>.
       </td>
      </tr>     

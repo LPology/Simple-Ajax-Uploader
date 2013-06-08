@@ -39,10 +39,10 @@ Below is an example of how to implement multiple file uploading with progress ba
 ```javascript  
 	var uploader = new ss.SimpleUpload({
         button: 'uploadButton',
-        url: '/lib/img-save.php', // server side handler
+        url: '/uploadHandler.php', // server side handler
         progressUrl: '/lib/uploadProgress.php', // enables cross-browser progress support (more info below)
         responseType: 'json',
-        name: 'imgfile',
+        name: 'uploadfile',
         multiple: true,
         allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'], // for example, if we were uploading pics
         hoverClass: 'ui-state-hover',

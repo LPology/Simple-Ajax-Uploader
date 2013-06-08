@@ -70,7 +70,7 @@ Below is an example of how to implement multiple file uploading with progress ba
             wrapper.appendChild(progress);                                       
             progressBox.appendChild(wrapper); // just an element on the page to hold the progress bars    
             
-            // Assign roles to each element of the progress bar
+            // Assign roles to the elements of the progress bar
             this.setProgressBar(bar); // will serve as the actual progress bar
             this.setFileSizeBox(fileSize); // display file size beside progress bar
             this.setProgressContainer(wrapper); // designate the containing div to be removed after upload

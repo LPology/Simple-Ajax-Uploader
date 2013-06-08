@@ -36,15 +36,6 @@ var uploader = new ss.SimpleUpload({
 
 Below is an example of how to implement multiple file uploading with progress bars. Using only two callbacks, we achieve cross-browser, multiple file uploads with progress bar support for each individual file. 
  
-These three functions play a significant role:
-
-`setProgressBar(elem)` - This designates an element as the progress bar for an upload. 
-
-`setFileSizeBox(elem)` - Use this to specify an element in which to insert upload file size at the start of an upload.
-
-`setProgressContainer(elem)` - This designates an element that is to be removed from the DOM after the upload finishes. 
-
- 
 ```javascript  
 	var uploader = new ss.SimpleUpload({
         button: 'uploadButton',
@@ -82,7 +73,7 @@ These three functions play a significant role:
             this.setProgressContainer(wrapper); // designate the containing div to be removed after upload
           },		
         onComplete:	function(filename, data) {
-            if (!data || !data.success) {
+            if (!data) {
               alert(filename + 'upload failed');
               return false;
             }
@@ -90,6 +81,14 @@ These three functions play a significant role:
           }
 	});
 ```
+
+When a file is uploaded, a progress bar is dynamically created. These three functions play a significant role:
+
+`setProgressBar(elem)` - This designates an element as the progress bar for an upload. 
+
+`setFileSizeBox(elem)` - Use this to specify an element in which to insert upload file size at the start of an upload.
+
+`setProgressContainer(elem)` - This designates an element that is to be removed from the DOM after the upload finishes. 
 
 ### Cross-Browser Upload Progress Bars - Full Example ###
 

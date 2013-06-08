@@ -59,10 +59,11 @@ These three functions play a significant role:
         activeClass: 'ui-state-focus',
         disabledClass: 'disabled',   
         onSubmit: function(filename, extension) {
-            var progress = document.createElement('div'),
-                bar = document.createElement('div'),
-                fileSize = document.createElement('div'),
-                wrapper = document.createElement('div');
+            var progress = document.createElement('div'), // container for progress bar
+                bar = document.createElement('div'), // actual progress bar
+                fileSize = document.createElement('div'), // container for upload file size
+                wrapper = document.createElement('div'), // container for this progress bar
+                progressBox = document.getElementById('progressBox'); // container for all progress bars
                 
             progress.className = 'progress';
             bar.className = 'bar';            
@@ -74,7 +75,7 @@ These three functions play a significant role:
             wrapper.appendChild(size);
             wrapper.appendChild(progress);
                                        
-            pageElement.appendChild(wrapper); // just an element on the page to hold the progress bars    
+            progressBox.appendChild(wrapper); // just an element on the page to hold the progress bars    
             
             this.setProgressBar(bar); // will serve as the progress bar
             this.setFileSizeBox(fileSize); // display file size beside progress bar

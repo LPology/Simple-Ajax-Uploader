@@ -389,6 +389,7 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
       <td>Object</td>
       <td>Provide a custom error message for display when a user selects the wrong file. Default:<br>
 
+      <code>{ext}</code> and <code>{size}</code> are placeholders, <code>{ext}</code> will be a comma separated list of <code>allowedExtensions</code>.
       </td>
      </tr>     
      

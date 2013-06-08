@@ -32,7 +32,7 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
-### Multiple File Uploads With Progress Support ###
+### Multiple File Uploads With Cross-Browser Progress Support ###
 
 Below is an example of how to implement multiple file uploading with progress bars. Using only two callbacks, we achieve cross-browser, multiple file uploads with progress bar support for each individual file. 
  

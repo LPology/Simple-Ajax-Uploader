@@ -48,7 +48,7 @@ Below is an example of how to implement multiple file uploading with progress ba
         hoverClass: 'ui-state-hover',
         focusClass: 'ui-state-focus',
         activeClass: 'ui-state-focus',
-        disabledClass: 'disabled',   
+        disabledClass: 'ui-state-disabled',   
         onSubmit: function(filename, extension) {
             // Create the elements of our progress bar
             var progress = document.createElement('div'), // container for progress bar

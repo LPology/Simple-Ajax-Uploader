@@ -55,7 +55,7 @@ Below is an example of how to implement multiple file uploading with progress ba
                 bar = document.createElement('div'), // actual progress bar
                 fileSize = document.createElement('div'), // container for upload file size
                 wrapper = document.createElement('div'), // container for this progress bar
-                progressBox = document.getElementById('progressBox'); // container for all progress bars
+                progressBox = document.getElementById('progressBox'); // on page container for progress bars
             
             // Assign each element its corresponding class
             progress.className = 'progress';

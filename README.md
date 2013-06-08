@@ -374,7 +374,7 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
       <td>Only allow file uploading for these extensions (case insensitive). Example:
       <br /><code>allowedExtensions: ['jpg', 'jpeg', 'png', 'gif']</code>
       <br /><strong>Note: </strong>This is not a security feature.</td>
-     </tr> 
+    </tr> 
     <tr>
       <td><strong>maxSize</strong><br />Default: <code>false</code></td>
       <td>Integer</td>
@@ -382,7 +382,7 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
       </td>
      </tr>      
     <tr>
-      <td><strong>messages</strong><br />Default: <code>(in description)</code></td>
+      <td><strong>messages</strong><br />Default: (in description)</td>
       <td>Object</td>
       <td>Provide a custom error message for display when a user selects the wrong file. Default:<br>
       <code>
@@ -391,7 +391,7 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
           sizeError: 'This file is larger than the {size} size limit.'
         }      
       </code>
-      `{ext}` and `{size}` are placeholders, `{ext}` will be a comma separated list of `allowedExtensions`.
+      <code>{ext}</code> and <code>{size}</code> are placeholders, <code>{ext}</code> will be a comma separated list of <code>allowedExtensions</code>.
       </td>
      </tr>      
   </tbody>

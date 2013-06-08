@@ -82,7 +82,7 @@ Below is an example of how to implement multiple file uploading with progress ba
 	});
 ```
 
-When a file is uploaded, a progress bar is dynamically created. These three functions play a significant role:
+When a file is uploaded, a progress bar is dynamically created, the elements of which are assigned specific roles with these three functions:
 
 `setProgressBar(elem)` - This designates an element as the progress bar for an upload. 
 

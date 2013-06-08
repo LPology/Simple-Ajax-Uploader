@@ -333,27 +333,27 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
         <td><strong>multiple</strong><br />Default: <code>false</code></td>
         <td>Boolean</td>
         <td>Set to <code>true</code> to enable multiple, concurrent file uploads.</td>    
-      <tr>    
+      </tr>    
       <tr>
         <td><strong>maxUploads</strong><br />Default: <code>3</code></td>
         <td>Integer</td>
         <td>Max number of simultaneous uploads.</td>    
-      <tr>       
+      </tr>       
       <tr>
         <td><strong>setProgressBar(element)</strong></td>
         <td>Function</td>
         <td>Designates an element to serve as an upload progress bar. The CSS width % of the element will be updated as the upload progresses.</td>    
-      <tr>
+      </tr>
       <tr>
         <td><strong>setFileSizeBox(element)</strong></td>
         <td>Function</td>
         <td>Designates an element as the container in which the file size of an uploading file will be inserted.</td>    
-      <tr>      
+      </tr>      
       <tr>
         <td><strong>setProgressContainer(element)</strong></td>
         <td>Function</td>
         <td>Designates an element to be removed from the DOM upon completion of an upload. Useful for cleaning up dynamic progress bars.</td>   
-      <tr>       
+      </tr>       
     </tbody>  
 </table>
 

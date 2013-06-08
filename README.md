@@ -360,19 +360,6 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
 ### API Reference - User experience ###
 
 <table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-    
-    </tbody>
-</table>
-
-<table>
   <thead>
     <tr>
       <th>Name</th>
@@ -387,7 +374,6 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
       <td>
       Only allow file uploading for these extensions (case insensitive). Example:
       <br /><code>allowedExtensions: ['jpg', 'jpeg', 'png', 'gif']</code>
-      <br /><strong>Note: </strong>This is not a security feature.
       </td>
     </tr> 
     <tr>

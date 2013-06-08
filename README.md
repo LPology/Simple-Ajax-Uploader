@@ -390,7 +390,7 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
       <td>Provide a custom error message for display when a user selects the wrong file. Default:<br>
       <code>
         messages: {
-          extError: 'Invalid file type. Only {ext} files are permitted.',
+          extError: 'Invalid file type. Only {ext} files are permitted.',<br />
           sizeError: 'This file is larger than the {size} size limit.'
         }      
       </code>

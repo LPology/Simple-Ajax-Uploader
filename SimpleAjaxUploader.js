@@ -555,50 +555,39 @@ ss.SimpleUpload.prototype = {
     }      
     
     ss.addEvent(input, 'change', function() {
-      var fileinput = input,
-          autoSubmit = self._settings.autoSubmit,
-          filename,
-          ext;
+      var fileinput = input;
           
       if (!fileinput || fileinput.value === '') {                
         return;                
       }						
       // Get filename        
-      filename = fileinput.value.replace(/.*(\/|\\)/, '');
-      ext = ss.getExt(filename);
-      self._filename = filename;
-      self._ext = ext;
+      self._filename = fileinput.value.replace(/.*(\/|\\)/, '');
+      self._ext = ss.getExt(self._filename);
               
-      if (false === self._settings.onChange.call(self, filename, ext)) {
+      if (false === self._settings.onChange.call(self, self._filename, self._ext)) {
         return;
       }			
       // Submit when file selected if autoSubmit option is set
-      if (autoSubmit) {
+      if (self._settings.autoSubmit) {
         self.submit();
       }
-      filename = null;
-      ext = null;
+      
       fileinput = null;
-      autoSubmit = null;
-    });            
-    
-    var btn = self._button,
-        hover = self._settings.hoverClass,
-        focus = self._settings.focusClass;
+    });                
     
     ss.addEvent(input, 'mouseover', function() {
-      var button = btn,
-          hoverClass = hover;
+      var button = self._button,
+          hoverClass = self._settings.hoverClass;
       ss.addClass(button, hoverClass);
       button = null;
       hoverClass = null;
     });
     
     ss.addEvent(input, 'mouseout', function() {
-      var button = btn,
+      var button = self._button,
           fileinput = input,
-          hoverClass = hover,
-          focusClass = focus;
+          hoverClass = self._settings.hoverClass,
+          focusClass = self._settings.focusClass;
       ss.removeClass(button, hoverClass);
       ss.removeClass(button, focusClass);
       
@@ -612,16 +601,16 @@ ss.SimpleUpload.prototype = {
     });   
           
     ss.addEvent(input, 'focus', function() {
-      var button = btn,
-          focusClass = focus;      
+      var button = self._button,
+          focusClass = self._settings.focusClass;      
       ss.addClass(button, focusClass);
       button = null;
       focusClass = null;
     });
     
     ss.addEvent(input, 'blur', function() {
-      var button = btn,
-          focusClass = focus;    
+      var button = self._button,
+          focusClass = self._settings.focusClass;    
       ss.removeClass(button, focusClass);
       button = null;
       focusClass = null;

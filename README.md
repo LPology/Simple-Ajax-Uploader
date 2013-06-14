@@ -366,7 +366,7 @@ if ($result) {
         <tr>
             <td><strong>onComplete(filename, response)</strong></td>
             <td><code>filename</code> (String), <code>response</code> (Mixed)</td>
-            <td>Function to be called when the upload is completed. The function gets passed two parameters: a string containing the filename; the data returned from the server, formatted according to the <code>responseType</code> setting. If <code>responseType</code> is <code>'json'</code>, the response will be evaluated as JSON and will return a Javascript object.</td>
+            <td>Function to be called when the upload is completed. The function gets passed two parameters: a string containing the filename; the data returned from the server, formatted according to the <code>responseType</code> setting.<br /><br />If <code>responseType</code> is <code>'json'</code>, the response will be evaluated as JSON and will return a Javascript object.</td>
         </tr>
         <tr>
             <td><strong>onError(filename, errorType, response)</strong></td>

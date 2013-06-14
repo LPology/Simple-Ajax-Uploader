@@ -172,7 +172,7 @@ Restart your web server for the changes to take effect.
 
 ### Cross-browser Helper Functions ###
 
-Feature support varies greatly across browsers, particularly with respect to progress data. To ease the pain of supporting older browsers, the plugin includes a set of callback functions which allow specific behavior to be defined based on whether a modern browser is being used.
+To ease the pain of supporting older browsers, the plugin includes a set of callback functions which allow specific behavior to be defined based on whether a modern browser is being used:
 
 <code>startXHR(filename, fileSize)</code> - Called prior to upload - only in browsers that support XHR uploads<br />
 <code>endXHR(filename)</code> - Called after upload is completed - only in browsers that support XHR uploads<br />

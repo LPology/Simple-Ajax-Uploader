@@ -398,7 +398,7 @@ if ($result) {
 
 ### API Reference - Multi-file uploading ###
 
-See above for examples and instructions for how to use <code>setProgressBar()</code>, <code>setFileSizeBox()</code>, and <code>setProgressContainer</code>.
+See above for examples and instructions for how to use <code>setProgressBar()</code>, <code>setFileSizeBox()</code>, and <code>setProgressContainer()</code>.
 
 
 <table>

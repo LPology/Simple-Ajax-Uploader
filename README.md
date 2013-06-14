@@ -139,6 +139,8 @@ In the example, the element set to be removed with `setProgressContainer()` is t
 
 ### Cross-browser Progress Support - How it Works ###
 
+Because the `progress` event is not supported by Internet Explorer 9 (and older), upload progress updates must be retrieved from the server to provide progress bars in those browsers. The plugin includes built-in support to do this.
+
 When the plugin detects browsers that support the HTML5 File API, the `progress` event is used. For other browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php (included in extras folder). This requires PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below).
 
 In both cases, everything is handled internally - feature detection, calculation, key handling, etc. To enable this behavior, just provide the URL for uploadProgress.php in the `progressUrl` option.

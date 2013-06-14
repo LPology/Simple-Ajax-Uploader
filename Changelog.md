@@ -2,7 +2,7 @@ ChangeLog
 ============================
 
 ### Version 1.5.2 ###
-(This isn't as much a release as it is a signal to update for anyone who may have downloaded version 1.5.1 in the past few hours.)
+(This isn't as much a release as it is a signal to update for anyone who may have downloaded version 1.5.1 in the past few hours)
 * Fixed "bug" from 1.5.1 that broke uploader without multiple option enabled
 * Added `queue` option to disable automatic file queuing
 

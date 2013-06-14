@@ -141,11 +141,14 @@ In the example, the element set to be removed with `setProgressContainer()` is t
 
 Because the `progress` event is not supported by Internet Explorer 9 (and older), progress updates must be retrieved from the server to provide progress bars in those browsers. The plugin includes built-in support to do this.
 
-When the plugin detects support for the File API, the `progress` event is used. For other browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php (included in extras folder). This requires PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below).
+When the plugin detects support for the File API, the `progress` event is used. For older browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php (included in extras folder). (PHP with the APC extension required - instructions below).
 
 In both cases, everything is handled internally - feature detection, calculation, key handling, etc. To enable this behavior, just provide the URL for uploadProgress.php in the `progressUrl` option.
 
 #### Installing the APC extension ####
+
+The built-in support for server progress updates requires PHP with the APC extension installed and the `apc.rfc1867` option enabled.
+
 ```
 sudo pecl install apc
 ```

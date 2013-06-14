@@ -183,7 +183,7 @@ For example, if you want to show an upload progress bar in browsers that support
 ```javascript  
 
 var progress = document.getElementById('progress'), // progress bar
-    loaderImg = document.getElementById('loaderImg');  // animated loading GIF
+    loaderImg = document.getElementById('loaderImg');  // "loading" animated GIF
                 
 var uploader = new ss.SimpleUpload({
       button: 'uploadButton',

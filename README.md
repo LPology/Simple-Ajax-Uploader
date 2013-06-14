@@ -179,12 +179,11 @@ To ease the pain of supporting older browsers, the plugin includes a set of call
 <code>startNonXHR(filename)</code> - Called prior to upload - only in browsers that <strong>do not</strong> support XHR uploads<br />
 <code>endNonXHR(filename)</code> - Called after upload is completed - only in browsers that <strong>do not</strong> support XHR uploads<br />
 
-For example, if we want to show an upload progress bar in browsers that support the <code>progress</code> event, while displaying an animated gif in older browsers:
+For example, if you want to show an upload progress bar in browsers that support the <code>progress</code> event while instead displaying an animated gif in older browsers:
 
 ```javascript  
 
-var sizeBox = document.getElementById('sizeBox'),
-    progress = document.getElementById('progress'),
+var progress = document.getElementById('progress'),
     loaderImg = document.getElementById('loaderImg'); 
                 
   var uploader = new ss.SimpleUpload({
@@ -197,20 +196,16 @@ var sizeBox = document.getElementById('sizeBox'),
         focusClass: 'ui-state-focus',
         disabledClass: 'ui-state-disabled',
         startXHR: function(filename, size) {                   
-            sizeBox.style.display = 'inline-block'; // show file size box
-            progress.style.display = 'inline-block'; // show progress bar
-            
-            this.setFileSizeBox(sizeBox); // designate as file size container
+            progress.style.display = 'inline-block'; // show progress bar            
             this.setProgressBar(progress); // designate as progress bar
         },
-        endXHR: function() {
-            sizeBox.style.display = 'none'; // hide file size box
+        endXHR: function(filename) {
             progress.style.display = 'none'; // hide progress bar
         },
-        startNonXHR: function() {
+        startNonXHR: function(filename) {
             loaderImg.style.display = 'inline-block'; // show animated GIF
         },
-        endNonXHR: function() {
+        endNonXHR: function(filename) {
             loaderImg.style.display = 'none'; // hide animated GIF
         }
 	});

@@ -390,7 +390,7 @@ See above for examples and instructions for how to use <code>setProgressBar()</c
       <tr>
         <td><strong>setProgressContainer(element)</strong></td>
         <td>Function</td>
-        <td>Designates an element to be removed from the DOM upon completion of an upload. Useful for cleaning up dynamic progress bars.</td>   
+        <td>Designates an element to be removed from the DOM upon completion of an upload. Useful for cleaning up dynamically created progress bars.</td>   
       </tr>       
     </tbody>  
 </table>

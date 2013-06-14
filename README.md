@@ -283,7 +283,21 @@ if ($result) {
             <td><strong>disabledClass</strong><br />Default: <code>''</code></td>
             <td>String</td>
             <td>Class applied to button when disabled.</td>
-        </tr>		
+        </tr>
+	</tbody>
+</table>
+        
+### API Reference - Callback functions ###
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>        
         <tr>
             <td><strong>onChange(filename, extension)</strong></td>
             <td>Function</td>
@@ -444,7 +458,7 @@ The following items are only applicable if the <code>progressUrl</code> option i
         <tr>
             <td><strong>onUpdateFileSize(filesize)</strong></td>
             <td>Function</td>
-            <td>This function serves the specific purpose of providing the upload file size in browsers that do not support the HTML5 File API. It is called after the first progress update. The function gets passed one argument: the size (in KB) of the uploaded file.</td>
+            <td>This callback function serves the specific purpose of providing the upload file size in browsers that do not support the HTML5 File API. It is called after the first progress update. The function gets passed one argument: the size (in KB) of the uploaded file.</td>
         </tr>	          
     </tbody>
 </table>

@@ -293,14 +293,14 @@ if ($result) {
     <thead>
         <tr>
             <th>Name</th>
-            <th>Type</th>
+            <th>Paramters</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>        
         <tr>
             <td><strong>onChange(filename, extension)</strong></td>
-            <td>Function</td>
+            <td><code>filename</code> (String), <code>extension</code> (String)</td>
             <td>Function to be called when user selects a file. The function gets passed two arguments: a string containing the filename; a string containing the file extension.</td>
         </tr>
         <tr>

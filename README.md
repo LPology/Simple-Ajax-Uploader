@@ -14,7 +14,6 @@ The project began as a rewrite of Andrew Valum's original Ajax Upload plugin. Th
 Include SimpleAjaxUploader.js into your page, and initialize the uploader when the DOM is ready:
 
 ```javascript
-
 var uploader = new ss.SimpleUpload({
 	button: 'upload-btn', // HTML element used as upload button
 	url: '/PathTo/UploadHandler', // URL of server-side upload handler
@@ -43,32 +42,32 @@ There are two main ways to use the plugin:
 This method uses static, on-page elements for the progress bar.
 
 ```javascript
-  var sizeBox = document.getElementById('sizeBox'), // container for file size info
-      progress = document.getElementById('progress'); // the element we're using for a progress bar
-  
-  var uploader = new ss.SimpleUpload({
-        button: 'uploadButton', // file upload button
-        url: 'uploadHandler.php', // server side handler
-        name: 'uploadfile', // upload parameter name        
-        progressUrl: 'uploadProgress.php', // enables cross-browser progress support (more info below)
-        responseType: 'json',
-        allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
-        maxSize: 1024, // kilobytes
-        hoverClass: 'ui-state-hover',
-        focusClass: 'ui-state-focus',
-        disabledClass: 'ui-state-disabled',
-        onSubmit: function(filename, extension) {
-            this.setFileSizeBox(sizeBox); // designate this element as file size container
-            this.setProgressBar(progress); // designate as progress bar
-          },         
-        onComplete: function(filename, response) {
-            if (!response) {
-                alert(filename + 'upload failed');
-                return false;            
-            }
-            // do something with response...
+var sizeBox = document.getElementById('sizeBox'), // container for file size info
+    progress = document.getElementById('progress'); // the element we're using for a progress bar
+
+var uploader = new ss.SimpleUpload({
+      button: 'uploadButton', // file upload button
+      url: 'uploadHandler.php', // server side handler
+      name: 'uploadfile', // upload parameter name        
+      progressUrl: 'uploadProgress.php', // enables cross-browser progress support (more info below)
+      responseType: 'json',
+      allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
+      maxSize: 1024, // kilobytes
+      hoverClass: 'ui-state-hover',
+      focusClass: 'ui-state-focus',
+      disabledClass: 'ui-state-disabled',
+      onSubmit: function(filename, extension) {
+          this.setFileSizeBox(sizeBox); // designate this element as file size container
+          this.setProgressBar(progress); // designate as progress bar
+        },         
+      onComplete: function(filename, response) {
+          if (!response) {
+              alert(filename + 'upload failed');
+              return false;            
           }
-  });        
+          // do something with response...
+        }
+});        
 ```        
 
 Before each upload, in the `onSubmit()` callback function, two elements are assigned specific roles using these two functions:<br />
@@ -82,55 +81,55 @@ Below is an example of how to implement multiple file uploading with progress ba
 The newly created elements are assigned roles using  the `setProgressBar()`, `setFileSizeBox()`, and `setProgressContainer()` functions.  The progress elements are removed when the upload is completed. 
  
 ```javascript  
-  var uploader = new ss.SimpleUpload({
-        button: 'uploadButton',
-        url: 'uploadHandler.php', // server side handler
-        progressUrl: 'uploadProgress.php', // enables cross-browser progress support (more info below)
-        responseType: 'json',
-        name: 'uploadfile',
-        multiple: true,
-        allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'], // for example, if we were uploading pics
-        hoverClass: 'ui-state-hover',
-        focusClass: 'ui-state-focus',
-        disabledClass: 'ui-state-disabled',   
-        onSubmit: function(filename, extension) {
-            // Create the elements of our progress bar
-            var progress = document.createElement('div'), // container for progress bar
-                bar = document.createElement('div'), // actual progress bar
-                fileSize = document.createElement('div'), // container for upload file size
-                wrapper = document.createElement('div'), // container for this progress bar
-                progressBox = document.getElementById('progressBox'); // on page container for progress bars
-            
-            // Assign each element its corresponding class
-            progress.className = 'progress';
-            bar.className = 'bar';            
-            fileSize.className = 'size';
-            wrapper.className = 'wrapper';
-            
-            // Assemble the progress bar and add it to the page
-            progress.appendChild(bar); 
-            wrapper.innerHTML = '<div class="name">'+filename+'</div>'; // filename is passed to onSubmit()
-            wrapper.appendChild(fileSize);
-            wrapper.appendChild(progress);                                       
-            progressBox.appendChild(wrapper); // just an element on the page to hold the progress bars    
-            
-            // Assign roles to the elements of the progress bar
-            this.setProgressBar(bar); // will serve as the actual progress bar
-            this.setFileSizeBox(fileSize); // display file size beside progress bar
-            this.setProgressContainer(wrapper); // designate the containing div to be removed after upload
-          },
+var uploader = new ss.SimpleUpload({
+      button: 'uploadButton',
+      url: 'uploadHandler.php', // server side handler
+      progressUrl: 'uploadProgress.php', // enables cross-browser progress support (more info below)
+      responseType: 'json',
+      name: 'uploadfile',
+      multiple: true,
+      allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'], // for example, if we were uploading pics
+      hoverClass: 'ui-state-hover',
+      focusClass: 'ui-state-focus',
+      disabledClass: 'ui-state-disabled',   
+      onSubmit: function(filename, extension) {
+          // Create the elements of our progress bar
+          var progress = document.createElement('div'), // container for progress bar
+              bar = document.createElement('div'), // actual progress bar
+              fileSize = document.createElement('div'), // container for upload file size
+              wrapper = document.createElement('div'), // container for this progress bar
+              progressBox = document.getElementById('progressBox'); // on page container for progress bars
           
-         // Do something after finishing the upload
-         // Note that the progress bar will be automatically removed upon completion because everything 
-         // is encased in the "wrapper", which was designated to be removed with setProgressContainer() 
-        onComplete:	function(filename, response) {
-            if (!response) {
-              alert(filename + 'upload failed');
-              return false;
-            }
-            // Stuff to do after finishing an upload...
+          // Assign each element its corresponding class
+          progress.className = 'progress';
+          bar.className = 'bar';            
+          fileSize.className = 'size';
+          wrapper.className = 'wrapper';
+          
+          // Assemble the progress bar and add it to the page
+          progress.appendChild(bar); 
+          wrapper.innerHTML = '<div class="name">'+filename+'</div>'; // filename is passed to onSubmit()
+          wrapper.appendChild(fileSize);
+          wrapper.appendChild(progress);                                       
+          progressBox.appendChild(wrapper); // just an element on the page to hold the progress bars    
+          
+          // Assign roles to the elements of the progress bar
+          this.setProgressBar(bar); // will serve as the actual progress bar
+          this.setFileSizeBox(fileSize); // display file size beside progress bar
+          this.setProgressContainer(wrapper); // designate the containing div to be removed after upload
+        },
+        
+       // Do something after finishing the upload
+       // Note that the progress bar will be automatically removed upon completion because everything 
+       // is encased in the "wrapper", which was designated to be removed with setProgressContainer() 
+      onComplete:	function(filename, response) {
+          if (!response) {
+            alert(filename + 'upload failed');
+            return false;
           }
-	});
+          // Stuff to do after finishing an upload...
+        }
+});
 ```
 
 For multiple file uploads, we use an additional function: `setProgressContainer(elem)`. This function designates an element to be removed from the DOM after the upload is completed.

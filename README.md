@@ -44,7 +44,7 @@ This method uses static, on-page elements for the progress bar.
 
 ```javascript
   var sizeBox = document.getElementById('sizeBox'), // container for file size info
-      progressBar = document.getElementById('progressBar'); // the element we're using for a progress bar
+      progress = document.getElementById('progress'); // the element we're using for a progress bar
   
 	var uploader = new ss.SimpleUpload({
         button: 'uploadButton', // file upload button
@@ -59,7 +59,7 @@ This method uses static, on-page elements for the progress bar.
         disabledClass: 'ui-state-disabled',
         onSubmit: function(filename, extension) {
             this.setFileSizeBox(sizeBox); // designate this element as file size container
-            this.setProgressBar(progressBar); // designate as progress bar
+            this.setProgressBar(progress); // designate as progress bar
           },         
         onComplete: function(filename, response) {
             if (!response) {

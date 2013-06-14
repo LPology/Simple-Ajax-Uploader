@@ -406,39 +406,6 @@ if ($result) {
 	</tbody>
 </table>
 
-### API Reference - Multi-file uploading ###
-
-See above for examples and instructions for how to use <code>setProgressBar()</code>, <code>setFileSizeBox()</code>, and <code>setProgressContainer()</code>.
-
-
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>   
-            
-      <tr>
-        <td><strong>setProgressBar(element)</strong></td>
-        <td>Function</td>
-        <td>Designates an element to serve as an upload progress bar. The CSS width of the element will be set to 0% at the start of the upload, and then updated accordingly by percentage as the upload progresses.</td>    
-      </tr>
-      <tr>
-        <td><strong>setFileSizeBox(element)</strong></td>
-        <td>Function</td>
-        <td>Designates an element as the container in which the file size of an uploading file will be inserted upon the start of the upload.</td>    
-      </tr>      
-      <tr>
-        <td><strong>setProgressContainer(element)</strong></td>
-        <td>Function</td>
-        <td>Designates an element to be removed from the DOM upon completion of an upload. Useful for cleaning up dynamically created progress bars.</td>   
-      </tr>       
-    </tbody>  
-</table>
-
 ### API Reference - User experience ###
 
 <table>
@@ -511,6 +478,8 @@ The following items are only applicable if the <code>progressUrl</code> option i
 
 ### API Reference - Instance methods ###
 
+<strong>Note:</strong> See the examples above for instructions on how to use <code>setProgressBar()</code>, <code>setFileSizeBox()</code>, and <code>setProgressContainer()</code>.
+
 <table>
     <thead>
         <tr>
@@ -549,7 +518,22 @@ The following items are only applicable if the <code>progressUrl</code> option i
             <td><strong>removeCurrent()</strong></td>
             <td><i>none</i></td>
             <td>Remove the currently active file from the queue. Must be called prior to the start of upload (for example, within <code>onSubmit()</code> or <code>onChange()</code>).</td>
-        </tr>	        
+        </tr>	
+      <tr>
+        <td><strong>setProgressBar(element)</strong></td>
+        <td>Function</td>
+        <td>Designates an element to serve as an upload progress bar. The CSS width of the element will be set to 0% at the start of the upload, and then updated accordingly by percentage as the upload progresses.</td>    
+      </tr>
+      <tr>
+        <td><strong>setFileSizeBox(element)</strong></td>
+        <td>Function</td>
+        <td>Designates an element as the container in which the file size of an uploading file will be inserted upon the start of the upload.</td>    
+      </tr>      
+      <tr>
+        <td><strong>setProgressContainer(element)</strong></td>
+        <td>Function</td>
+        <td>Designates an element to be removed from the DOM upon completion of an upload. Useful for cleaning up dynamically created progress bars.</td>   
+      </tr>         
 	</tbody>
 </table>
 

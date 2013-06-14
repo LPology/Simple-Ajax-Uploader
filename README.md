@@ -186,29 +186,29 @@ For example, if you want to show an upload progress bar in browsers that support
 var progress = document.getElementById('progress'),
     loaderImg = document.getElementById('loaderImg'); 
                 
-  var uploader = new ss.SimpleUpload({
-        button: 'uploadButton',
-        url: 'uploadHandler.php', // server side handler
-        progressUrl: 'uploadProgress.php', // enables cross-browser progress support (more info below)
-        responseType: 'json',
-        name: 'uploadfile',
-        hoverClass: 'ui-state-hover',
-        focusClass: 'ui-state-focus',
-        disabledClass: 'ui-state-disabled',
-        startXHR: function(filename, size) {                   
-            progress.style.display = 'inline-block'; // show progress bar            
-            this.setProgressBar(progress); // designate as progress bar
-        },
-        endXHR: function(filename) {
-            progress.style.display = 'none'; // hide progress bar
-        },
-        startNonXHR: function(filename) {
-            loaderImg.style.display = 'inline-block'; // show animated GIF
-        },
-        endNonXHR: function(filename) {
-            loaderImg.style.display = 'none'; // hide animated GIF
-        }
-	});
+var uploader = new ss.SimpleUpload({
+      button: 'uploadButton',
+      url: 'uploadHandler.php', // server side handler
+      progressUrl: 'uploadProgress.php', // enables cross-browser progress support (more info below)
+      responseType: 'json',
+      name: 'uploadfile',
+      hoverClass: 'ui-state-hover',
+      focusClass: 'ui-state-focus',
+      disabledClass: 'ui-state-disabled',
+      startXHR: function(filename, size) {                   
+          progress.style.display = 'inline-block'; // show progress bar            
+          this.setProgressBar(progress); // designate as progress bar
+      },
+      endXHR: function(filename) {
+          progress.style.display = 'none'; // hide progress bar
+      },
+      startNonXHR: function(filename) {
+          loaderImg.style.display = 'inline-block'; // show animated GIF
+      },
+      endNonXHR: function(filename) {
+          loaderImg.style.display = 'none'; // hide animated GIF
+      }
+});
 ```
 
 ### Using Uploader.php ###

@@ -421,7 +421,7 @@ See above for examples and instructions for how to use <code>setProgressBar()</c
     <tr>
       <td><strong>maxSize</strong><br />Default: <code>false</code></td>
       <td>Integer</td>
-      <td>Maximum allowed file size (in kilobytes). Only works in browsers that support HTML5 File API.
+      <td>Maximum allowed file size (in kilobytes). Only works in browsers that support File API.
       </td>
      </tr>    
      

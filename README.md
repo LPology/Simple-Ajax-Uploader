@@ -463,7 +463,8 @@ The following items are only applicable if the <code>progressUrl</code> option i
     </tbody>
 </table>
 
-### Instance Methods ###
+### API Reference - Instance methods ###
+
 <table>
     <thead>
         <tr>

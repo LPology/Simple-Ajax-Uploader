@@ -1,6 +1,6 @@
 /**  
  * Simple Ajax Uploader
- * Version 1.5.1 
+ * Version 1.5.2
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC  
@@ -350,6 +350,7 @@ ss.SimpleUpload = function(options) {
     progressUrl: false,
     multiple: false,
     maxUploads: 3,
+    queue: true,
     checkProgressInterval: 50,
     keyParamName: 'APC_UPLOAD_PROGRESS',
     allowedExtensions: [],
@@ -385,6 +386,10 @@ ss.SimpleUpload = function(options) {
   
   if (this._button === false) {
     throw new Error("Invalid button. Make sure the element you're passing exists."); 
+  }
+  
+  if (this._settings.multiple === false) {
+    this._settings.maxUploads = 1;
   }
                             
   this._input = null;
@@ -1066,6 +1071,10 @@ ss.SimpleUpload.prototype = {
             checkInterval = null;
           }
         } else {
+          key = null;
+          self._doProgressUpdates = false;
+          self._uploadProgressKey = null;
+          ss.removeItem(self._activeProgressKeys, key);
           self.log('Progress error. Status: '+this.status+' Response: '+this.responseText);
         }
       }                 
@@ -1226,9 +1235,9 @@ ss.SimpleUpload.prototype = {
     // Increment the active upload counter
     this._activeUploads++;
     
-    // Disable uploading if we've reached max uploads 
-    // or if multiple file uploads are not ebabled
-    if (this._settings.multiple === false) {
+    // Disable uploading if multiple file uploads are not enabled
+    // or if queue is disabled and we've reached max uploads
+    if (this._settings.multiple === false || this._settings.queue === false && this._activeUploads >= this._settings.maxUploads) {
       this.disable();
     }
             

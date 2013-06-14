@@ -74,7 +74,7 @@ This method uses static, on-page elements for the progress bar:
 	});        
 ```        
 
-#### Method 2: Multiple File Uploads With Cross-Browser Progress Support ####
+#### Method 2: Multiple file uploads ####
 
 Below is an example of how to implement multiple file uploading with progress bars. Using only two callbacks, we achieve cross-browser, multiple file uploads with progress bar support for each individual file. 
  

@@ -134,8 +134,6 @@ The newly created elements are assigned roles using  the `setProgressBar()`, `se
 	});
 ```
 
-Before each upload, a progress bar is created in the `onSubmit()` callback. Like in Method 1 above, we assign specific roles to elements using the `setProgressBar(elem)` and `setFileSizeBox(elem)` functions.
-
 For multiple file uploads, we use an additional function: `setProgressContainer(elem)`. This function designates an element to be removed from the DOM after the upload is completed.
 
 In the example, the element set to be removed with `setProgressContainer()` is the outer container for the progress elements. As a result, progress bars will be removed from the DOM after each upload is completed.

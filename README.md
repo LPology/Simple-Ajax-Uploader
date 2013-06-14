@@ -10,16 +10,6 @@ Simple Ajax Uploader allows developers to easily add Ajax file upload functional
 
 The project began as a rewrite of Andrew Valum's original Ajax Upload plugin. The goal of the project is make file uploading easy for developers and pleasant for users.
 
-### Features ###
-* Uses XMLHttpRequest and HTML5 File API with fall back to iframe method for Internet Explorer 9 and older.
-* Supports multiple, concurrent file uploads - even in non-HTML5 browsers.
-* No external libraries required - use it with or without jQuery.
-* Works in all major browsers: IE7+, Firefox 4+, Safari 4+, Chrome, and Opera.
-* Fast and lightweight - less than 5KB, minified and gzipped.
-* Built-in support for implementing truly cross-browser progress bars.
-* Use any HTML element as the upload button.
-* Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads.
-
 ### Quick Start Example ###
 Include SimpleAjaxUploader.js into your page, and initialize the uploader when the DOM is ready:
 
@@ -32,7 +22,61 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
-### Multiple File Uploads With Cross-Browser Progress Support ###
+### Features ###
+* Uses XMLHttpRequest and HTML5 File API with fall back to iframe method for Internet Explorer 9 and older.
+* Supports multiple, concurrent file uploads - even in non-HTML5 browsers.
+* No external libraries required - use it with or without jQuery.
+* Works in all major browsers: IE7+, Firefox 4+, Safari 4+, Chrome, and Opera.
+* Fast and lightweight - only 5KB, minified and gzipped.
+* Built-in support for implementing truly cross-browser progress bars.
+* Use any HTML element as the upload button.
+* Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads.
+
+### How to Use ###
+There are two ways to use the plugin:
+<strong>1. Single file uploading</strong> - Only one upload allowed at a time. Progress bar is a static, on-page element.
+<strong>2. Multiple file uploading</strong> - Allow multiple, concurrent file uploads. Progress bars are dynamically created with each upload.
+
+Below are examples of how to implement both methods. Additional information is included in the comments.
+
+#### Method 1:  ####
+
+This method uses static, on-page elements for the progress bar:
+
+```html
+  <div id="sizeBox"></div><div id="progressBar"></div>
+```
+
+```javascript
+  var sizeBox = document.getElementById('sizeBox'),
+      progressBar = document.getElementById('progressBar');
+  
+	var uploader = new ss.SimpleUpload({
+        button: 'uploadButton', // file upload button
+        url: 'uploadHandler.php', // server side handler
+        name: 'uploadfile', // upload parameter name        
+        progressUrl: 'uploadProgress.php', // enables cross-browser progress support (more info below)
+        responseType: 'json',
+        allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
+        maxSize: 500, // kilobytes
+        hoverClass: 'ui-state-hover',
+        focusClass: 'ui-state-focus',
+        disabledClass: 'ui-state-disabled',
+        onSubmit: function(filename, extension) {
+            this.setFileSizeBox(sizeBox);
+            this.setProgressBar(progressBar);
+          },         
+        onComplete: function(filename, response) {
+            if (!response) {
+                alert(filename + 'upload failed');
+                return false;            
+            }
+            // do something with response...
+          }
+	});        
+```        
+
+#### Method 2: Multiple File Uploads With Cross-Browser Progress Support ####
 
 Below is an example of how to implement multiple file uploading with progress bars. Using only two callbacks, we achieve cross-browser, multiple file uploads with progress bar support for each individual file. 
  
@@ -47,7 +91,6 @@ Below is an example of how to implement multiple file uploading with progress ba
         allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'], // for example, if we were uploading pics
         hoverClass: 'ui-state-hover',
         focusClass: 'ui-state-focus',
-        activeClass: 'ui-state-focus',
         disabledClass: 'ui-state-disabled',   
         onSubmit: function(filename, extension) {
             // Create the elements of our progress bar

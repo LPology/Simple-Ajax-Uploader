@@ -66,8 +66,6 @@ This method uses static, on-page elements for the progress bar.
                 alert(filename + 'upload failed');
                 return false;            
             }
-            progress.style.display = 'none'; // hide after upload finishes
-            sizeBox.style.display = 'none';
             // do something with response...
           }
 	});        

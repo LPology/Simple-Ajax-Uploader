@@ -46,7 +46,7 @@ This method uses static, on-page elements for the progress bar.
   var sizeBox = document.getElementById('sizeBox'), // container for file size info
       progress = document.getElementById('progress'); // the element we're using for a progress bar
   
-	var uploader = new ss.SimpleUpload({
+  var uploader = new ss.SimpleUpload({
         button: 'uploadButton', // file upload button
         url: 'uploadHandler.php', // server side handler
         name: 'uploadfile', // upload parameter name        
@@ -82,7 +82,7 @@ Below is an example of how to implement multiple file uploading with progress ba
 The newly created elements are assigned roles using  the `setProgressBar()`, `setFileSizeBox()`, and `setProgressContainer()` functions.  The progress elements are removed when the upload is completed. 
  
 ```javascript  
-	var uploader = new ss.SimpleUpload({
+  var uploader = new ss.SimpleUpload({
         button: 'uploadButton',
         url: 'uploadHandler.php', // server side handler
         progressUrl: 'uploadProgress.php', // enables cross-browser progress support (more info below)

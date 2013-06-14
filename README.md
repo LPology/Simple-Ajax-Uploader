@@ -286,7 +286,12 @@ if ($result) {
             <td><strong>progressUrl</strong><br />Default: <code>''</code></td>
             <td>String</td>
             <td>Set to the location of uploadProgress.php (included) to enable cross-browser upload progress tracking (see example above).</td>
-        </tr>	                         
+        </tr>	 
+        <tr>
+          <td><strong>multiple</strong><br />Default: <code>false</code></td>
+          <td>Boolean</td>
+          <td>Set to <code>true</code> to enable multiple, concurrent file uploads.</td>    
+        </tr>        
         <tr>
             <td><strong>data</strong><br />Default: <code>{}</code></td>
             <td>Object</td>

@@ -306,12 +306,6 @@ ss.remove = function(elem) {
   }
 };
 
-ss.empty = function(elem) {
- while (elem.firstChild) {
-        elem.removeChild(elem.firstChild);
-    }
-};
-
 /**
  * Accepts a jquery object, a string containing an element ID, or an element, 
  * verifies that it exists, and returns the element.

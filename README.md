@@ -147,7 +147,7 @@ In both cases, everything is handled internally - feature detection, calculation
 
 #### Installing the APC extension ####
 
-The built-in support for server progress updates requires PHP with the APC extension installed and the `apc.rfc1867` option enabled.
+The built-in support for server progress updates requires PHP with the APC extension installed and the `apc.rfc1867` option enabled. To install APC:
 
 ```
 sudo pecl install apc

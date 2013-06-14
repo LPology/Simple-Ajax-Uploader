@@ -361,7 +361,7 @@ if ($result) {
         <tr>
             <td><strong>onProgress(pct)</strong></td>
             <td><code>pct</code> (Integer)</td>
-            <td>Function to be called on the progress event for browsers that support XHR uploads. The function gets passed one argument: an integer representing the upload completion percentage.</td>
+            <td>Function to be called on the <code>progress</code> event for browsers that support XHR uploads, and in older browsers when server progress updates are received if <code>progressURL</code> is defined. The function gets passed one argument: an integer representing the upload completion percentage.</td>
         </tr>
         <tr>
             <td><strong>onComplete(filename, response)</strong></td>

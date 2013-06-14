@@ -423,12 +423,12 @@ See above for examples and instructions for how to use <code>setProgressBar()</c
       <tr>
         <td><strong>setProgressBar(element)</strong></td>
         <td>Function</td>
-        <td>Designates an element to serve as an upload progress bar. The CSS width percentage of the element will be updated as the upload progresses.</td>    
+        <td>Designates an element to serve as an upload progress bar. The CSS width percentage of the element will be set to 0% at the start of the upload, and then updated accordingly as the upload progresses.</td>    
       </tr>
       <tr>
         <td><strong>setFileSizeBox(element)</strong></td>
         <td>Function</td>
-        <td>Designates an element as the container in which the file size of an uploading file will be inserted.</td>    
+        <td>Designates an element as the container in which the file size of an uploading file will be inserted at the start of the upload.</td>    
       </tr>      
       <tr>
         <td><strong>setProgressContainer(element)</strong></td>

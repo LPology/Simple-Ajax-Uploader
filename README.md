@@ -476,24 +476,29 @@ The following items are only applicable if the <code>progressUrl</code> option i
     <tbody>
         <tr>
             <td><strong>submit()</strong></td>
-			<td><i>none</i></td>
+            <td><i>none</i></td>
             <td>Begins the file upload process. Note that if <code>autoSubmit</code> is set to <code>true</code> (the default value), there is no need to manually call <code>submit()</code>. The upload process will begin immediately after the user selects a file.</td>
         </tr>	
         <tr>
             <td><strong>setData(data)</strong></td>
-			<td><code>data</code> (Object)</td>
+            <td><code>data</code> (Object)</td>
             <td>Replaces the data to be sent to the server. Note that all previously set data is entirely removed and replaced.</td>
         </tr>
         <tr>
             <td><strong>disable()</strong></td>
-			<td><i>none</i></td>
+            <td><i>none</i></td>
             <td>Disables upload functionality.</td>
         </tr>		
         <tr>
             <td><strong>enable()</strong></td>
-			<td><i>none</i></td>
+            <td><i>none</i></td>
             <td>Restores upload functionality.</td>
         </tr>			
+        <tr>
+            <td><strong>removeCurrent()</strong></td>
+            <td><i>none</i></td>
+            <td>Remove the currently active file from the queue. Must be called prior to the start of upload (for example, in the `onSubmit()` or `onChange()` callbacks).</td>
+        </tr>	        
 	</tbody>
 </table>
 

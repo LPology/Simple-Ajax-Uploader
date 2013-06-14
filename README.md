@@ -136,6 +136,8 @@ Before each upload, a progress bar is created in the `onSubmit()` callback. Like
 
 For multiple file uploads, we use an additional function, `setProgressContainer(elem)`, which designates an element to be removed from the DOM after the upload is completed.
 
+The element designated to be removed with `setProgressContainer()` is the outer container for the progress elements. As a result, progress bars will be removed from the DOM after each upload is completed.
+
 ### Cross-browser Progress Support - How it Works ###
 
 When the plugin detects browsers that support the HTML5 File API, the `progress` event is used. For other browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php (included in extras folder). This requires PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below).

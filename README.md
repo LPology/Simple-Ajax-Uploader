@@ -177,7 +177,7 @@ File handling and uploading features vary greatly across browsers, particularly 
 <code>startXHR(filename, fileSize)</code> - Function called prior to upload in only browsers that support XHR uploads<br />
 <code>endXHR(filename)</code> - Function called after upload is completed in only browsers that support XHR uploads<br />
 <code>startNonXHR(filename)</code> - Function called prior to upload in only browsers that <strong>do not</strong> support XHR uploads<br />
-<code>endNonXHR(filename)</code><br />
+<code>endNonXHR(filename)</code> - Function called after upload is completed in only browsers that <strong>do not</strong> support XHR uploads<br />
 
 ### Using Uploader.php ###
 

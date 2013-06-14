@@ -357,6 +357,11 @@ The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox
         <td>Max number of simultaneous uploads.</td>    
       </tr>       
       <tr>
+        <td><strong>getQueueSize()</strong></td>
+        <td>Function</td>
+        <td>Returns number of files currently waiting in queue.</td>    
+      </tr>       
+      <tr>
         <td><strong>setProgressBar(element)</strong></td>
         <td>Function</td>
         <td>Designates an element to serve as an upload progress bar. The CSS width percentage of the element will be updated as the upload progresses.</td>    

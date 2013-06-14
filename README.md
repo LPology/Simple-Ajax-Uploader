@@ -175,8 +175,8 @@ Restart your web server for the changes to take effect.
 File handling and uploading features vary greatly across browsers, particularly with respect to progress data. To ease the pain of supporting older browsers, the plugin includes a set of functions which allow specific behavior to be defined based on whether a modern browser is being used.
 
 <code>startXHR(filename, fileSize)</code> - Function called prior to upload in only browsers that support XHR uploads<br />
-<code>endXHR(filename)</code> - function called after upload is completed in only browsers that support XHR uploads<br />
-<code>startNonXHR(filename)</code><br />
+<code>endXHR(filename)</code> - Function called after upload is completed in only browsers that support XHR uploads<br />
+<code>startNonXHR(filename)</code> - Function called prior to upload in only browsers that <strong>do not</strong> support XHR uploads<br />
 <code>endNonXHR(filename)</code><br />
 
 ### Using Uploader.php ###

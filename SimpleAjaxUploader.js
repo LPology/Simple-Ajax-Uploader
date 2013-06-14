@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 1.5
+ * Version 1.5.1 
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC  
@@ -242,10 +242,9 @@ ss.toElement = (function() {
 * Generates unique id
 */
 ss.getUID = (function() {
-  var id = 0,
-      time = new Date().getTime();
+  var id = 0;
   return function(){
-    return time + id++;
+    return id++;
   };
 })();
 
@@ -254,6 +253,13 @@ ss.getUID = (function() {
 */
 ss.trim = function(text) {
   return text.toString().replace(/^\s+/, '').replace( /\s+$/, '');
+};
+
+/**
+* Extract file name from path
+*/ 
+ss.getFilename = function(path) {
+  return path.replace(/.*(\/|\\)/, '');
 };
     
 /**
@@ -384,6 +390,9 @@ ss.SimpleUpload = function(options) {
   this._input = null;
   this._filename = null;
   this._ext = null; // file extension
+  this._size = null; // file size
+  this._file = null; // file record 
+  this._queue = [];  
   this._progressBar = null;
   this._progressContainer = null;  
   this._fileSizeBox = null;
@@ -427,7 +436,7 @@ ss.SimpleUpload.prototype = {
   /**
   * Send data to browser console if debug is set to true
   */ 
-  log: function(str){
+  log: function(str) {
     if (this._settings.debug && window.console) { 
       console.log('[uploader] ' + str);        
     }
@@ -467,7 +476,22 @@ ss.SimpleUpload.prototype = {
   */  
   setProgressContainer: function(elem) {
     this._progressContainer = ss.verifyElem(elem); 
-  },  
+  },
+  
+  /**
+  * Returns number of files currently in queue
+  */    
+  getQueueSize: function() {
+    return this._queue.length;
+  },
+  
+  /**
+  * Remove the current file from the queue and cycle to the next
+  */  
+  removeCurrent: function() {
+    this._queue.splice(0, 1); // remove the offending file
+    this._cycleQueue();  
+  },
   
   /**
   * Disables upload functionality
@@ -505,7 +529,7 @@ ss.SimpleUpload.prototype = {
   */		
   _isXhrUploadSupported: function() {
     var input = document.createElement('input');
-    input.type = 'file';        
+    input.type = 'file';
     return (
       'multiple' in input &&
       typeof File != 'undefined' &&
@@ -523,7 +547,11 @@ ss.SimpleUpload.prototype = {
         input = document.createElement('input');                  
           
     input.setAttribute('type', 'file');
-    input.setAttribute('name', self._settings.name);                              
+    input.setAttribute('name', self._settings.name);
+    
+    if (this._XhrIsSupported && this._settings.multiple) {
+      input.setAttribute('multiple', true);
+    }
     
     ss.addStyles(div, {
       'display' : 'block',
@@ -555,24 +583,44 @@ ss.SimpleUpload.prototype = {
     }      
     
     ss.addEvent(input, 'change', function() {
-      var fileinput = input;
+      var filename,
+          ext,
+          total,
+          i;
           
-      if (!fileinput || fileinput.value === '') {                
+      if (!input || input.value === '') {
         return;                
-      }						
-      // Get filename        
-      self._filename = fileinput.value.replace(/.*(\/|\\)/, '');
-      self._ext = ss.getExt(self._filename);
-              
-      if (false === self._settings.onChange.call(self, self._filename, self._ext)) {
-        return;
-      }			
+      }
+      
+      if (!self._settings.multiple || !self._XhrIsSupported) {
+        filename = ss.getFilename(input.value);
+        ext = ss.getExt(filename);        
+        if (false === self._settings.onChange.call(self, filename, ext)) {
+          return;
+        }      
+        self._queue.push(input);            
+      } else {
+        total = input.files.length;               
+        filename = (input.files[0].fileName !== null && input.files[0].fileName !== undefined) ? input.files[0].fileName : input.files[0].name;
+        filename = ss.getFilename(filename);
+        ext = ss.getExt(filename);       
+        if (false === self._settings.onChange.call(self, filename, ext)) {
+          return;
+        } 
+        for (i = 0; i < total; i++) {
+          self._queue.push(input.files[i]);               
+        }         
+      }
+      
+      self._clearInput();
+     
       // Submit when file selected if autoSubmit option is set
       if (self._settings.autoSubmit) {
         self.submit();
-      }
+      } 
       
-      fileinput = null;
+      filename = null;
+      ext = null;
     });                
     
     ss.addEvent(input, 'mouseover', function() {
@@ -621,18 +669,13 @@ ss.SimpleUpload.prototype = {
     self._input = input; 
   },  
   
-  _clearInput : function() {
+  _clearInput: function() {
     if (!this._input) {
       return;
     } 
-    this._filename = null;
-    this._ext = null;
-    this._fileSizeBox = null;
-    this._progressBar = null;
-    this._progressContainer = null;    
-    ss.remove(this._input.parentNode);                            
     ss.removeClass(this._button, this._settings.hoverClass);
     ss.removeClass(this._button, this._settings.focusClass);
+    ss.remove(this._input.parentNode);                            
     this._input = null;
     this._createInput();		
   },
@@ -703,9 +746,9 @@ ss.SimpleUpload.prototype = {
     return input;
   },
   
-  _finish: function(response, filename, progressBar, fileSizeBox, progressContainer) {       
+  _finish: function(response, filename, progressBar, fileSizeBox, progressContainer) {
     this.log('server response: '+response);        
-    this._activeUploads = this._activeUploads - 1;
+    this._activeUploads--;
     
     if (this._settings.responseType.toLowerCase() == 'json') {
       response = ss.parseJSON(response);
@@ -731,17 +774,34 @@ ss.SimpleUpload.prototype = {
 
     if (this._disabled) {
       this.enable();
-    }            
-  },			
+    }
+    
+    // Begin uploading next file in the queue   
+    this._cycleQueue();
+  },  
+
+  _cycleQueue: function() {   
+    this._size = null;
+    this._file = null;  
+    this._filename = null;
+    this._ext = null;
+    this._fileSizeBox = null;
+    this._progressBar = null;   
+    this._progressContainer = null;
+    
+    if (this._queue.length > 0) {
+      this.submit();
+    }
+  },	 
 	
   /**
   * Handles uploading with XHR
   */		
-  _uploadXhr: function() {
+  _uploadXhr: function(id) {
     var self = this,
         settings = self._settings,
         filename = self._filename,
-        fileSize = Math.round(self._input.files[0].size / 1024),			
+        fileSize = Math.round(self._size / 1024),
         fileSizeBox = self._fileSizeBox,
         progressBar = self._progressBar,
         progressContainer = self._progressContainer,
@@ -753,6 +813,7 @@ ss.SimpleUpload.prototype = {
       if (self._disabled) {
         self.enable();
       }
+      this._activeUploads--;
       return;
     }
     
@@ -818,17 +879,17 @@ ss.SimpleUpload.prototype = {
           
     if (settings.multipart === true) {
       var formData = new FormData();
-      formData.append(settings.name, self._input.files[0]);
+      formData.append(settings.name, self._file);
       self.log('commencing upload using multipart form');
       xhr.send(formData);
     } else {
       xhr.setRequestHeader('Content-Type', 'application/octet-stream');                 
       self.log('commencing upload using binary stream');
-      xhr.send(self._input.files[0]);
+      xhr.send(self._file);
     }
     
-    // Reset for the next request
-    self._clearInput();
+    // Remove this file from the queue and begin next upload
+    self.removeCurrent();   
   },
 	
   /**
@@ -888,6 +949,7 @@ ss.SimpleUpload.prototype = {
       if (self._disabled) {
         self.enable();    
       }
+      this._activeUploads--;
       return;
     }
 
@@ -909,7 +971,7 @@ ss.SimpleUpload.prototype = {
       }
     }			
             
-    form.appendChild(self._input);
+    form.appendChild(self._file);
             
     ss.addEvent(iframe, 'load', function() {
       // Remove key from active progress keys array
@@ -938,11 +1000,11 @@ ss.SimpleUpload.prototype = {
       }, checkInterval);
 
       // Get new upload progress key          
-      self._getUploadProgressKey();             
+      self._alterProgressKey();             
     }    
     
-    // Reset for the next request
-    self._clearInput();    
+    // Remove this file from the queue
+    self.removeCurrent();       
   },  
 
   /**
@@ -1008,6 +1070,10 @@ ss.SimpleUpload.prototype = {
     xhr.setRequestHeader('Cache-Control', 'no-cache');
     xhr.send();
     xhr = null;
+  },
+  
+  _alterProgressKey: function() {
+    this._uploadProgressKey = this._uploadProgressKey + ss.getUID();
   },
 
   /**
@@ -1080,18 +1146,10 @@ ss.SimpleUpload.prototype = {
   },
 
   _checkFile: function() {
-    var input = this._input,    
-        size;
-        
-    if (!input || input.value === '') {
+    if (!this._file || this._file.value === '') {
       this.log('no file to upload');
       return false;         
     }        
-    
-    // File size is only available in browsers with HTML5 File API
-    if (this._XhrIsSupported) {
-      size = (input.files !== null && input.files[0].size !== null && typeof input.files[0].size !== 'undefined') ? input.files[0].size : null;        
-    }
     
     // Only check file type if allowedExtensions is set
     if (this._settings.allowedExtensions.length > 0) {
@@ -1100,9 +1158,9 @@ ss.SimpleUpload.prototype = {
         this._errorMsg('ext');
         return false;
       }
-    }
+    }   
     
-    if (size !== null && this._settings.maxSize !== false && size / 1024 > this._settings.maxSize) {
+    if (this._size !== null && this._settings.maxSize !== false && this._size / 1024 > this._settings.maxSize) {
       this.log('file exceeds ' + this._settings.maxSize + 'K limit');
       this._errorMsg('size');
       return false;
@@ -1122,17 +1180,34 @@ ss.SimpleUpload.prototype = {
       }    
     }    
     return false;
-  },  
+  },
 	
   /**
   * Validates input and directs to either XHR method or iFrame method
   */
-  submit: function() {
-    if (this._disabled) {
-      return;                  
+  submit: function() {    
+    if (this._disabled || this._activeUploads >= this._settings.maxUploads) {
+      return;
+    }    
+    
+    // The next file in the queue will always be in the front of the array
+    this._file = this._queue[0];    
+    
+    if (this._XhrIsSupported && this._settings.multiple) {
+      this._filename = (this._queue[0].fileName !== null && this._queue[0].fileName !== undefined) ? this._queue[0].fileName : this._queue[0].name;
+      this._filename = ss.getFilename(this._filename);
+    } else {
+      this._filename = ss.getFilename(this._queue[0].value);
     }
+    
+    this._ext = ss.getExt(this._filename);
+    
+    if (this._XhrIsSupported) {
+      this._size = this._queue[0].size;
+    }    
 
     if (!this._checkFile()) {
+      this.removeCurrent();
       return;
     }
       
@@ -1142,24 +1217,24 @@ ss.SimpleUpload.prototype = {
     }
     
     // Increment the active upload counter
-    this._activeUploads = this._activeUploads + 1;
+    this._activeUploads++;
     
     // Disable uploading if we've reached max uploads 
     // or if multiple file uploads are not ebabled
-    if (this._activeUploads >= this._settings.maxUploads || this._settings.multiple === false) {
+    if (this._settings.multiple === false) {
       this.disable();
     }
             
     // Use XHR if supported by browser, otherwise use iframe method
     if (this._XhrIsSupported) {
       this._uploadXhr();		
-    } else {      
+    } else {
       // Determine whether incremental progress updates will be retrieved from server
       if (this._settings.progressUrl !== false && this._uploadProgressKey !== null) {
         this._doProgressUpdates = true;
       } else {
         this._doProgressUpdates = false;
-        this.log('progressUrl not defined or progress key not available - no upload progress');      
+        this.log('no upload progress - progressUrl not defined or progress key not available');      
       }            
       this._uploadIframe();
     }			

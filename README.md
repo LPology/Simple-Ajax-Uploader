@@ -172,7 +172,7 @@ Restart your web server for the changes to take effect.
 
 <strong>Note:</strong> If APC is already installed, you may still need to add `apc.rfc1867 = 1` to apc.ini, as it is not enabled by default.
 
-### Cross-browser Helper Functions ###
+### Cross-Browser Helper Functions ###
 
 To ease the pain of supporting older browsers, the plugin includes a set of callback functions which allow specific behavior to be defined based on whether the user's browser supports XHR uploads/HTML5 File API:
 

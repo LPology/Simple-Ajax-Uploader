@@ -549,7 +549,7 @@ ss.SimpleUpload.prototype = {
     input.setAttribute('type', 'file');
     input.setAttribute('name', self._settings.name);
     
-    if (this._XhrIsSupported && this._settings.multiple) {
+    if (this._XhrIsSupported) {
       input.setAttribute('multiple', true);
     }
     
@@ -592,7 +592,7 @@ ss.SimpleUpload.prototype = {
         return;                
       }
       
-      if (!self._settings.multiple || !self._XhrIsSupported) {
+      if (!self._XhrIsSupported) {
         filename = ss.getFilename(input.value);
         ext = ss.getExt(filename);        
         if (false === self._settings.onChange.call(self, filename, ext)) {
@@ -600,13 +600,17 @@ ss.SimpleUpload.prototype = {
         }      
         self._queue.push(input);            
       } else {
-        total = input.files.length;               
         filename = (input.files[0].fileName !== null && input.files[0].fileName !== undefined) ? input.files[0].fileName : input.files[0].name;
         filename = ss.getFilename(filename);
         ext = ss.getExt(filename);       
         if (false === self._settings.onChange.call(self, filename, ext)) {
           return;
-        } 
+        }
+        total = input.files.length;
+        // Only add first file if multiple uploads aren't allowed
+        if (!self._settings.multiple) {
+          total = 1;
+        }        
         for (i = 0; i < total; i++) {
           self._queue.push(input.files[i]);               
         }         
@@ -1195,18 +1199,15 @@ ss.SimpleUpload.prototype = {
     // The next file in the queue will always be in the front of the array
     this._file = this._queue[0];    
     
-    if (this._XhrIsSupported && this._settings.multiple) {
+    if (this._XhrIsSupported) {
       this._filename = (this._queue[0].fileName !== null && this._queue[0].fileName !== undefined) ? this._queue[0].fileName : this._queue[0].name;
       this._filename = ss.getFilename(this._filename);
+      this._size = this._queue[0].size;
     } else {
       this._filename = ss.getFilename(this._queue[0].value);
     }
     
-    this._ext = ss.getExt(this._filename);
-    
-    if (this._XhrIsSupported) {
-      this._size = this._queue[0].size;
-    }    
+    this._ext = ss.getExt(this._filename);   
 
     if (!this._checkFile()) {
       this.removeCurrent();

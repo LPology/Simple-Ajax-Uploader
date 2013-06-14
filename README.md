@@ -170,6 +170,15 @@ Restart your web server for the changes to take effect.
 
 <strong>Note:</strong> If APC is already installed, you may still need to add `apc.rfc1867 = 1` to apc.ini, as it is not enabled by default.
 
+### Cross-browser Helper Functions ###
+
+File handling and uploading features vary greatly across browsers, particularly with respect to progress data. To ease the pain of supporting older browsers, the plugin includes a set of functions which allow specific behavior to be defined based on whether a modern browser is being used.
+
+<code>startXHR(filename, fileSize)</code> - Function to be called prior to upload only in browsers that support XHR uploads<br />
+<code>endXHR(filename)</code><br />
+<code>startNonXHR(filename)</code><br />
+<code>endNonXHR(filename)</code><br />
+
 ### Using Uploader.php ###
 
 <strong>Note:</strong> This PHP class is included only for convenience. <strong>It is not required to use PHP with Simple Ajax Uploader.</strong> The plugin is agnostic to server configuration, so use any language you prefer.

@@ -296,16 +296,16 @@ if ($result) {
           <td><strong>maxUploads</strong><br />Default: <code>3</code></td>
           <td>Integer</td>
           <td>Max number of simultaneous uploads. If the <code>queue</code> option is <code>true</code> (default), files selected after the limit is reached will be queued and then automatically uploaded as prior uploads are completed.</td>    
+        </tr>  
+        <tr>
+            <td><strong>queue</strong><br />Default: <code>true</code></td>
+            <td>Boolean</td>
+            <td>If upload limit is reached, allow any files selected afterward to be queued and then automatically uploaded as prior uploads are completed.</td>
         </tr>         
         <tr>
             <td><strong>data</strong><br />Default: <code>{}</code></td>
             <td>Object</td>
             <td>Additional data to be sent to the server.</td>
-        </tr> 
-        <tr>
-            <td><strong>queue</strong><br />Default: <code>true</code></td>
-            <td>Boolean</td>
-            <td>If upload limit is reached, allow any files selected afterward to be queued and then automatically uploaded as prior uploads are completed.</td>
         </tr>        
         <tr>
             <td><strong>multipart</strong><br />Default: <code>false</code></td>

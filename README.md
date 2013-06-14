@@ -370,7 +370,7 @@ See above for examples and instructions for how to use <code>setProgressBar()</c
       <tr>
         <td><strong>maxUploads</strong><br />Default: <code>3</code></td>
         <td>Integer</td>
-        <td>Max number of simultaneous uploads. Files selected after the limit is reached will be queued and then automatically uploaded as prior uploads finish.</td>    
+        <td>Max number of simultaneous uploads. Files selected after the limit is reached will be queued and then automatically uploaded as prior uploads are completed.</td>    
       </tr>       
       <tr>
         <td><strong>getQueueSize()</strong></td>

@@ -43,8 +43,8 @@ There are two main ways to use the plugin:
 This method uses static, on-page elements for the progress bar.
 
 ```javascript
-  var sizeBox = document.getElementById('sizeBox'), // HTML element already on page
-      progressBar = document.getElementById('progressBar'); // HTML element already on page
+  var sizeBox = document.getElementById('sizeBox'), // container for file size info
+      progressBar = document.getElementById('progressBar'); // the element we're using for a progress bar
   
 	var uploader = new ss.SimpleUpload({
         button: 'uploadButton', // file upload button

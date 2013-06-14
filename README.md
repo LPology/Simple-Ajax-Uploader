@@ -39,7 +39,7 @@ There are two ways to use the plugin:
 
 <strong>2. Multiple file uploading</strong> - Allow multiple, concurrent file uploads. Progress bars are dynamically created with each upload.
 
-#### Method 1: Single file (one at a time) uploading  ####
+#### Method 1: Single file uploading (one file at a time)  ####
 
 This method uses static, on-page elements for the progress bar:
 

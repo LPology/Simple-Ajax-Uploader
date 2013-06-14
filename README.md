@@ -247,8 +247,12 @@ if ($result) {
             <td><strong>data</strong><br />Default: <code>{}</code></td>
             <td>Object</td>
             <td>Additional data to be sent to the server.</td>
-        </tr>
-       
+        </tr> 
+        <tr>
+            <td><strong>queue</strong><br />Default: <code>true</code></td>
+            <td>Boolean</td>
+            <td>Allow files selected after upload limit is reached to be queued and then automatically uploaded as prior uploads are completed.</td>
+        </tr>        
         <tr>
             <td><strong>multipart</strong><br />Default: <code>false</code></td>
             <td>Boolean</td>

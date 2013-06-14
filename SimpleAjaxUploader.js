@@ -1,4 +1,4 @@
-/**
+/**  
  * Simple Ajax Uploader
  * Version 1.5.1 
  * https://github.com/LPology/Simple-Ajax-Uploader
@@ -304,6 +304,12 @@ ss.remove = function(elem) {
   if (elem.parentNode) {
     elem.parentNode.removeChild(elem);
   }
+};
+
+ss.empty = function(elem) {
+ while (elem.firstChild) {
+        elem.removeChild(elem.firstChild);
+    }
 };
 
 /**
@@ -763,6 +769,10 @@ ss.SimpleUpload.prototype = {
       this._settings.onError.call(this, filename, 'parseerror', response);
     } else {
       this._settings.onComplete.call(this, filename, response);
+    }
+    
+    if (fileSizeBox) {
+      fileSizeBox.innerHTML = '';
     }
     
     if (progressContainer) {

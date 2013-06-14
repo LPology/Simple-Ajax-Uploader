@@ -5,7 +5,7 @@ A Javascript plugin for cross-browser Ajax file uploading. Supports multiple fil
 
 Live demo: http://www.lpology.com/code/ajaxuploader/
 
-## Overview ##
+### Overview ###
 Simple Ajax Uploader allows developers to easily add Ajax file upload functionality to web applications. It abstracts away standard tasks and browser compatibility issues while preserving wide latitude for custom use.
 
 The project began as a rewrite of Andrew Valum's original Ajax Upload plugin. The goal of the project is make file uploading easy for developers and pleasant for users.
@@ -21,7 +21,7 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
-## Features ##
+### Features ###
 * Uses XMLHttpRequest and HTML5 File API with fall back to iframe method for Internet Explorer 9 and older.
 * Supports multiple, concurrent file uploads - even in non-HTML5 browsers.
 * No external libraries required - use it with or without jQuery.
@@ -31,7 +31,7 @@ var uploader = new ss.SimpleUpload({
 * Use any HTML element as the upload button.
 * Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads.
 
-## How to Use ##
+### How to Use ###
 There are two main ways to use the plugin:
 
 <strong>1. Single file uploading</strong> - Only one upload allowed at a time. Progress bar is an element that is re-used for each upload.<br />
@@ -139,7 +139,7 @@ For multiple file uploads, we use an additional function: `setProgressContainer(
 
 In the example, the element set to be removed with `setProgressContainer()` is the outer container for the progress elements. As a result, progress bars will be removed from the DOM after each upload is completed.
 
-## Cross-Browser Progress Support - How it Works ##
+### Cross-Browser Progress Support - How it Works ###
 
 Because the `progress` event is not supported by Internet Explorer 9 (and older), progress updates must be retrieved from the server in order to provide progress bars in those browsers. The plugin includes optional, built-in support for handling this.
 
@@ -172,7 +172,7 @@ Restart your web server for the changes to take effect.
 
 <strong>Note:</strong> If APC is already installed, you may still need to add `apc.rfc1867 = 1` to apc.ini, as it is not enabled by default.
 
-## Cross-Browser Helper Functions ##
+### Cross-Browser Helper Functions ###
 
 To ease the pain of supporting older browsers, the plugin includes a set of callback functions which allow specific behavior to be defined based on whether the user's browser supports XHR uploads/HTML5 File API:
 
@@ -214,7 +214,7 @@ var uploader = new ss.SimpleUpload({
 
 Returning <code>false</code> from <code>startXHR()</code> and <code>startNonXHR()</code> will prevent the upload from starting, just as it does with <code>onSubmit()</code> and <code>onChange()</code>.
 
-## Using Uploader.php ##
+### Using Uploader.php ###
 
 <strong>Note:</strong> This PHP class is included only for convenience. <strong>It is not required to use PHP with Simple Ajax Uploader.</strong> The plugin is agnostic to server configuration, so use any language you prefer.
 
@@ -256,7 +256,7 @@ if ($result) {
 }
 ```
 
-## API Reference - General ##
+### API Reference - General ###
 
 <table>
     <thead>
@@ -345,7 +345,7 @@ if ($result) {
 	</tbody>
 </table>
         
-## API Reference - Callback Functions ##
+### API Reference - Callback Functions ###
 
 <strong>Note:</strong> When returning <code>false</code> from a callback to prevent an upload, the current file will remain in the queue as the next to be uploaded.  To remove the current file while in a callback, use: <code>this.removeCurrent();</code>
 
@@ -406,7 +406,7 @@ if ($result) {
 	</tbody>
 </table>
 
-## API Reference - User Experience ##
+### API Reference - User Experience ###
 
 <table>
   <thead>
@@ -443,7 +443,7 @@ if ($result) {
 </table> 
 
 
-## API Reference - Cross-Browser Progress Utilities ##
+### API Reference - Cross-Browser Progress Utilities ###
 
 <strong>Note:</strong> The following items are only applicable if the <code>progressUrl</code> option is set to the URL of uploadProgress.php (see above for setup instructions).
 
@@ -476,7 +476,7 @@ if ($result) {
     </tbody>
 </table>
 
-## API Reference - Instance Methods ##
+### API Reference - Instance Methods ###
 
 <strong>Note:</strong> See the examples above for instructions on how to use <code>setProgressBar()</code>, <code>setFileSizeBox()</code>, and <code>setProgressContainer()</code>.
 

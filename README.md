@@ -178,7 +178,7 @@ To ease the pain of supporting older browsers, the plugin includes a set of call
 <code>startNonXHR(filename)</code> - Called prior to upload - only in browsers that <strong>do not</strong> support XHR uploads<br />
 <code>endNonXHR(filename)</code> - Called after upload is completed - only in browsers that <strong>do not</strong> support XHR uploads<br />
 
-Returning <code>false</code> from <code>startXHR</code> or <code>startNonXHR</code> will prevent the upload from starting, just as with <code>onSubmit()</code> and <code>onChange()</code>.
+Returning <code>false</code> from <code>startXHR()</code> or <code>startNonXHR()</code> will prevent the upload from starting, just as it does with <code>onSubmit()</code> and <code>onChange()</code>.
 
 A common use case is if you want to show an upload progress bar in browsers that support the <code>progress</code> event while instead displaying an animated gif in older browsers:
 

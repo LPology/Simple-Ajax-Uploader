@@ -39,7 +39,7 @@ There are two main ways to use the plugin:
 
 #### Method 1: Single file uploading (one file at a time)  ####
 
-This method uses static, on-page elements for the progress bar. Before each upload, in the `onSubmit()` callback function, the <code>sizeBox</code> and <code>progress</code> elements are assigned specific roles using these two functions:
+Before each upload, in the `onSubmit()` callback function, the on-page <code>sizeBox</code> and <code>progress</code> elements are assigned specific roles using these two functions:
 
 `setProgressBar(elem)` - Designates an element as the progress bar for an upload.<br />
 `setFileSizeBox(elem)` - Designates an element as the container in which the file size of an uploading file will be inserted.

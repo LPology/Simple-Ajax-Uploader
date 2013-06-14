@@ -7,6 +7,7 @@ ChangeLog
 * Added queue system which allows files to be selected and automatically uploaded as others finish
 * Added `getQueueSize()` function to get current number of files waiting in queue
 * Fixed bug in which active upload counter was not properly updating when returning `false` from `startXHR()` and `startNonXHR()`
+* Error messages now incorporate file names
 
 ### Version 1.5 ###
 * Added support for multiple file uploading, along with Gmail-style multiple progress bars for tracking each file.

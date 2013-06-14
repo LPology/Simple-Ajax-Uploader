@@ -61,8 +61,8 @@ This method uses static, on-page elements for the progress bar:
         focusClass: 'ui-state-focus',
         disabledClass: 'ui-state-disabled',
         onSubmit: function(filename, extension) {
-            this.setFileSizeBox(sizeBox);
-            this.setProgressBar(progressBar);
+            this.setFileSizeBox(sizeBox); // designate this element as file size container
+            this.setProgressBar(progressBar); // designate as progress bar
           },         
         onComplete: function(filename, response) {
             if (!response) {

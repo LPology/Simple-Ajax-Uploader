@@ -267,7 +267,7 @@ if ($result) {
         <tr>
             <td><strong>debug</strong><br />Default: <code>false</code></td>
             <td>Boolean</td>
-            <td>Setting <code>debug</code> to <code>true</code> will log progress messages and server response in the console.</td>
+            <td>Set to <code>true</code> to log progress messages and server response in the console.</td>
         </tr>		
         <tr>
             <td><strong>hoverClass</strong><br />Default: <code>''</code></td>

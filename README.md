@@ -188,7 +188,6 @@ var progress = document.getElementById('progress'), // progress bar
 var uploader = new ss.SimpleUpload({
       button: 'uploadButton',
       url: 'uploadHandler.php', // server side handler
-      progressUrl: 'uploadProgress.php', // enables cross-browser progress support (more info below)
       responseType: 'json',
       name: 'uploadfile',
       hoverClass: 'ui-state-hover',

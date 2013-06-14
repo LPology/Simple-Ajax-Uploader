@@ -71,7 +71,7 @@ This method uses static, on-page elements for the progress bar.
 	});        
 ```        
 
-Before each upload, our two elements are assigned specific roles using these two functions:
+Before each upload, in the `onSubmit()` callback function, two elements are assigned specific roles using these two functions:
 
 `setProgressBar(elem)` - Designates an element as the progress bar for an upload.<br />
 `setFileSizeBox(elem)` - Designates an element as the container in which the file size of an uploading file will be inserted.

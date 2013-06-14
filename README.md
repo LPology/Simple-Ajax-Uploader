@@ -39,7 +39,14 @@ There are two main ways to use the plugin:
 
 #### Method 1: Single file uploading (one file at a time)  ####
 
-This method uses static, on-page elements for the progress bar.
+This method uses static, on-page elements for the progress bar. Before each upload, in the `onSubmit()` callback function, two elements are assigned specific roles using these two functions:
+
+`setProgressBar(elem)` - Designates an element as the progress bar for an upload.<br />
+`setFileSizeBox(elem)` - Designates an element as the container in which the file size of an uploading file will be inserted.
+
+When an upload begins, the file size of the upload is inserted into the <code>sizeBox</code> element and the CSS width of the <code>progress</code> element is set to 0%. As the upload progresses, the CSS width percentage of the <code>progress</code> element will be updated accordingly.
+
+This approach provides developers with a great deal of flexibility -- progress indicators can be styled in any way and placed anywhere on the page.
 
 ```javascript
 var sizeBox = document.getElementById('sizeBox'), // container for file size info
@@ -69,15 +76,6 @@ var uploader = new ss.SimpleUpload({
         }
 });        
 ```        
-
-Before each upload, in the `onSubmit()` callback function, two elements are assigned specific roles using these two functions:
-
-`setProgressBar(elem)` - Designates an element as the progress bar for an upload.<br />
-`setFileSizeBox(elem)` - Designates an element as the container in which the file size of an uploading file will be inserted.
-
-When an upload begins, the file size of the upload is inserted into the <code>sizeBox</code> element and the CSS width of the <code>progress</code> element is set to 0%. As the upload progresses, the CSS width percentage of the <code>progress</code> element will be updated accordingly.
-
-This approach provides developers with a great deal of flexibility -- progress indicators can be styled in any way and placed anywhere on the page.
 
 #### Method 2: Multiple file uploads ####
 

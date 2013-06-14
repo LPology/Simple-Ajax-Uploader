@@ -1135,17 +1135,16 @@ ss.SimpleUpload.prototype = {
         replace += item;
       }
       msg = messages.extError.replace(regex, replace);
-      msg = msg.replace(nameRegex, this._filename);
-      alert(msg);
     }
     
     if (type == 'size') {
       replace = this._settings.maxSize + 'K';
       regex = new RegExp('{size}', 'g');   
       msg = messages.sizeError.replace(regex, replace);
-      msg = msg.replace(nameRegex, this._filename);
-      alert(msg);
     }
+    
+    msg = msg.replace(nameRegex, this._filename);
+    alert(msg);    
   },
 
   _checkFile: function() {

@@ -289,7 +289,7 @@ if ($result) {
         
 ### API Reference - Callback functions ###
 
-<strong>Note:</strong> When returning <code>false</code> from a callback to stop an upload, the current file will remain in the queue as the next to be uploaded.  To remove the current file while in a callback, use: <code>this.removeCurrent();</code>
+<strong>Note:</strong> When returning <code>false</code> from a callback to prevent an upload, the current file will remain in the queue as the next to be uploaded.  To remove the current file while in a callback, use: <code>this.removeCurrent();</code>
 
 <table>
     <thead>

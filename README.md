@@ -68,7 +68,7 @@ This method uses static, on-page elements for the progress bar.
             }
             // do something with response...
           }
-	});        
+  });        
 ```        
 
 Before each upload, in the `onSubmit()` callback function, two elements are assigned specific roles using these two functions:<br />

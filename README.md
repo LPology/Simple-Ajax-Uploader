@@ -181,7 +181,7 @@ To ease the pain of supporting older browsers, the plugin includes a set of call
 <code>startNonXHR(filename)</code> - Called prior to upload -- only in browsers that <strong>do not</strong> support XHR uploads<br />
 <code>endNonXHR(filename)</code> - Called after upload is completed -- only in browsers that <strong>do not</strong> support XHR uploads<br />
 
-A common use case is to show an upload progress bar in browsers that support the <code>progress</code> event while instead displaying an animated gif in older browsers:
+A common use case is to show an upload progress bar in browsers that support the <code>progress</code> event while displaying an animated gif instead in older browsers:
 
 ```javascript  
 

@@ -76,7 +76,7 @@ This method uses static, on-page elements for the progress bar:
 
 #### Method 2: Multiple file uploads ####
 
-Below is an example of how to implement multiple file uploading with progress bars. A new progress bar is created for each file upload within the `onSubmit()` callback function, and then removed when the upload is completed. 
+Below is an example of how to implement multiple file uploading with progress bars. A new progress bar is created for each file upload within the `onSubmit()` callback function. The progress bar is then removed when the upload is completed. 
  
 ```javascript  
 	var uploader = new ss.SimpleUpload({

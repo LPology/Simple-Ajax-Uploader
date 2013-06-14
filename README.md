@@ -70,9 +70,12 @@ var uploader = new ss.SimpleUpload({
 });        
 ```        
 
-Before each upload, in the `onSubmit()` callback function, two elements are assigned specific roles using these two functions:<br />
+Before each upload, in the `onSubmit()` callback function, two elements are assigned specific roles using these two functions:
+
 `setProgressBar(elem)` - Designates an element as the progress bar for an upload.<br />
 `setFileSizeBox(elem)` - Designates an element as the container in which the file size of an uploading file will be inserted.
+
+When an upload begins, the file size of the upload is inserted into the <code>sizeBox</code> element. As the upload progresses, the CSS width percentage of the <code>progress</code> element will be updated.
 
 #### Method 2: Multiple file uploads ####
 

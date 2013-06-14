@@ -262,7 +262,7 @@ if ($result) {
         <tr>
             <td><strong>responseType</strong><br />Default: <code>text</code></td>
             <td>String</td>
-            <td>The type of data you're expecting back from the server. Default is plain text. Additional option is <code>json</code>.</td>
+            <td>The type of data you're expecting back from the server. Default is plain text. Additional option is <code>'json'</code>.</td>
         </tr>		
         <tr>
             <td><strong>debug</strong><br />Default: <code>false</code></td>
@@ -306,7 +306,7 @@ if ($result) {
         <tr>
             <td><strong>onSubmit(filename, extension)</strong></td>
             <td><code>filename</code> (String), <code>extension</code> (String)</td>
-            <td>Function to be called before file is uploaded. The function gets passed two arguments: a string containing the filename; a string containing the file extension. Return false stops upload.</td>
+            <td>Function to be called before file is uploaded. The function gets passed two arguments: a string containing the filename; a string containing the file extension. Return false stops upload.<br /><strong>Note:</strong></td>
         </tr>
         <tr>
             <td><strong>onProgress(pct)</strong></td>
@@ -316,7 +316,7 @@ if ($result) {
         <tr>
             <td><strong>onComplete(filename, response)</strong></td>
             <td><code>filename</code> (String), <code>response</code> (Mixed)</td>
-            <td>Function to be called when the upload is completed. The function gets passed two parameters: a string containing the filename; the data returned from the server, formatted according to the <code>responseType</code> setting. If <code>responseType</code> is <code>json</code>, the response will be evaluated as JSON and will return a Javascript object.</td>
+            <td>Function to be called when the upload is completed. The function gets passed two parameters: a string containing the filename; the data returned from the server, formatted according to the <code>responseType</code> setting. If <code>responseType</code> is <code>'json'</code>, the response will be evaluated as JSON and will return a Javascript object.</td>
         </tr>
         <tr>
             <td><strong>onError(filename, errorType, response)</strong></td>

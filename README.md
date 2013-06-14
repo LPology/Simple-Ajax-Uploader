@@ -45,13 +45,9 @@ Below are examples of how to implement both methods. Additional information is i
 
 This method uses static, on-page elements for the progress bar:
 
-```html
-  <div id="sizeBox"></div><div id="progressBar"></div>
-```
-
 ```javascript
-  var sizeBox = document.getElementById('sizeBox'),
-      progressBar = document.getElementById('progressBar');
+  var sizeBox = document.getElementById('sizeBox'), // HTML element already on page
+      progressBar = document.getElementById('progressBar'); // HTML element already on page
   
 	var uploader = new ss.SimpleUpload({
         button: 'uploadButton', // file upload button

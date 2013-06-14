@@ -345,7 +345,7 @@ if ($result) {
 	</tbody>
 </table>
         
-### API Reference - Callback functions ###
+### API Reference - Callback Functions ###
 
 <strong>Note:</strong> When returning <code>false</code> from a callback to prevent an upload, the current file will remain in the queue as the next to be uploaded.  To remove the current file while in a callback, use: <code>this.removeCurrent();</code>
 
@@ -406,7 +406,7 @@ if ($result) {
 	</tbody>
 </table>
 
-### API Reference - User experience ###
+### API Reference - User Experience ###
 
 <table>
   <thead>
@@ -443,7 +443,7 @@ if ($result) {
 </table> 
 
 
-### API Reference - Cross-Browser progress utilities ###
+### API Reference - Cross-Browser Progress Utilities ###
 
 <strong>Note:</strong> The following items are only applicable if the <code>progressUrl</code> option is set to the URL of uploadProgress.php (see above for setup instructions).
 
@@ -476,7 +476,7 @@ if ($result) {
     </tbody>
 </table>
 
-### API Reference - Instance methods ###
+### API Reference - Instance Methods ###
 
 <strong>Note:</strong> See the examples above for instructions on how to use <code>setProgressBar()</code>, <code>setFileSizeBox()</code>, and <code>setProgressContainer()</code>.
 

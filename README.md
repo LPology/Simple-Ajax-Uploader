@@ -81,7 +81,7 @@ When an upload begins, the file size of the upload is inserted into the <code>si
 
 Below is an example of how to implement multiple file uploading with progress bars. A new progress bar is created for each file upload within the `onSubmit()` callback function.
 
-Like in Method 1, The newly created elements are assigned roles using  the `setProgressBar()` and `setFileSizeBox()` functions.  Unlike the previous example, however, the progress elements are automatically removed when the upload is completed. 
+Like in Method 1, the newly created elements are assigned roles using  the `setProgressBar()` and `setFileSizeBox()` functions.  Unlike the previous example, however, the progress elements are automatically removed when the upload is completed. 
  
 ```javascript  
 var uploader = new ss.SimpleUpload({

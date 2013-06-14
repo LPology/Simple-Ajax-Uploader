@@ -305,22 +305,22 @@ if ($result) {
         </tr>
         <tr>
             <td><strong>onSubmit(filename, extension)</strong></td>
-            <td>Function</td>
+            <td><code>filename</code> (String), <code>extension</code> (String)</td>
             <td>Function to be called before file is uploaded. The function gets passed two arguments: a string containing the filename; a string containing the file extension. Return false stops upload.</td>
         </tr>
         <tr>
             <td><strong>onProgress(pct)</strong></td>
-            <td>Function</td>
+            <td><code>pct</code> (Integer)</td>
             <td>Function to be called on the progress event for browsers that support XHR uploads. The function gets passed one argument: an integer representing the upload completion percentage.</td>
         </tr>
         <tr>
             <td><strong>onComplete(filename, response)</strong></td>
-            <td>Function</td>
+            <td><code>filename</code> (String), <code>response</code> (Mixed)</td>
             <td>Function to be called when the upload is completed. The function gets passed two parameters: a string containing the filename; the data returned from the server, formatted according to the <code>responseType</code> setting. If <code>responseType</code> is 'json', the response will be evaluated as JSON and will return a Javascript object.</td>
         </tr>
         <tr>
             <td><strong>onError(filename, errorType, response)</strong></td>
-            <td>Function</td>
+            <td><code>filename</code> (String), <code>errorType</code> (String), <code>response</code> (String)</td>
             <td>Function to be called if an error occurs during upload. The function gets passsed three parameters: a string containing the filename; a string containing the error type; a string containing the server response, if any.</td>
         </tr>
         <tr>

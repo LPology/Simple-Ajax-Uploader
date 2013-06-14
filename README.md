@@ -174,10 +174,10 @@ Restart your web server for the changes to take effect.
 
 To ease the pain of supporting older browsers, the plugin includes a set of callback functions which allow specific behavior to be defined based on whether a modern browser is being used:
 
-<code>startXHR(filename, fileSize)</code> - Called prior to upload - only in browsers that support XHR uploads<br />
-<code>endXHR(filename)</code> - Called after upload is completed - only in browsers that support XHR uploads<br />
-<code>startNonXHR(filename)</code> - Called prior to upload - only in browsers that <strong>do not</strong> support XHR uploads<br />
-<code>endNonXHR(filename)</code> - Called after upload is completed - only in browsers that <strong>do not</strong> support XHR uploads<br />
+<code>startXHR(filename, fileSize)</code> - Called prior to upload - only in browsers that support XHR uploads/File API<br />
+<code>endXHR(filename)</code> - Called after upload is completed - only in browsers that support XHR uploads/File API<br />
+<code>startNonXHR(filename)</code> - Called prior to upload - only in browsers that <strong>do not</strong> support XHR uploads/File API<br />
+<code>endNonXHR(filename)</code> - Called after upload is completed - only in browsers that <strong>do not</strong> support XHR uploads/File API<br />
 
 ### Using Uploader.php ###
 

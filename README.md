@@ -134,7 +134,7 @@ Below is an example of how to implement multiple file uploading with progress ba
 
 Before each upload, a progress bar is created in the `onSubmit()` callback. Like in Method 1 above, we assign specific roles to elements using the `setProgressBar(elem)` and `setFileSizeBox(elem)` functions.
 
-For the multiple file upload configuration, we use an additional function, `setProgressContainer(elem)`, which designates an element to be removed from the DOM after the upload is completed.
+For multiple file uploads, we use an additional function, `setProgressContainer(elem)`, which designates an element to be removed from the DOM after the upload is completed.
 
 ### Cross-browser Progress Support - How it Works ###
 

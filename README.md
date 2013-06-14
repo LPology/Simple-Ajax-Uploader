@@ -168,7 +168,7 @@ apc.rfc1867 = 1
 
 Restart your web server for the changes to take effect.
 
-<strong>Note:</strong> if APC is already installed, you may still need to add `apc.rfc1867 = 1` to apc.ini, as it is not enabled by default.
+<strong>Note:</strong> If APC is already installed, you may still need to add `apc.rfc1867 = 1` to apc.ini, as it is not enabled by default.
 
 ### Using Uploader.php ###
 

@@ -33,7 +33,8 @@ var uploader = new ss.SimpleUpload({
 * Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads.
 
 ### How to Use ###
-There are two ways to use the plugin:<br />
+There are two ways to use the plugin:
+
 <strong>1. Single file uploading</strong> - Only one upload allowed at a time. Progress bar is an element that is re-used for each upload.<br />
 <strong>2. Multiple file uploading</strong> - Allow multiple, concurrent file uploads. Progress bars are created on the fly before each upload.
 

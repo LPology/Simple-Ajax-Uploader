@@ -325,22 +325,22 @@ if ($result) {
         </tr>
         <tr>
             <td><strong>startXHR(filename, fileSize)</strong></td>
-            <td>Function</td>
+            <td><code>filename</code> (String), <code>fileSize</code> (Integer)</td>
             <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after <code>onSubmit</code> but prior to upload start. The function gets passed two arguments: a string containing the filename; a number that is the file size in kilobytes. Return false stops upload.</td>
         </tr>
         <tr>
             <td><strong>endXHR(filename)</strong></td>
-            <td>Function</td>
+            <td><code>filename</code> (String)</td>
             <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after upload is completed but prior to <code>onComplete</code>. The function gets passed one argument: a string containing the filename.</td>
         </tr>
         <tr>
             <td><strong>startNonXHR(filename)</strong></td>
-            <td>Function</td>
+            <td><code>filename</code> (String)</td>
             <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after <code>onSubmit</code> but prior to upload start. The function gets passed one argument: a string containing the filename. Return false stops upload.</td>
         </tr>
         <tr>
             <td><strong>endNonXHR(filename)</strong></td>
-            <td>Function</td>
+            <td><code>filename</code> (String)</td>
             <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after upload is completed but prior to <code>onComplete</code>. The function gets passed one argument: a string containing the filename.</td>
         </tr>		
 	</tbody>

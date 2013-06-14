@@ -36,7 +36,7 @@ var uploader = new ss.SimpleUpload({
 There are two ways to use the plugin:
 
 <strong>1. Single file uploading</strong> - Only one upload allowed at a time. Progress bar is an element that is re-used for each upload.<br />
-<strong>2. Multiple file uploading</strong> - Allow multiple, concurrent file uploads. Progress bars are created on the fly with each upload.
+<strong>2. Multiple file uploading</strong> - Allow multiple, concurrent file uploads. Progress bars are created on the fly for each upload.
 
 #### Method 1: Single file uploading (one file at a time)  ####
 

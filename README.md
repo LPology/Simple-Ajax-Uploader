@@ -376,7 +376,7 @@ if ($result) {
         <tr>
             <td><strong>startXHR(filename, fileSize)</strong></td>
             <td><code>filename</code> (String), <code>fileSize</code> (Integer)</td>
-            <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after <code>onSubmit</code> but prior to upload start. The function gets passed two arguments: a string containing the filename; a number that is the file size in kilobytes.<br /><br />Return <code>false</code> to prevent the upload from starting.</td>
+            <td>Function to be called only in browsers that support XHR uploads. Executes after <code>onSubmit</code> but prior to upload start. The function gets passed two arguments: a string containing the filename; a number that is the file size in kilobytes.<br /><br />Return <code>false</code> to prevent the upload from starting.</td>
         </tr>
         <tr>
             <td><strong>endXHR(filename)</strong></td>

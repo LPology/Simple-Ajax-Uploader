@@ -1114,9 +1114,9 @@ ss.SimpleUpload.prototype = {
   
   _errorMsg: function(type) {
     var messages = this._settings.messages,
+        nameRegex = new RegExp('{name}', 'g'),    
         msg,
         regex,
-        nameRegex,
         replace = '';
         
     if (type == 'ext') {
@@ -1125,7 +1125,6 @@ ss.SimpleUpload.prototype = {
           item,
           i;          
       regex = new RegExp('{ext}', 'g');
-      nameRegex = new RegExp('{name}', 'g');
       for (i = 0; i < num; i++) {
         item = extensions[i].toUpperCase();        
         if (i + 2 === num) {
@@ -1143,7 +1142,6 @@ ss.SimpleUpload.prototype = {
     if (type == 'size') {
       replace = this._settings.maxSize + 'K';
       regex = new RegExp('{size}', 'g');   
-      nameRegex = new RegExp('{name}', 'g');      
       msg = messages.sizeError.replace(regex, replace);
       msg = msg.replace(nameRegex, this._filename);
       alert(msg);

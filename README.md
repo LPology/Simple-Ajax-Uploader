@@ -257,7 +257,7 @@ if ($result) {
         <tr>
             <td><strong>autoSubmit</strong><br />Default: <code>true</code></td>
             <td>Boolean</td>
-            <td>By default, uploads commence as soon as a file is selected. Set to <code>false</code> to delay the upload and instead trigger manually with the <code>submit()</code> function</td>
+            <td>By default, uploads commence as soon as a file is selected. Set to <code>false</code> to delay the upload and instead trigger manually with the <code>submit()</code> function.</td>
         </tr>
         <tr>
             <td><strong>responseType</strong><br />Default: <code>text</code></td>
@@ -350,7 +350,7 @@ if ($result) {
 
 ### API Reference - Multi-file uploading ###
 
-The three functions below -- <code>setProgressBar()</code>, <code>setFileSizeBox()</code>, and <code>setProgressContainer</code>, were written specifically to support multiple, concurrent progress bars. See above for instructions and examples.
+See above for examples and instructions for how to use <code>setProgressBar()</code>, <code>setFileSizeBox()</code>, and <code>setProgressContainer</code>.
 
 
 <table>

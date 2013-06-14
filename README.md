@@ -351,12 +351,12 @@ if ($result) {
         <tr>
             <td><strong>onChange(filename, extension)</strong></td>
             <td><code>filename</code> (String), <code>extension</code> (String)</td>
-            <td>Function to be called when user selects a file. The function gets passed two arguments: a string containing the filename; a string containing the file extension. Return <code>false</code> to prevent the upload from starting.</td>
+            <td>Function to be called when user selects a file. The function gets passed two arguments: a string containing the filename; a string containing the file extension.<br /><br />Return <code>false</code> to prevent the upload from starting.</td>
         </tr>
         <tr>
             <td><strong>onSubmit(filename, extension)</strong></td>
             <td><code>filename</code> (String), <code>extension</code> (String)</td>
-            <td>Function to be called before file is uploaded. The function gets passed two arguments: a string containing the filename; a string containing the file extension. Return <code>false</code> to prevent the upload from starting.</td>
+            <td>Function to be called before file is uploaded. The function gets passed two arguments: a string containing the filename; a string containing the file extension.<br /><br />Return <code>false</code> to prevent the upload from starting.</td>
         </tr>
         <tr>
             <td><strong>onProgress(pct)</strong></td>

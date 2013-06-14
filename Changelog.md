@@ -1,6 +1,13 @@
 ChangeLog
 ============================
 
+### Version 1.5.1 ###
+* Multiple file inputs are now used in browsers with support for File API, thus allowing multiple file selection if `multiple` option is `true`
+* Removed some unnecessary variable copying
+* Added queue system which allows files to be selected and automatically uploaded as others finish
+* Added `getQueueSize()` function to get current number of files waiting in queue
+* Fixed bug in which active upload counter was not properly updating when returning `false` from `startXHR()` and `startNonXHR()`
+
 ### Version 1.5 ###
 * Added support for multiple file uploading, along with Gmail-style multiple progress bars for tracking each file.
 * Added new `maxSize` option for file size limits, `allowedExtensions` option for file type restrictions. Custom error messages supported for both.

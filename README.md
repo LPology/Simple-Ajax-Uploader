@@ -136,7 +136,7 @@ When a file is uploaded, a progress bar is dynamically created, the elements of 
 
 `setProgressContainer(elem)` - Designates an element that is to be removed from the DOM after the upload finishes. 
 
-### Cross-browser progress support - How it works ###
+### Cross-browser Progress Support - How It Works ###
 
 When the plugin detects browsers that support the HTML5 File API, the `progress` event is used. For other browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php (included in extras folder). This requires PHP with the APC extension installed and the `apc.rfc1867` option enabled (instructions below).
 

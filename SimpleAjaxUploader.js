@@ -364,8 +364,8 @@ ss.SimpleUpload = function(options) {
     focusClass: '',			
     disabledClass: '',
     messages: {
-      extError: 'Invalid file type. Only {ext} files are permitted.',
-      sizeError: 'This file is larger than the {size} size limit.'
+      extError: '{name} is not a valid file type.'+"\n\n"+'Only {ext} files are permitted.',
+      sizeError: '{name} is larger than the {size} size limit.'
     },
     onChange: function(filename, extension) {},				
     onSubmit: function(filename, extension) {},				
@@ -1100,7 +1100,7 @@ ss.SimpleUpload.prototype = {
             self.log('upload progress key received. Key: '+response.key);
           }
         } else {          
-          self.log('error retrieving progress key.  Status: '+this.status+' Server response: '+this.responseText);
+          self.log('error retrieving progress key. Status: '+this.status+' Server response: '+this.responseText);
         }
       }
     };        
@@ -1116,6 +1116,7 @@ ss.SimpleUpload.prototype = {
     var messages = this._settings.messages,
         msg,
         regex,
+        nameRegex,
         replace = '';
         
     if (type == 'ext') {
@@ -1124,23 +1125,27 @@ ss.SimpleUpload.prototype = {
           item,
           i;          
       regex = new RegExp('{ext}', 'g');
+      nameRegex = new RegExp('{name}', 'g');
       for (i = 0; i < num; i++) {
         item = extensions[i].toUpperCase();        
         if (i + 2 === num) {
-          item = item + ' or ';
+          item = item + ' and ';
         } else if (num > 2 && i + 2 < num) {
           item = item + ', ';
         }        
         replace += item;
       }
       msg = messages.extError.replace(regex, replace);
+      msg = msg.replace(nameRegex, this._filename);
       alert(msg);
     }
     
     if (type == 'size') {
       replace = this._settings.maxSize + 'K';
-      regex = new RegExp('{size}', 'g');      
+      regex = new RegExp('{size}', 'g');   
+      nameRegex = new RegExp('{name}', 'g');      
       msg = messages.sizeError.replace(regex, replace);
+      msg = msg.replace(nameRegex, this._filename);
       alert(msg);
     }
   },

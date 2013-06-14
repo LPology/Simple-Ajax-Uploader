@@ -257,7 +257,7 @@ if ($result) {
         <tr>
             <td><strong>autoSubmit</strong><br />Default: <code>true</code></td>
             <td>Boolean</td>
-            <td>By default, uploads commence as soon as a file is selected. Set to <code>false</code> to delay the upload and trigger manually with <code>submit()</code> function</td>
+            <td>By default, uploads commence as soon as a file is selected. Set to <code>false</code> to delay the upload and instead trigger manually with the <code>submit()</code> function</td>
         </tr>
         <tr>
             <td><strong>responseType</strong><br />Default: <code>text</code></td>

@@ -376,22 +376,22 @@ if ($result) {
         <tr>
             <td><strong>startXHR(filename, fileSize)</strong></td>
             <td><code>filename</code> (String), <code>fileSize</code> (Integer)</td>
-            <td>Function to be called only in browsers that support XHR uploads. Executes after <code>onSubmit</code> but prior to upload start. The function gets passed two arguments: a string containing the filename; a number that is the file size in kilobytes.<br /><br />Return <code>false</code> to prevent the upload from starting.</td>
+            <td>Function to be called only in browsers that support XHR uploads. Called after <code>onSubmit</code> but prior to upload start. The function gets passed two arguments: a string containing the filename; a number that is the file size in kilobytes.<br /><br />Return <code>false</code> to prevent the upload from starting.</td>
         </tr>
         <tr>
             <td><strong>endXHR(filename)</strong></td>
             <td><code>filename</code> (String)</td>
-            <td>Function to be called only in browsers that support XHR uploads. Executes after upload is completed but prior to <code>onComplete</code>. The function gets passed one argument: a string containing the filename.</td>
+            <td>Function to be called only in browsers that support XHR uploads. Called after upload is completed but prior to <code>onComplete</code>. The function gets passed one argument: a string containing the filename.</td>
         </tr>
         <tr>
             <td><strong>startNonXHR(filename)</strong></td>
             <td><code>filename</code> (String)</td>
-            <td>Function to be called only in browsers that do not support XHR uploads. Executes after <code>onSubmit</code> but prior to upload start. The function gets passed one argument: a string containing the filename.<br /><br />Return <code>false</code> to prevent the upload from starting.</td>
+            <td>Function to be called only in browsers that <strong>do not</strong> support XHR uploads (IE9 and older). Called after <code>onSubmit</code> but prior to upload start. The function gets passed one argument: a string containing the filename.<br /><br />Return <code>false</code> to prevent the upload from starting.</td>
         </tr>
         <tr>
             <td><strong>endNonXHR(filename)</strong></td>
             <td><code>filename</code> (String)</td>
-            <td>Function to be called only in browsers that do not support XHR uploads. Executes after upload is completed but prior to <code>onComplete</code>. The function gets passed one argument: a string containing the filename.</td>
+            <td>Function to be called only in browsers that <strong>do not</strong> support XHR uploads (IE9 and older). Called after upload is completed but prior to <code>onComplete</code>. The function gets passed one argument: a string containing the filename.</td>
         </tr>		
 	</tbody>
 </table>

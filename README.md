@@ -79,7 +79,7 @@ Before each upload, in the `onSubmit()` callback function, two elements are assi
 
 Below is an example of how to implement multiple file uploading with progress bars. A new progress bar is created for each file upload within the `onSubmit()` callback function.
 
-The newly created elements are assigned roles using  the `setProgressBar()`, `setFileSizeBox()`, and `setProgressContainer()` functions.  The progress bar is removed when the upload is completed. 
+The newly created elements are assigned roles using  the `setProgressBar()`, `setFileSizeBox()`, and `setProgressContainer()` functions.  The progress elements are removed when the upload is completed. 
  
 ```javascript  
 	var uploader = new ss.SimpleUpload({

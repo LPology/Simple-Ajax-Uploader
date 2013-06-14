@@ -46,7 +46,7 @@ Before each upload, in the `onSubmit()` callback function, the on-page <code>siz
 
 As a result, when an upload begins, the file size of the upload is inserted into the <code>sizeBox</code> element and the CSS width of the <code>progress</code> element is set to 0%. As the upload progresses, the CSS width percentage of the <code>progress</code> element will be updated accordingly.
 
-This method of assigning roles to elements provides developers with a great deal of flexibility -- progress indicators can be styled in any way and placed anywhere on the page.
+This approach of assigning roles to elements provides developers with a great deal of flexibility -- progress indicators can be styled in any way and placed anywhere on the page.
 
 ```javascript
 var sizeBox = document.getElementById('sizeBox'), // container for file size info

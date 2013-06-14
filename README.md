@@ -499,7 +499,7 @@ The following items are only applicable if the <code>progressUrl</code> option i
         <tr>
             <td><strong>removeCurrent()</strong></td>
             <td><i>none</i></td>
-            <td>Remove the currently active file from the queue. Must be called prior to the start of upload (for example, in the <code>onSubmit()</code> or <code>onChange()</code> callback).</td>
+            <td>Remove the currently active file from the queue. Must be called prior to the start of upload (for example, within <code>onSubmit()</code> or <code>onChange()</code>).</td>
         </tr>	        
 	</tbody>
 </table>

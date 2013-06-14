@@ -53,7 +53,7 @@ This method uses static, on-page elements for the progress bar.
         progressUrl: 'uploadProgress.php', // enables cross-browser progress support (more info below)
         responseType: 'json',
         allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
-        maxSize: 500, // kilobytes
+        maxSize: 1024, // kilobytes
         hoverClass: 'ui-state-hover',
         focusClass: 'ui-state-focus',
         disabledClass: 'ui-state-disabled',

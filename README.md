@@ -136,7 +136,7 @@ Before each upload, a progress bar is created in the `onSubmit()` callback. Like
 
 For multiple file uploads, we use an additional function: `setProgressContainer(elem)`. This function designates an element to be removed from the DOM after the upload is completed.
 
-In the example, the element designated to be removed with `setProgressContainer()` is the outer container for the progress elements. As a result, progress bars will be removed from the DOM after each upload is completed.
+In the example, the element set to be removed with `setProgressContainer()` is the outer container for the progress elements. As a result, progress bars will be removed from the DOM after each upload is completed.
 
 ### Cross-browser Progress Support - How it Works ###
 

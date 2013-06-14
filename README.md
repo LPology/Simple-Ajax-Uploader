@@ -306,7 +306,7 @@ if ($result) {
         <tr>
             <td><strong>onSubmit(filename, extension)</strong></td>
             <td><code>filename</code> (String), <code>extension</code> (String)</td>
-            <td>Function to be called before file is uploaded. The function gets passed two arguments: a string containing the filename; a string containing the file extension. Return <code>false</code> prevents upload from starting.<br /><strong>Note:</strong></td>
+            <td>Function to be called before file is uploaded. The function gets passed two arguments: a string containing the filename; a string containing the file extension. Returning <code>false</code> will prevent the upload from starting.<br /><strong>Note:</strong></td>
         </tr>
         <tr>
             <td><strong>onProgress(pct)</strong></td>

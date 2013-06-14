@@ -44,9 +44,9 @@ This method uses static, on-page elements for the progress bar. Before each uplo
 `setProgressBar(elem)` - Designates an element as the progress bar for an upload.<br />
 `setFileSizeBox(elem)` - Designates an element as the container in which the file size of an uploading file will be inserted.
 
-When an upload begins, the file size of the upload is inserted into the <code>sizeBox</code> element and the CSS width of the <code>progress</code> element is set to 0%. As the upload progresses, the CSS width percentage of the <code>progress</code> element will be updated accordingly.
+As a result, when an upload begins, the file size of the upload is inserted into the <code>sizeBox</code> element and the CSS width of the <code>progress</code> element is set to 0%. As the upload progresses, the CSS width percentage of the <code>progress</code> element will be updated accordingly.
 
-This approach provides developers with a great deal of flexibility -- progress indicators can be styled in any way and placed anywhere on the page.
+This method of assigning roles to elements provides developers with a great deal of flexibility -- progress indicators can be styled in any way and placed anywhere on the page.
 
 ```javascript
 var sizeBox = document.getElementById('sizeBox'), // container for file size info

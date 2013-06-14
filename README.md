@@ -139,7 +139,7 @@ For multiple file uploads, we use an additional function: `setProgressContainer(
 
 In the example, the element set to be removed with `setProgressContainer()` is the outer container for the progress elements. As a result, progress bars will be removed from the DOM after each upload is completed.
 
-### Cross-browser Progress Support - How it Works ###
+### Cross-Browser Progress Support - How it Works ###
 
 Because the `progress` event is not supported by Internet Explorer 9 (and older), progress updates must be retrieved from the server in order to provide progress bars in those browsers. The plugin includes optional, built-in support for handling this.
 
@@ -443,7 +443,7 @@ if ($result) {
 </table> 
 
 
-### API Reference - Cross-browser progress utilities ###
+### API Reference - Cross-Browser progress utilities ###
 
 <strong>Note:</strong> The following items are only applicable if the <code>progressUrl</code> option is set to the URL of uploadProgress.php (see above for setup instructions).
 

@@ -326,7 +326,7 @@ if ($result) {
         <tr>
             <td><strong>startXHR(filename, fileSize)</strong></td>
             <td><code>filename</code> (String), <code>fileSize</code> (Integer)</td>
-            <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after <code>onSubmit</code> but prior to upload start. The function gets passed two arguments: a string containing the filename; a number that is the file size in kilobytes. Return false stops upload.</td>
+            <td>Function to be called only in browsers that support XHR uploads (non-IE). Executes after <code>onSubmit</code> but prior to upload start. The function gets passed two arguments: a string containing the filename; a number that is the file size in kilobytes. Returning <code>false</code> will prevent the upload from starting.</td>
         </tr>
         <tr>
             <td><strong>endXHR(filename)</strong></td>
@@ -336,7 +336,7 @@ if ($result) {
         <tr>
             <td><strong>startNonXHR(filename)</strong></td>
             <td><code>filename</code> (String)</td>
-            <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after <code>onSubmit</code> but prior to upload start. The function gets passed one argument: a string containing the filename. Return false stops upload.</td>
+            <td>Function to be called only in browsers that do not support XHR uploads (Internet Explorer). Executes after <code>onSubmit</code> but prior to upload start. The function gets passed one argument: a string containing the filename. Returning <code>false</code> will prevent the upload from starting.</td>
         </tr>
         <tr>
             <td><strong>endNonXHR(filename)</strong></td>

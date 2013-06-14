@@ -419,12 +419,7 @@ See above for examples and instructions for how to use <code>setProgressBar()</c
         <td><strong>maxUploads</strong><br />Default: <code>3</code></td>
         <td>Integer</td>
         <td>Max number of simultaneous uploads. Files selected after the limit is reached will be queued and then automatically uploaded as prior uploads are completed.</td>    
-      </tr>       
-      <tr>
-        <td><strong>getQueueSize()</strong></td>
-        <td>Function</td>
-        <td>Returns number of files currently waiting in queue.</td>    
-      </tr>       
+      </tr>             
       <tr>
         <td><strong>setProgressBar(element)</strong></td>
         <td>Function</td>
@@ -543,7 +538,12 @@ The following items are only applicable if the <code>progressUrl</code> option i
             <td><strong>enable()</strong></td>
             <td><i>none</i></td>
             <td>Restores upload functionality.</td>
-        </tr>			
+        </tr>
+        <tr>
+          <td><strong>getQueueSize()</strong></td>
+            <td><i>none</i></td>
+          <td>Returns number of files currently waiting in queue.</td>    
+        </tr>         
         <tr>
             <td><strong>removeCurrent()</strong></td>
             <td><i>none</i></td>

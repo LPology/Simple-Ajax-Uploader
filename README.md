@@ -73,7 +73,8 @@ This method uses static, on-page elements for the progress bar.
 
 Before each upload, our two elements are assigned specific roles using these two functions:
 
-`setProgressBar(elem)` - Designates an element as the progress bar for an upload.<br />
+`setProgressBar(elem)` - Designates an element as the progress bar for an upload.
+
 `setFileSizeBox(elem)` - Designates an element as the container in which the file size of an uploading file will be inserted.
 
 #### Method 2: Multiple file uploads ####

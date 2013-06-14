@@ -293,7 +293,7 @@ if ($result) {
     <thead>
         <tr>
             <th>Name</th>
-            <th>Paramters</th>
+            <th>Arguments</th>
             <th>Description</th>
         </tr>
     </thead>

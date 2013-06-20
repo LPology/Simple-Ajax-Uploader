@@ -1,4 +1,4 @@
-ChangeLog
+Change Log
 ============================
 
 ### Version 1.5.3 ###

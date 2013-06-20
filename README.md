@@ -521,17 +521,17 @@ if ($result) {
         </tr>	
       <tr>
         <td><strong>setProgressBar(element)</strong></td>
-        <td>Function</td>
+        <td><code>element</code> (Element)</td>
         <td>Designates an element to serve as an upload progress bar. The CSS width of the element will be set to 0% at the start of the upload, and then updated accordingly by percentage as the upload progresses.</td>    
       </tr>
       <tr>
         <td><strong>setFileSizeBox(element)</strong></td>
-        <td>Function</td>
+        <td><code>element</code> (Element)</td>
         <td>Designates an element as the container in which the file size of an uploading file will be inserted upon the start of the upload.</td>    
       </tr>      
       <tr>
         <td><strong>setProgressContainer(element)</strong></td>
-        <td>Function</td>
+        <td><code>element</code> (Element)</td>
         <td>Designates an element to be removed from the DOM upon completion of an upload. Useful for cleaning up dynamically created progress bars.</td>   
       </tr>         
 	</tbody>

@@ -1,6 +1,11 @@
 ChangeLog
 ============================
 
+### Version 1.5.3 ###
+* Added `autoSubmit` check before submitting in `_cycleQueue()`
+* Added check to ensure upload progress server key doesn't exceed 57 characters (max allowable APC key length)
+* `rerouteClicks(element)` can now be used to add additional elements which can be clicked to open file box
+
 ### Version 1.5.2 ###
 (This isn't as much a release as it is a signal to update for anyone who may have downloaded version 1.5.1 in the past few hours)
 * Fixed "bug" from 1.5.1 that broke uploader without multiple option enabled

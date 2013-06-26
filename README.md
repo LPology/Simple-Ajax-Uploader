@@ -21,12 +21,12 @@ var uploader = new ss.SimpleUpload({
 
 ### Features ###
 * Fully cross-browser -- works in IE7+, Firefox, Chrome, Safari, Opera
-* Supports multiple, concurrent file uploads - even in non-HTML5 browsers.
+* Supports multiple, concurrent file uploads (even in non-HTML5 browsers)
 * No flash or external CSS -- just one 5Kb Javascript file (minified and gzipped)
-* Use any HTML element as the upload button.
-* Optional, built-in support for truly cross-browser progress bars.
-* No dependencies - use it with or without jQuery.
-* Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads.
+* Use any HTML element as the upload button
+* Optional, built-in support for truly cross-browser progress bars
+* No dependencies - use it with or without jQuery
+* Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads
 
 ### How to Use ###
 There are two main ways to use the plugin:

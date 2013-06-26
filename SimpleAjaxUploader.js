@@ -364,10 +364,6 @@ ss.SimpleUpload = function(options) {
     hoverClass: '',
     focusClass: '',
     disabledClass: '',
-    messages: {
-      extError: '{name} is not a valid file type.'+"\n\n"+'Only {ext} files are permitted.',
-      sizeError: '{name} is larger than the {size} size limit.'
-    },
     onChange: function(filename, extension) {},
     onSubmit: function(filename, extension) {},
     onProgress: function(pct) {},
@@ -1124,69 +1120,7 @@ ss.SimpleUpload.prototype = {
     xhr.send();
     xhr = null;
   },
-
-  _errorMsg: function(type) {
-    var messages = this._settings.messages,
-        nameRegex = new RegExp('{name}', 'g'),
-        msg,
-        regex,
-        replace = '';
-
-    if (type == 'ext') {
-      var extensions = this._settings.allowedExtensions,
-          num = extensions.length,
-          item,
-          i;
-      regex = new RegExp('{ext}', 'g');
-      for (i = 0; i < num; i++) {
-        item = extensions[i].toUpperCase();
-        if (i + 2 === num) {
-          item = item + ' and ';
-        } else if (num > 2 && i + 2 < num) {
-          item = item + ', ';
-        }
-        replace += item;
-      }
-      msg = messages.extError.replace(regex, replace);
-    }
-
-    if (type == 'size') {
-      replace = this._settings.maxSize + 'K';
-      regex = new RegExp('{size}', 'g');
-      msg = messages.sizeError.replace(regex, replace);
-    }
-
-    msg = msg.replace(nameRegex, this._filename);
-    alert(msg);
-  },
-
-  _checkFile: function() {
-    if (!this._file || this._file.value === '') {
-      this.log('no file to upload');
-      return false;
-    }
-
-    // Only check file type if allowedExtensions is set
-    if (this._settings.allowedExtensions.length > 0) {
-      if (!this._checkExtension(this._ext)) {
-        this.log('File extension not permitted');
-        //this._errorMsg('ext');
-        this._settings.onExtError.call(this, this._filename, this._ext);
-        return false;
-      }
-    }
-
-    if (this._size !== null && this._settings.maxSize !== false && this._size / 1024 > this._settings.maxSize) {
-      this.log(this._filename + ' exceeds ' + this._settings.maxSize + 'K limit');
-      //this._errorMsg('size');
-      this._settings.onSizeError.call(this, this._filename, this._size);
-      return false;
-    }
-
-    this.log('pre-upload file check is successful');
-    return true;
-  },
-
+  
   _checkExtension: function(ext) {
     var allowed = this._settings.allowedExtensions,
         i = allowed.length;
@@ -1197,6 +1131,37 @@ ss.SimpleUpload.prototype = {
       }
     }
     return false;
+  },  
+
+  _checkFile: function() {
+    var filename = this._filename,
+        ext = this._ext,
+        size = this._size;
+        
+    if (!this._file || filename === '') {
+      this.log('no file to upload');
+      return false;
+    }
+
+    // Only check file type if allowedExtensions is set
+    if (this._settings.allowedExtensions.length > 0) {
+      if (!this._checkExtension(ext)) {
+        this.removeCurrent();
+        this.log('File extension not permitted');
+        this._settings.onExtError.call(this, filename, ext);
+        return false;
+      }
+    }
+
+    if (size !== null && this._settings.maxSize !== false && size / 1024 > this._settings.maxSize) {
+      this.removeCurrent();
+      this.log(filename + ' exceeds ' + this._settings.maxSize + 'K limit');
+      this._settings.onSizeError.call(this, filename, size);
+      return false;
+    }
+
+    this.log('pre-upload file check successful');
+    return true;
   },
 
   /**
@@ -1220,7 +1185,6 @@ ss.SimpleUpload.prototype = {
     this._ext = ss.getExt(this._filename);
 
     if (!this._checkFile()) {
-      this.removeCurrent();
       return;
     }
 

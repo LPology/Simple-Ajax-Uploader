@@ -22,13 +22,12 @@ var uploader = new ss.SimpleUpload({
 ```
 
 ### Features ###
-* Uses XMLHttpRequest and HTML5 File API with fall back to iframe method for Internet Explorer 9 and older.
+* Fully cross-browser -- works in IE7+, Firefox, Chrome, Safari, Opera
 * Supports multiple, concurrent file uploads - even in non-HTML5 browsers.
-* No external libraries required - use it with or without jQuery.
-* Works in all major browsers: IE7+, Firefox 4+, Safari 4+, Chrome, and Opera.
-* Fast and lightweight - only 5KB, minified and gzipped.
-* Built-in support for implementing truly cross-browser progress bars.
+* No flash or external CSS -- just one 5Kb Javascript file (minified and gzipped)
 * Use any HTML element as the upload button.
+* Optional, built-in support for truly cross-browser progress bars.
+* No dependencies - use it with or without jQuery.
 * Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads.
 
 ### How to Use ###

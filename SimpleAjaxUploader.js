@@ -1147,7 +1147,7 @@ ss.SimpleUpload.prototype = {
     if (this._settings.allowedExtensions.length > 0) {
       if (!this._checkExtension(ext)) {
         this.removeCurrent();
-        this.log('File extension not permitted');
+        this.log('file extension not permitted');
         this._settings.onExtError.call(this, filename, ext);
         return false;
       }

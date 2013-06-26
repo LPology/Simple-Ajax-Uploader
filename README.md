@@ -8,18 +8,8 @@ Live demo: http://www.lpology.com/code/ajaxuploader/
 ### Overview ###
 Simple Ajax Uploader allows developers to easily add Ajax file upload functionality to web applications. It abstracts away standard tasks and browser compatibility issues while preserving wide latitude for custom use.
 
-The project began as a rewrite of Andrew Valum's original Ajax Upload plugin. The goal of the project is make file uploading easy for developers and pleasant for users.
+The project began as a rewrite of Andrew Valum's original Ajax Upload plugin. The goal of the project is make file uploading easy for developers and pleasant for users. Basic implementation: 
 
-### Features ###
-* Fully cross-browser -- works in IE7+, Firefox, Chrome, Safari, Opera
-* Supports multiple, concurrent file uploads - even in non-HTML5 browsers.
-* No flash or external CSS -- just one 5Kb Javascript file (minified and gzipped)
-* Use any HTML element as the upload button.
-* Optional, built-in support for truly cross-browser progress bars.
-* No dependencies - use it with or without jQuery.
-* Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads.
-
-### Quick Start Example ###
 Include SimpleAjaxUploader.js into your page, and initialize the uploader when the DOM is ready:
 
 ```javascript
@@ -29,6 +19,16 @@ var uploader = new ss.SimpleUpload({
       name: 'uploadfile' // Parameter name of the uploaded file
 });
 ```
+
+
+### Features ###
+* Fully cross-browser -- works in IE7+, Firefox, Chrome, Safari, Opera
+* Supports multiple, concurrent file uploads - even in non-HTML5 browsers.
+* No flash or external CSS -- just one 5Kb Javascript file (minified and gzipped)
+* Use any HTML element as the upload button.
+* Optional, built-in support for truly cross-browser progress bars.
+* No dependencies - use it with or without jQuery.
+* Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads.
 
 ### How to Use ###
 There are two main ways to use the plugin:

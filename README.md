@@ -8,7 +8,9 @@ Live demo: http://www.lpology.com/code/ajaxuploader/
 ### Overview ###
 Simple Ajax Uploader allows developers to easily add Ajax file upload functionality to web applications. It abstracts away standard tasks and browser compatibility issues while preserving wide latitude for custom use.
 
-The project began as a rewrite of Andrew Valum's original Ajax Upload plugin. The goal of the project is make file uploading easy for developers and pleasant for users. Basic implementation: 
+The project began as a rewrite of Andrew Valum's original Ajax Upload plugin. The goal of the project is make file uploading easy for developers and pleasant for users. 
+
+Basic implementation: 
 
 ```javascript
 var uploader = new ss.SimpleUpload({

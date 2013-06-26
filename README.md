@@ -10,8 +10,6 @@ Simple Ajax Uploader allows developers to easily add Ajax file upload functional
 
 The project began as a rewrite of Andrew Valum's original Ajax Upload plugin. The goal of the project is make file uploading easy for developers and pleasant for users. Basic implementation: 
 
-Include SimpleAjaxUploader.js into your page, and initialize the uploader when the DOM is ready:
-
 ```javascript
 var uploader = new ss.SimpleUpload({
       button: 'upload-btn', // HTML element used as upload button

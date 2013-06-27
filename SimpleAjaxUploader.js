@@ -364,6 +364,7 @@ ss.SimpleUpload = function(options) {
     hoverClass: '',
     focusClass: '',
     disabledClass: '',
+    accept: false,
     onChange: function(filename, extension) {},
     onSubmit: function(filename, extension) {},
     onProgress: function(pct) {},
@@ -557,6 +558,10 @@ ss.SimpleUpload.prototype = {
 
     if (this._XhrIsSupported) {
       this._input.setAttribute('multiple', true);
+      // accept attribute is supported by same browsers that support XHR uploads
+      if (this._settings.accept !== false) {
+        this._input.setAttribute('accept', this._settings.accept);
+      }
     }
 
     ss.addStyles(div, {

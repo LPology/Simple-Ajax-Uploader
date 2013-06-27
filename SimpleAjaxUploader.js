@@ -359,6 +359,7 @@ ss.SimpleUpload = function(options) {
     data: {},
     autoSubmit: true,
     multipart: false,
+    method: 'POST',
     responseType: '',
     debug: false,
     hoverClass: '',
@@ -875,7 +876,7 @@ ss.SimpleUpload.prototype = {
       }
     };
 
-    xhr.open('POST', queryURL, true);
+    xhr.open(settings.method.toUpperCase(), queryURL, true);
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.setRequestHeader('X-File-Name', encodeURIComponent(filename));
 

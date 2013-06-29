@@ -1,7 +1,7 @@
 Change Log
 ============================
 ### Version 1.6 ###
-If v1.6 release has a theme, it is flexibility.
+If the 1.6 release has a theme, it is flexibility. Nearly every update in this release is intended to allow greater flexibility for developers.
 
 * Submitting a file which exceeds `maxSize` or is not an `allowedExtension` no longer triggers an alert, but will instead fire a callback
 * Added `onSizeError()` callback function which fires when a selected file exceeds `maxSize` option, if set

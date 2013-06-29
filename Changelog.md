@@ -4,8 +4,8 @@ Change Log
 If the 1.6 release has a theme, it is flexibility. Nearly every update in this release is intended to allow greater flexibility for developers.
 
 * Submitting a file which exceeds `maxSize` or is not an `allowedExtension` no longer triggers an alert, but will instead fire a callback
-* Added `onSizeError()` callback function which fires when a selected file exceeds `maxSize` option, if set
-* Added `onExtError()` callback which fires when a selected file is not permitted by the `allowedExtensions` option, if set
+* Added `onSizeError()` callback function which fires when a file exceeds the `maxSize` option, if it is set
+* Added `onExtError()` callback which fires when a file is not permitted by the `allowedExtensions` option, if it is set
 * Removed `messages` option and `_errorMsg()`, both of which are no longer used
 * Added new `accept` option, the value of which will be the value of the `accept` file input attribute in supporting browsers. <a href="http://stackoverflow.com/a/10503561/1091949">More info.</a>
 * Added new `method` option to allow specifying an HTTP method other than POST

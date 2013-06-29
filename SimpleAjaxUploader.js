@@ -599,6 +599,7 @@ ss.SimpleUpload.prototype = {
           ext,
           total,
           i;
+          
       if (!self._input || self._input.value === '') {
         return;
       }

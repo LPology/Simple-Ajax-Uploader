@@ -312,7 +312,7 @@ if ($result) {
         <tr>
             <td><strong>accept</strong><br />Default: <code>''</code></td>
             <td>String</td>
-            <td>Sets the value of the <code>accept</code> file input attribute.</td>
+            <td>Sets the value of the <code>accept</code> file input attribute in supporting browsres.</td>
         </tr>	        
         
         <tr>
@@ -460,7 +460,7 @@ if ($result) {
             <td>Length of delay (in milliseconds) between completed progress update checks.</td>
         </tr>	
         <tr>
-            <td><strong>keyParamName</strong><br />Default: <code>'APC_UPLOAD_PROGRESS'</code></td>
+            <td><strong>keyParamName</strong><br />Default: <code>APC_UPLOAD_PROGRESS</code></td>
             <td>String</td>
             <td>The name specified in PHP configuration to activate APC upload progress. This is the value of <code>apc.rfc1867_name</code> in PHP runtime config. (PHP default value is "APC_UPLOAD_PROGRESS")
             <br /><a href="http://php.net/manual/en/apc.configuration.php#ini.apc.rfc1867-name">More info at php.net</a>

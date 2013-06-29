@@ -253,7 +253,7 @@ if ($result) {
 }
 ```
 
-### API Reference - General ###
+### API Reference - Options ###
 
 <table>
     <thead>

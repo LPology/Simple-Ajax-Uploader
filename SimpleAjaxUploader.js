@@ -354,6 +354,7 @@ ss.SimpleUpload = function(options) {
     checkProgressInterval: 50,
     keyParamName: 'APC_UPLOAD_PROGRESS',
     allowedExtensions: [],
+    accept: '',    
     maxSize: false,
     name: '',
     data: {},
@@ -365,7 +366,6 @@ ss.SimpleUpload = function(options) {
     hoverClass: '',
     focusClass: '',
     disabledClass: '',
-    accept: false,
     onChange: function(filename, extension) {},
     onSubmit: function(filename, extension) {},
     onProgress: function(pct) {},
@@ -560,7 +560,7 @@ ss.SimpleUpload.prototype = {
     if (this._XhrIsSupported) {
       this._input.setAttribute('multiple', true);
       // accept attribute is supported by same browsers that support XHR uploads
-      if (this._settings.accept !== false) {
+      if (this._settings.accept !== '') {
         this._input.setAttribute('accept', this._settings.accept);
       }
     }

@@ -1,5 +1,16 @@
 Change Log
 ============================
+### Version 1.6 ###
+If v1.6 release has a theme, it is flexibility.
+
+* Submitting a file which exceeds `maxSize` or is not an `allowedExtension` no longer triggers an alert, but will instead fire a callback
+* Added `onSizeError()` callback function which fires when a selected file exceeds `maxSize` option, if set
+* Added `onExtError()` callback which fires when a selected file is not permitted by the `allowedExtensions` option, if set
+* Removed `messages` option and `_errorMsg()`, both of which are no longer used
+* Added new `accept` option, the value of which will be the value of the `accept` file input attribute in supporting browsers. <a href="http://stackoverflow.com/a/10503561/1091949">More info.</a>
+* Added new `method` option to allow specifying an HTTP method other than POST
+
+Special thanks to <a href="https://github.com/dleffler">dleffler</a>, <a href="https://github.com/devtrends">devtrends</a> and <a href="https://github.com/urcadox">urcadox</a> for their ideas and feedback.
 
 ### Version 1.5.3 ###
 * Added `autoSubmit` check before submitting in `_cycleQueue()`

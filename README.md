@@ -383,7 +383,7 @@ if ($result) {
         <tr>
             <td><strong>onSizeError(filename, fileSize)</strong></td>
             <td><code>filename</code> (String), <code>fileSize</code> (Integer)</td>
-            <td>Function to be called if the file size exceeds that which is set in the <code>maxSize</code> option, if set. The function gets passsed two parameters: a string containing the filename; an integer representing the file size.<br /><br /><strong>Note:</strong> The disallowed file is removed from the queue before `onSizeError()` is called.</td>
+            <td>Function to be called if the file size exceeds the limit which is set in the <code>maxSize</code> option, if set. The function gets passsed two parameters: a string containing the filename; an integer representing the file size.<br /><br /><strong>Note:</strong> The disallowed file is removed from the queue before `onSizeError()` is called.</td>
         </tr>         
         <tr>
             <td><strong>onError(filename, errorType, response)</strong></td>

@@ -1,4 +1,4 @@
-/**
+/** 
  * Simple Ajax Uploader
  * Version 1.6
  * https://github.com/LPology/Simple-Ajax-Uploader

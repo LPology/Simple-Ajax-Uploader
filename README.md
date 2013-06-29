@@ -294,7 +294,12 @@ if ($result) {
           <td>Integer</td>
           <td>Max number of simultaneous uploads. If the <code>queue</code> option is <code>true</code> (default), files selected after the limit is reached will be queued and then automatically uploaded as prior uploads are completed.</td>    
         </tr>  
-        
+        <tr>
+          <td><strong>maxSize</strong><br />Default: <code>false</code></td>
+          <td>Integer</td>
+          <td>Maximum allowed file size (in kilobytes). Only works in browsers that support File API.
+          </td>
+         </tr>          
         <tr>
           <td><strong>allowedExtensions</strong><br />Default: <code>[]</code></td>
           <td>Array</td>
@@ -303,12 +308,12 @@ if ($result) {
           <code>allowedExtensions: ['jpg', 'jpeg', 'png', 'gif']</code>
           </td>
         </tr> 
+
         <tr>
-          <td><strong>maxSize</strong><br />Default: <code>false</code></td>
-          <td>Integer</td>
-          <td>Maximum allowed file size (in kilobytes). Only works in browsers that support File API.
-          </td>
-         </tr>         
+            <td><strong>accept</strong><br />Default: <code>''</code></td>
+            <td>String</td>
+            <td>Sets the value of the <code>accept</code> file input attribute.</td>
+        </tr>	        
         
         <tr>
             <td><strong>queue</strong><br />Default: <code>true</code></td>
@@ -325,6 +330,13 @@ if ($result) {
             <td>Boolean</td>
             <td>Set to <code>true</code> for all files to be uploaded using multipart form method instead of direct binary stream.</td>
         </tr>        
+        
+        <tr>
+            <td><strong>method</strong><br />Default: <code>POST</code></td>
+            <td>String</td>
+            <td>HTTP method to use for XHR uploads.<br /><br /><strong>Note:</strong> Only POST method can be used in older browsers which rely on the iframe method.</td>
+        </tr>         
+        
         <tr>
             <td><strong>autoSubmit</strong><br />Default: <code>true</code></td>
             <td>Boolean</td>

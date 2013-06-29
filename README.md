@@ -312,7 +312,7 @@ if ($result) {
         <tr>
             <td><strong>accept</strong><br />Default: <code>''</code></td>
             <td>String</td>
-            <td>Sets the value of the <code>accept</code> file input attribute in supporting browsres.</td>
+            <td>Sets the value of the <code>accept</code> file input attribute in supporting browsers.</td>
         </tr>	        
         
         <tr>

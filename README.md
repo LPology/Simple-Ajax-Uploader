@@ -22,7 +22,7 @@ var uploader = new ss.SimpleUpload({
 ### Features ###
 * Cross-browser -- works in IE7+, Firefox, Chrome, Safari, Opera
 * Supports multiple, concurrent file uploads (even in non-HTML5 browsers)
-* No flash or external CSS -- just one 5Kb Javascript file (minified and gzipped)
+* No flash or external CSS -- under 5Kb Javascript file (minified and gzipped)
 * Use any HTML element as the upload button
 * Optional, built-in support for truly cross-browser progress bars
 * No dependencies - use it with or without jQuery
@@ -374,7 +374,17 @@ if ($result) {
             <td><strong>onComplete(filename, response)</strong></td>
             <td><code>filename</code> (String), <code>response</code> (Mixed)</td>
             <td>Function to be called when the upload is completed. The function gets passed two parameters: a string containing the filename; the data returned from the server, formatted according to the <code>responseType</code> setting. If <code>responseType</code> is <code>'json'</code>, the response will be evaluated as JSON and will return a Javascript object.</td>
-        </tr>
+        </tr>        
+        <tr>
+            <td><strong>onExtError(filename, extension)</strong></td>
+            <td><code>filename</code> (String), <code>extension</code> (String)</td>
+            <td>Function to be called if the extension of a file is not permitted in the <code>allowedExtensions</code> option, if set. The function gets passsed three parameters: a string containing the filename; a string containing the file extension.<br /><br /><strong>Note:</strong> The disallowed file is removed from the queue before `onExtError()` is called.</td>
+        </tr>        
+        <tr>
+            <td><strong>onSizeError(filename, fileSize)</strong></td>
+            <td><code>filename</code> (String), <code>fileSize</code> (Integer)</td>
+            <td>Function to be called if the file size exceeds that which is set in the <code>maxSize</code> option, if set. The function gets passsed three parameters: a string containing the filename; an integer representing the file size.<br /><br /><strong>Note:</strong> The disallowed file is removed from the queue before `onSizeError()` is called.</td>
+        </tr>         
         <tr>
             <td><strong>onError(filename, errorType, response)</strong></td>
             <td><code>filename</code> (String), <code>errorType</code> (String), <code>response</code> (String)</td>
@@ -428,13 +438,6 @@ if ($result) {
       <td>Maximum allowed file size (in kilobytes). Only works in browsers that support File API.
       </td>
      </tr>    
-     
-    <tr>
-      <td><strong>messages</strong><br />Default: </td>
-      <td>Object</td>
-      <td>Provide a custom error message for display when a user selects the wrong file.
-      </td>
-     </tr>     
      
   </tbody>
 </table> 

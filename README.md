@@ -334,7 +334,7 @@ if ($result) {
         <tr>
             <td><strong>method</strong><br />Default: <code>POST</code></td>
             <td>String</td>
-            <td>HTTP method to use for XHR uploads.<br /><br /><strong>Note:</strong> Only POST method can be used in older browsers which rely on the iframe method.</td>
+            <td>HTTP method to use for XHR uploads.<br /><br /><strong>Note:</strong> Only the POST method can be used in older browsers which rely on the iframe upload method.</td>
         </tr>         
         
         <tr>

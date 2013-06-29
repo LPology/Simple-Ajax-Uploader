@@ -378,12 +378,12 @@ if ($result) {
         <tr>
             <td><strong>onExtError(filename, extension)</strong></td>
             <td><code>filename</code> (String), <code>extension</code> (String)</td>
-            <td>Function to be called if the extension of a file is not permitted in the <code>allowedExtensions</code> option, if set. The function gets passsed two parameters: a string containing the filename; a string containing the file extension.<br /><br /><strong>Note:</strong> The disallowed file is removed from the queue before `onExtError()` is called.</td>
+            <td>Function to be called if the extension of a file is not permitted in the <code>allowedExtensions</code> option, if it is set. The function gets passsed two parameters: a string containing the filename; a string containing the file extension.<br /><br /><strong>Note:</strong> The disallowed file is removed from the queue before `onExtError()` is called.</td>
         </tr>        
         <tr>
             <td><strong>onSizeError(filename, fileSize)</strong></td>
             <td><code>filename</code> (String), <code>fileSize</code> (Integer)</td>
-            <td>Function to be called if the file size exceeds the limit which is set in the <code>maxSize</code> option, if set. The function gets passsed two parameters: a string containing the filename; an integer representing the file size.<br /><br /><strong>Note:</strong> The disallowed file is removed from the queue before `onSizeError()` is called.</td>
+            <td>Function to be called if the file size exceeds the limit which is set in the <code>maxSize</code> option, if it is set. The function gets passsed two parameters: a string containing the filename; an integer representing the file size.<br /><br /><strong>Note:</strong> The disallowed file is removed from the queue before `onSizeError()` is called.</td>
         </tr>         
         <tr>
             <td><strong>onError(filename, errorType, response)</strong></td>

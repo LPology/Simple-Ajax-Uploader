@@ -294,6 +294,22 @@ if ($result) {
           <td>Integer</td>
           <td>Max number of simultaneous uploads. If the <code>queue</code> option is <code>true</code> (default), files selected after the limit is reached will be queued and then automatically uploaded as prior uploads are completed.</td>    
         </tr>  
+        
+        <tr>
+          <td><strong>allowedExtensions</strong><br />Default: <code>[]</code></td>
+          <td>Array</td>
+          <td>
+          Only allow file uploading for these extensions (case insensitive). Ex: 
+          <code>allowedExtensions: ['jpg', 'jpeg', 'png', 'gif']</code>
+          </td>
+        </tr> 
+        <tr>
+          <td><strong>maxSize</strong><br />Default: <code>false</code></td>
+          <td>Integer</td>
+          <td>Maximum allowed file size (in kilobytes). Only works in browsers that support File API.
+          </td>
+         </tr>         
+        
         <tr>
             <td><strong>queue</strong><br />Default: <code>true</code></td>
             <td>Boolean</td>
@@ -378,12 +394,12 @@ if ($result) {
         <tr>
             <td><strong>onExtError(filename, extension)</strong></td>
             <td><code>filename</code> (String), <code>extension</code> (String)</td>
-            <td>Function to be called if the extension of a file is not permitted in the <code>allowedExtensions</code> option, if it is set. The function gets passsed two parameters: a string containing the filename; a string containing the file extension.<br /><br /><strong>Note:</strong> The disallowed file is removed from the queue before <code>`onExtError()`</code> is called.</td>
+            <td>Function to be called if the extension of a file is not permitted in the <code>allowedExtensions</code> option, if it is set. The function gets passsed two parameters: a string containing the filename; a string containing the file extension.<br /><br /><strong>Note:</strong> The disallowed file is removed from the queue before <code>onExtError()</code> is called.</td>
         </tr>        
         <tr>
             <td><strong>onSizeError(filename, fileSize)</strong></td>
             <td><code>filename</code> (String), <code>fileSize</code> (Integer)</td>
-            <td>Function to be called if the file size exceeds the limit which is set in the <code>maxSize</code> option, if it is set. The function gets passsed two parameters: a string containing the filename; an integer representing the file size.<br /><br /><strong>Note:</strong> The disallowed file is removed from the queue before <code>`onSizeError()`</code> is called.</td>
+            <td>Function to be called if the file size exceeds the limit which is set in the <code>maxSize</code> option, if it is set. The function gets passsed two parameters: a string containing the filename; an integer representing the file size.<br /><br /><strong>Note:</strong> The disallowed file is removed from the queue before <code>onSizeError()</code> is called.</td>
         </tr>         
         <tr>
             <td><strong>onError(filename, errorType, response)</strong></td>
@@ -412,36 +428,6 @@ if ($result) {
         </tr>		
 	</tbody>
 </table>
-
-### API Reference - User Experience ###
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>allowedExtensions</strong><br />Default: <code>[]</code></td>
-      <td>Array</td>
-      <td>
-      Only allow file uploading for these extensions (case insensitive). Ex: 
-      <code>allowedExtensions: ['jpg', 'jpeg', 'png', 'gif']</code>
-      </td>
-    </tr> 
-    <tr>
-      <td><strong>maxSize</strong><br />Default: <code>false</code></td>
-      <td>Integer</td>
-      <td>Maximum allowed file size (in kilobytes). Only works in browsers that support File API.
-      </td>
-     </tr>    
-     
-  </tbody>
-</table> 
-
 
 ### API Reference - Cross-Browser Progress Utilities ###
 

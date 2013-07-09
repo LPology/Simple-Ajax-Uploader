@@ -537,3 +537,5 @@ if ($result) {
 
 ### License ###
 Released under the MIT license.
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/12959a020aff072486c207b468ab8ade "githalytics.com")](http://githalytics.com/LPology/Simple-Ajax-Uploader)

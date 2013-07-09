@@ -538,4 +538,4 @@ if ($result) {
 ### License ###
 Released under the MIT license.
 
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/12959a020aff072486c207b468ab8ade "githalytics.com")](http://githalytics.com/LPology/Simple-Ajax-Uploader)
+<img src="https://www.lpology.com/ga/ga.php?utmac=MO-42337206-1&utmn=794629450&utmr=-&utmp=%2FLPology%2FSimple-Ajax-Uploader&guid=ON" />

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Simple-ajax-uploader : Javascript plugin for cross-browser Ajax file uploading with progress bar support. Works in all major browsers, including IE7+, Chrome, Firefox, Safari, and  Opera. No dependencies - use it with or without jQuery." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Simple-ajax-uploader</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/LPology/Simple-Ajax-Uploader">View on GitHub</a>
+
+          <h1 id="project_title">Simple-ajax-uploader</h1>
+          <h2 id="project_tagline">Javascript plugin for cross-browser Ajax file uploading with progress bar support. Works in all major browsers, including IE7+, Chrome, Firefox, Safari, and  Opera. No dependencies - use it with or without jQuery.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/LPology/Simple-Ajax-Uploader/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/LPology/Simple-Ajax-Uploader/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="simple-ajax-uploader" class="anchor" href="#simple-ajax-uploader"><span class="octicon octicon-link"></span></a>Simple Ajax Uploader</h1>
+
+<p>A Javascript plugin for cross-browser Ajax file uploading. Supports multiple file uploading with progress bars.</p>
+
+<p>Live demo: <a href="http://www.lpology.com/code/ajaxuploader/">http://www.lpology.com/code/ajaxuploader/</a></p>
+
+<h3>
+<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h3>
+
+<p>Simple Ajax Uploader allows developers to easily add Ajax file upload functionality to web applications. It abstracts away standard tasks and browser compatibility issues while preserving wide latitude for custom use.</p>
+
+<p>The project began as a rewrite of Andrew Valum's original Ajax Upload plugin. The goal of the project is make file uploading easy for developers and pleasant for users. Basic usage: </p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">uploader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ss</span><span class="p">.</span><span class="nx">SimpleUpload</span><span class="p">({</span>
+      <span class="nx">button</span><span class="o">:</span> <span class="s1">'upload-btn'</span><span class="p">,</span> <span class="c1">// HTML element used as upload button</span>
+      <span class="nx">url</span><span class="o">:</span> <span class="s1">'/PathTo/UploadHandler'</span><span class="p">,</span> <span class="c1">// URL of server-side upload handler</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">'uploadfile'</span> <span class="c1">// Parameter name of the uploaded file</span>
+<span class="p">});</span>
+</pre></div>
+
+<h3>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h3>
+
+<ul>
+<li>Cross-browser -- works in IE7+, Firefox, Chrome, Safari, Opera</li>
+<li>Supports multiple, concurrent file uploads (even in non-HTML5 browsers)</li>
+<li>No flash or external CSS -- under 5Kb Javascript file (minified and gzipped)</li>
+<li>Use any HTML element as the upload button</li>
+<li>Optional, built-in support for truly cross-browser progress bars</li>
+<li>No dependencies - use it with or without jQuery</li>
+<li>Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads</li>
+</ul><h3>
+<a name="how-to-use" class="anchor" href="#how-to-use"><span class="octicon octicon-link"></span></a>How to Use</h3>
+
+<p>There are two main ways to use the plugin:</p>
+
+<p><strong>1. Single file uploading</strong> - Only one upload allowed at a time. Progress bar is an element that is re-used for each upload.<br><strong>2. Multiple file uploading</strong> - Allow multiple, concurrent file uploads. Progress bars are created on the fly before each upload.</p>
+
+<h4>
+<a name="method-1-single-file-uploading-one-file-at-a-time" class="anchor" href="#method-1-single-file-uploading-one-file-at-a-time"><span class="octicon octicon-link"></span></a>Method 1: Single file uploading (one file at a time)</h4>
+
+<p>Before each upload, in the <code>onSubmit()</code> callback function, the on-page <code>sizeBox</code> and <code>progress</code> elements are assigned specific roles using these two functions:</p>
+
+<p><code>setProgressBar(elem)</code> - Designates an element as the progress bar for an upload.<br><code>setFileSizeBox(elem)</code> - Designates an element as the container in which the file size of an uploading file will be inserted.</p>
+
+<p>As a result, when an upload begins, the file size of the upload is inserted into the <code>sizeBox</code> element and the CSS width of the <code>progress</code> element is set to 0%. As the upload progresses, the CSS width percentage of the <code>progress</code> element will be updated accordingly.</p>
+
+<p>This approach of assigning roles to elements provides developers with a great deal of flexibility -- progress indicators can be styled in any way and placed anywhere on the page.</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">sizeBox</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'sizeBox'</span><span class="p">),</span> <span class="c1">// container for file size info</span>
+    <span class="nx">progress</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'progress'</span><span class="p">);</span> <span class="c1">// the element we're using for a progress bar</span>
+
+<span class="kd">var</span> <span class="nx">uploader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ss</span><span class="p">.</span><span class="nx">SimpleUpload</span><span class="p">({</span>
+      <span class="nx">button</span><span class="o">:</span> <span class="s1">'uploadButton'</span><span class="p">,</span> <span class="c1">// file upload button</span>
+      <span class="nx">url</span><span class="o">:</span> <span class="s1">'uploadHandler.php'</span><span class="p">,</span> <span class="c1">// server side handler</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">'uploadfile'</span><span class="p">,</span> <span class="c1">// upload parameter name        </span>
+      <span class="nx">progressUrl</span><span class="o">:</span> <span class="s1">'uploadProgress.php'</span><span class="p">,</span> <span class="c1">// enables cross-browser progress support (more info below)</span>
+      <span class="nx">responseType</span><span class="o">:</span> <span class="s1">'json'</span><span class="p">,</span>
+      <span class="nx">allowedExtensions</span><span class="o">:</span> <span class="p">[</span><span class="s1">'jpg'</span><span class="p">,</span> <span class="s1">'jpeg'</span><span class="p">,</span> <span class="s1">'png'</span><span class="p">,</span> <span class="s1">'gif'</span><span class="p">],</span>
+      <span class="nx">maxSize</span><span class="o">:</span> <span class="mi">1024</span><span class="p">,</span> <span class="c1">// kilobytes</span>
+      <span class="nx">hoverClass</span><span class="o">:</span> <span class="s1">'ui-state-hover'</span><span class="p">,</span>
+      <span class="nx">focusClass</span><span class="o">:</span> <span class="s1">'ui-state-focus'</span><span class="p">,</span>
+      <span class="nx">disabledClass</span><span class="o">:</span> <span class="s1">'ui-state-disabled'</span><span class="p">,</span>
+      <span class="nx">onSubmit</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">extension</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">setFileSizeBox</span><span class="p">(</span><span class="nx">sizeBox</span><span class="p">);</span> <span class="c1">// designate this element as file size container</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">setProgressBar</span><span class="p">(</span><span class="nx">progress</span><span class="p">);</span> <span class="c1">// designate as progress bar</span>
+        <span class="p">},</span>         
+      <span class="nx">onComplete</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">alert</span><span class="p">(</span><span class="nx">filename</span> <span class="o">+</span> <span class="s1">'upload failed'</span><span class="p">);</span>
+              <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>            
+          <span class="p">}</span>
+          <span class="c1">// do something with response...</span>
+        <span class="p">}</span>
+<span class="p">});</span>        
+</pre></div>
+
+<h4>
+<a name="method-2-multiple-file-uploads" class="anchor" href="#method-2-multiple-file-uploads"><span class="octicon octicon-link"></span></a>Method 2: Multiple file uploads</h4>
+
+<p>Below is an example of how to implement multiple file uploading with progress bars. A new progress bar is created for each file upload within the <code>onSubmit()</code> callback function.</p>
+
+<p>Like in Method 1, the newly created elements are assigned roles using  the <code>setProgressBar()</code> and <code>setFileSizeBox()</code> functions.  Unlike the previous example, however, the progress elements are automatically removed when the upload is completed. </p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">uploader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ss</span><span class="p">.</span><span class="nx">SimpleUpload</span><span class="p">({</span>
+      <span class="nx">button</span><span class="o">:</span> <span class="s1">'uploadButton'</span><span class="p">,</span>
+      <span class="nx">url</span><span class="o">:</span> <span class="s1">'uploadHandler.php'</span><span class="p">,</span> <span class="c1">// server side handler</span>
+      <span class="nx">progressUrl</span><span class="o">:</span> <span class="s1">'uploadProgress.php'</span><span class="p">,</span> <span class="c1">// enables cross-browser progress support (more info below)</span>
+      <span class="nx">responseType</span><span class="o">:</span> <span class="s1">'json'</span><span class="p">,</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">'uploadfile'</span><span class="p">,</span>
+      <span class="nx">multiple</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">allowedExtensions</span><span class="o">:</span> <span class="p">[</span><span class="s1">'jpg'</span><span class="p">,</span> <span class="s1">'jpeg'</span><span class="p">,</span> <span class="s1">'png'</span><span class="p">,</span> <span class="s1">'gif'</span><span class="p">],</span> <span class="c1">// for example, if we were uploading pics</span>
+      <span class="nx">hoverClass</span><span class="o">:</span> <span class="s1">'ui-state-hover'</span><span class="p">,</span>
+      <span class="nx">focusClass</span><span class="o">:</span> <span class="s1">'ui-state-focus'</span><span class="p">,</span>
+      <span class="nx">disabledClass</span><span class="o">:</span> <span class="s1">'ui-state-disabled'</span><span class="p">,</span>   
+      <span class="nx">onSubmit</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">extension</span><span class="p">)</span> <span class="p">{</span>
+          <span class="c1">// Create the elements of our progress bar</span>
+          <span class="kd">var</span> <span class="nx">progress</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'div'</span><span class="p">),</span> <span class="c1">// container for progress bar</span>
+              <span class="nx">bar</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'div'</span><span class="p">),</span> <span class="c1">// actual progress bar</span>
+              <span class="nx">fileSize</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'div'</span><span class="p">),</span> <span class="c1">// container for upload file size</span>
+              <span class="nx">wrapper</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'div'</span><span class="p">),</span> <span class="c1">// container for this progress bar</span>
+              <span class="nx">progressBox</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'progressBox'</span><span class="p">);</span> <span class="c1">// on page container for progress bars</span>
+
+          <span class="c1">// Assign each element its corresponding class</span>
+          <span class="nx">progress</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s1">'progress'</span><span class="p">;</span>
+          <span class="nx">bar</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span>            
+          <span class="nx">fileSize</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s1">'size'</span><span class="p">;</span>
+          <span class="nx">wrapper</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s1">'wrapper'</span><span class="p">;</span>
+
+          <span class="c1">// Assemble the progress bar and add it to the page</span>
+          <span class="nx">progress</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">bar</span><span class="p">);</span> 
+          <span class="nx">wrapper</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">'&lt;div class="name"&gt;'</span><span class="o">+</span><span class="nx">filename</span><span class="o">+</span><span class="s1">'&lt;/div&gt;'</span><span class="p">;</span> <span class="c1">// filename is passed to onSubmit()</span>
+          <span class="nx">wrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">fileSize</span><span class="p">);</span>
+          <span class="nx">wrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">progress</span><span class="p">);</span>                                       
+          <span class="nx">progressBox</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">wrapper</span><span class="p">);</span> <span class="c1">// just an element on the page to hold the progress bars    </span>
+
+          <span class="c1">// Assign roles to the elements of the progress bar</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">setProgressBar</span><span class="p">(</span><span class="nx">bar</span><span class="p">);</span> <span class="c1">// will serve as the actual progress bar</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">setFileSizeBox</span><span class="p">(</span><span class="nx">fileSize</span><span class="p">);</span> <span class="c1">// display file size beside progress bar</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">setProgressContainer</span><span class="p">(</span><span class="nx">wrapper</span><span class="p">);</span> <span class="c1">// designate the containing div to be removed after upload</span>
+        <span class="p">},</span>
+
+       <span class="c1">// Do something after finishing the upload</span>
+       <span class="c1">// Note that the progress bar will be automatically removed upon completion because everything </span>
+       <span class="c1">// is encased in the "wrapper", which was designated to be removed with setProgressContainer() </span>
+      <span class="nx">onComplete</span><span class="o">:</span>   <span class="kd">function</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">alert</span><span class="p">(</span><span class="nx">filename</span> <span class="o">+</span> <span class="s1">'upload failed'</span><span class="p">);</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+          <span class="p">}</span>
+          <span class="c1">// Stuff to do after finishing an upload...</span>
+        <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>For multiple file uploads, we use an additional function: <code>setProgressContainer(elem)</code>. This function designates an element to be removed from the DOM after the upload is completed.</p>
+
+<p>In the example, the element set to be removed with <code>setProgressContainer()</code> is the outer container for the progress elements. As a result, progress bars will be removed from the DOM after each upload is completed.</p>
+
+<h3>
+<a name="cross-browser-progress-support---how-it-works" class="anchor" href="#cross-browser-progress-support---how-it-works"><span class="octicon octicon-link"></span></a>Cross-Browser Progress Support - How it Works</h3>
+
+<p>Because the <code>progress</code> event is not supported by Internet Explorer 9 (and older), progress updates must be retrieved from the server in order to provide progress bars in those browsers. The plugin includes optional, built-in support for handling this.</p>
+
+<p>When the plugin detects support for the File API, the <code>progress</code> event is used. For older browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php (PHP w/ APC extension required - instructions below).</p>
+
+<p>In both cases, everything is handled internally - feature detection, calculation, key handling, etc. To enable this behavior, just provide the URL for uploadProgress.php in the <code>progressUrl</code> option.</p>
+
+<h4>
+<a name="installing-the-apc-extension" class="anchor" href="#installing-the-apc-extension"><span class="octicon octicon-link"></span></a>Installing the APC extension</h4>
+
+<p>The optional support for server-provided progress updates requires PHP with the APC extension installed and the <code>apc.rfc1867</code> option enabled. To install APC:</p>
+
+<pre><code>sudo pecl install apc
+</code></pre>
+
+<p>Accept the default settings, and then create a configuration file:</p>
+
+<pre><code>sudo vi /etc/php.d/apc.ini
+</code></pre>
+
+<p>Add these two lines, and then save:</p>
+
+<pre><code>extension=apc.so
+apc.rfc1867 = 1
+</code></pre>
+
+<p>Restart your web server for the changes to take effect.</p>
+
+<p><strong>Note:</strong> If APC is already installed, you may still need to add <code>apc.rfc1867 = 1</code> to apc.ini, as it is not enabled by default.</p>
+
+<h3>
+<a name="cross-browser-helper-functions" class="anchor" href="#cross-browser-helper-functions"><span class="octicon octicon-link"></span></a>Cross-Browser Helper Functions</h3>
+
+<p>To ease the pain of supporting older browsers, the plugin includes a set of callback functions which allow specific behavior to be defined based on whether the user's browser supports XHR uploads/HTML5 File API:</p>
+
+<p><code>startXHR(filename, fileSize)</code> - Called prior to upload -- only in browsers that support XHR uploads<br><code>endXHR(filename)</code> - Called after upload is completed -- only in browsers that support XHR uploads<br><code>startNonXHR(filename)</code> - Called prior to upload -- only in browsers that <strong>do not</strong> support XHR uploads<br><code>endNonXHR(filename)</code> - Called after upload is completed -- only in browsers that <strong>do not</strong> support XHR uploads<br></p>
+
+<p>A common use case is to show an upload progress bar in browsers that support the <code>progress</code> event while displaying an animated GIF in older browsers:</p>
+
+<div class="highlight"><pre>
+<span class="kd">var</span> <span class="nx">progress</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'progress'</span><span class="p">),</span> <span class="c1">// progress bar</span>
+    <span class="nx">loaderImg</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'loaderImg'</span><span class="p">);</span>  <span class="c1">// "loading" animated GIF</span>
+
+<span class="kd">var</span> <span class="nx">uploader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ss</span><span class="p">.</span><span class="nx">SimpleUpload</span><span class="p">({</span>
+      <span class="nx">button</span><span class="o">:</span> <span class="s1">'uploadButton'</span><span class="p">,</span>
+      <span class="nx">url</span><span class="o">:</span> <span class="s1">'uploadHandler.php'</span><span class="p">,</span> <span class="c1">// server side handler</span>
+      <span class="nx">responseType</span><span class="o">:</span> <span class="s1">'json'</span><span class="p">,</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">'uploadfile'</span><span class="p">,</span>
+      <span class="nx">hoverClass</span><span class="o">:</span> <span class="s1">'ui-state-hover'</span><span class="p">,</span>
+      <span class="nx">focusClass</span><span class="o">:</span> <span class="s1">'ui-state-focus'</span><span class="p">,</span>
+      <span class="nx">disabledClass</span><span class="o">:</span> <span class="s1">'ui-state-disabled'</span><span class="p">,</span>
+      <span class="nx">startXHR</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span> <span class="p">{</span>                   
+          <span class="nx">progress</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">'inline-block'</span><span class="p">;</span> <span class="c1">// show progress bar            </span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">setProgressBar</span><span class="p">(</span><span class="nx">progress</span><span class="p">);</span> <span class="c1">// designate as progress bar</span>
+      <span class="p">},</span>
+      <span class="nx">endXHR</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">progress</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">'none'</span><span class="p">;</span> <span class="c1">// hide progress bar</span>
+      <span class="p">},</span>
+      <span class="nx">startNonXHR</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">loaderImg</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">'inline-block'</span><span class="p">;</span> <span class="c1">// show animated GIF</span>
+      <span class="p">},</span>
+      <span class="nx">endNonXHR</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">loaderImg</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">'none'</span><span class="p">;</span> <span class="c1">// hide animated GIF</span>
+      <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>Returning <code>false</code> from <code>startXHR()</code> and <code>startNonXHR()</code> will prevent the upload from starting, just as it does with <code>onSubmit()</code> and <code>onChange()</code>.</p>
+
+<h3>
+<a name="using-uploaderphp" class="anchor" href="#using-uploaderphp"><span class="octicon octicon-link"></span></a>Using Uploader.php</h3>
+
+<p><strong>Note:</strong> This PHP class is included only for convenience. <strong>It is not required to use PHP with Simple Ajax Uploader.</strong> The plugin is agnostic to server configuration, so use any language you prefer.</p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">require</span><span class="p">(</span><span class="s1">'Uploader.php'</span><span class="p">);</span>
+
+<span class="nv">$upload_dir</span> <span class="o">=</span> <span class="s1">'/img_uploads/'</span><span class="p">;</span>
+<span class="nv">$valid_extensions</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'gif'</span><span class="p">,</span> <span class="s1">'png'</span><span class="p">,</span> <span class="s1">'jpeg'</span><span class="p">,</span> <span class="s1">'jpg'</span><span class="p">);</span>
+
+<span class="nv">$Upload</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileUpload</span><span class="p">(</span><span class="s1">'uploadfile'</span><span class="p">);</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$Upload</span><span class="o">-&gt;</span><span class="na">handleUpload</span><span class="p">(</span><span class="nv">$upload_dir</span><span class="p">,</span> <span class="nv">$valid_extensions</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nb">json_encode</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'success'</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span> <span class="s1">'msg'</span> <span class="o">=&gt;</span> <span class="nv">$Upload</span><span class="o">-&gt;</span><span class="na">getErrorMsg</span><span class="p">()));</span>   
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nb">json_encode</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'success'</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="s1">'file'</span> <span class="o">=&gt;</span> <span class="nv">$Upload</span><span class="o">-&gt;</span><span class="na">getFileName</span><span class="p">()));</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>You can also save the uploaded file with a different name by setting the <code>newFileName</code> property:</p>
+
+<div class="highlight"><pre><span class="nv">$Upload</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileUpload</span><span class="p">(</span><span class="s1">'uploadfile'</span><span class="p">);</span>
+<span class="nv">$ext</span> <span class="o">=</span> <span class="nv">$Upload</span><span class="o">-&gt;</span><span class="na">getExtension</span><span class="p">();</span> <span class="c1">// Get the extension of the uploaded file</span>
+<span class="nv">$Upload</span><span class="o">-&gt;</span><span class="na">newFileName</span> <span class="o">=</span> <span class="s1">'customFileName.'</span><span class="o">.</span><span class="nv">$ext</span><span class="p">;</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$Upload</span><span class="o">-&gt;</span><span class="na">handleUpload</span><span class="p">(</span><span class="nv">$upload_dir</span><span class="p">,</span> <span class="nv">$valid_extensions</span><span class="p">);</span>
+</pre></div>
+
+<p>To access the newly uploaded file, use the <code>getSavedFile()</code> method to get the file's path after the upload is completed:</p>
+
+<div class="highlight"><pre><span class="nv">$Upload</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileUpload</span><span class="p">(</span><span class="s1">'uploadfile'</span><span class="p">);</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$Upload</span><span class="o">-&gt;</span><span class="na">handleUpload</span><span class="p">(</span><span class="nv">$upload_dir</span><span class="p">,</span> <span class="nv">$valid_extensions</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nv">$path</span> <span class="o">=</span> <span class="nv">$Upload</span><span class="o">-&gt;</span><span class="na">getSavedFile</span><span class="p">();</span>
+  <span class="nv">$imgsize</span> <span class="o">=</span> <span class="nb">getimagesize</span><span class="p">(</span><span class="nv">$path</span><span class="p">);</span>
+  <span class="c1">// image resizing stuff...</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="api-reference---settings" class="anchor" href="#api-reference---settings"><span class="octicon octicon-link"></span></a>API Reference - Settings</h3>
+
+<table>
+<tr>
+<th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+<tr>
+<td>
+<strong>button</strong><br>Default: <code>''</code>
+</td>
+            <td>String, Element</td>
+            <td>File upload button. <strong>Required.</strong>
+</td>
+        </tr>
+<tr>
+<td>
+<strong>url</strong><br>Default: <code>''</code>
+</td>
+            <td>String</td>
+            <td>Location of the server-side file upload handler. <strong>Required.</strong>
+</td>
+        </tr>
+<tr>
+<td>
+<strong>name</strong><br>Default: <code>''</code>
+</td>
+            <td>String</td>
+            <td>Upload parameter name. <strong>Required.</strong>
+</td>
+        </tr>
+<tr>
+<td>
+<strong>progressUrl</strong><br>Default: <code>''</code>
+</td>
+            <td>String</td>
+            <td>Set to the location of uploadProgress.php (included) to enable cross-browser upload progress tracking (see example above).</td>
+        </tr>
+<tr>
+<td>
+<strong>multiple</strong><br>Default: <code>false</code>
+</td>
+          <td>Boolean</td>
+          <td>Set to <code>true</code> to enable multiple, concurrent file uploads.</td>    
+        </tr>
+<tr>
+<td>
+<strong>maxUploads</strong><br>Default: <code>3</code>
+</td>
+          <td>Integer</td>
+          <td>Max number of simultaneous uploads. If the <code>queue</code> option is <code>true</code> (default), files selected after the limit is reached will be queued and then automatically uploaded as prior uploads are completed.</td>    
+        </tr>
+<tr>
+<td>
+<strong>maxSize</strong><br>Default: <code>false</code>
+</td>
+          <td>Integer</td>
+          <td>Maximum allowed file size (in kilobytes). Only works in browsers that support File API.
+          </td>
+         </tr>
+<tr>
+<td>
+<strong>allowedExtensions</strong><br>Default: <code>[]</code>
+</td>
+          <td>Array</td>
+          <td>
+          Only allow file uploading for these extensions (case insensitive). Ex: 
+          <code>allowedExtensions: ['jpg', 'jpeg', 'png', 'gif']</code>
+          </td>
+        </tr>
+<tr>
+<td>
+<strong>accept</strong><br>Default: <code>''</code>
+</td>
+            <td>String</td>
+            <td>Sets the value of the <code>accept</code> file input attribute in supporting browsers.</td>
+        </tr>
+<tr>
+<td>
+<strong>queue</strong><br>Default: <code>true</code>
+</td>
+            <td>Boolean</td>
+            <td>If upload limit is reached, allow any files selected afterward to be queued and then automatically uploaded as prior uploads are completed.</td>
+        </tr>
+<tr>
+<td>
+<strong>data</strong><br>Default: <code>{}</code>
+</td>
+            <td>Object</td>
+            <td>Additional data to be sent to the server.</td>
+        </tr>
+<tr>
+<td>
+<strong>multipart</strong><br>Default: <code>false</code>
+</td>
+            <td>Boolean</td>
+            <td>Set to <code>true</code> for all files to be uploaded using multipart form method instead of direct binary stream.</td>
+        </tr>
+<tr>
+<td>
+<strong>method</strong><br>Default: <code>POST</code>
+</td>
+            <td>String</td>
+            <td>The HTTP method to use for XHR uploads.<br><br><strong>Note:</strong> Only the POST method can be used in older browsers which rely on the iframe upload method.</td>
+        </tr>
+<tr>
+<td>
+<strong>autoSubmit</strong><br>Default: <code>true</code>
+</td>
+            <td>Boolean</td>
+            <td>By default, uploads commence as soon as a file is selected. Set to <code>false</code> to delay the upload and instead trigger manually with the <code>submit()</code> function.</td>
+        </tr>
+<tr>
+<td>
+<strong>responseType</strong><br>Default: <code>''</code>
+</td>
+            <td>String</td>
+            <td>The type of data you're expecting back from the server. Default is plain text. Additional option is <code>'json'</code>.</td>
+        </tr>
+<tr>
+<td>
+<strong>debug</strong><br>Default: <code>false</code>
+</td>
+            <td>Boolean</td>
+            <td>Set to <code>true</code> to log progress messages and server response in the console.</td>
+        </tr>
+<tr>
+<td>
+<strong>hoverClass</strong><br>Default: <code>''</code>
+</td>
+            <td>String</td>
+            <td>Class applied to upload button when mouse is hovered.</td>
+        </tr>
+<tr>
+<td>
+<strong>focusClass</strong><br>Default: <code>''</code>
+</td>
+            <td>String</td>
+            <td>Class applied to upload button when focused.</td>
+        </tr>
+<tr>
+<td>
+<strong>disabledClass</strong><br>Default: <code>''</code>
+</td>
+            <td>String</td>
+            <td>Class applied to button when disabled.</td>
+        </tr>
+</table><h3>
+<a name="api-reference---callback-functions" class="anchor" href="#api-reference---callback-functions"><span class="octicon octicon-link"></span></a>API Reference - Callback Functions</h3>
+
+<p><strong>Note:</strong> When returning <code>false</code> from a callback to prevent an upload, the current file will remain in the queue as the next to be uploaded.  To remove the current file while in a callback, use: <code>this.removeCurrent();</code></p>
+
+<table>
+<tr>
+<th>Name</th>
+            <th>Arguments</th>
+            <th>Description</th>
+        </tr>
+<tr>
+<td><strong>onChange(filename, extension)</strong></td>
+            <td>
+<code>filename</code> (String), <code>extension</code> (String)</td>
+            <td>Function to be called when user selects a file. The function gets passed two arguments: a string containing the filename; a string containing the file extension.<br><br>Return <code>false</code> to prevent the upload from starting.</td>
+        </tr>
+<tr>
+<td><strong>onSubmit(filename, extension)</strong></td>
+            <td>
+<code>filename</code> (String), <code>extension</code> (String)</td>
+            <td>Function to be called before file is uploaded. The function gets passed two arguments: a string containing the filename; a string containing the file extension.<br><br>Return <code>false</code> to prevent the upload from starting.</td>
+        </tr>
+<tr>
+<td><strong>onProgress(pct)</strong></td>
+            <td>
+<code>pct</code> (Integer)</td>
+            <td>Function to be called on the <code>progress</code> event in browsers that support XHR uploads. In older browsers, it will be called when server progress updates are received if <code>progressURL</code> is defined. The function gets passed one argument: an integer representing the upload completion percentage.</td>
+        </tr>
+<tr>
+<td><strong>onComplete(filename, response)</strong></td>
+            <td>
+<code>filename</code> (String), <code>response</code> (Mixed)</td>
+            <td>Function to be called when the upload is completed. The function gets passed two parameters: a string containing the filename; the data returned from the server, formatted according to the <code>responseType</code> setting. If <code>responseType</code> is <code>'json'</code>, the response will be evaluated as JSON and will return a Javascript object.</td>
+        </tr>
+<tr>
+<td><strong>onExtError(filename, extension)</strong></td>
+            <td>
+<code>filename</code> (String), <code>extension</code> (String)</td>
+            <td>Function to be called if the extension of a file is not permitted in the <code>allowedExtensions</code> option, if it is set. The function gets passsed two parameters: a string containing the filename; a string containing the file extension.<br><br><strong>Note:</strong> The disallowed file is removed from the queue before <code>onExtError()</code> is called.</td>
+        </tr>
+<tr>
+<td><strong>onSizeError(filename, fileSize)</strong></td>
+            <td>
+<code>filename</code> (String), <code>fileSize</code> (Integer)</td>
+            <td>Function to be called if the file size exceeds the limit which is set in the <code>maxSize</code> option, if it is set. The function gets passsed two parameters: a string containing the filename; an integer representing the file size.<br><br><strong>Note:</strong> The disallowed file is removed from the queue before <code>onSizeError()</code> is called.</td>
+        </tr>
+<tr>
+<td><strong>onError(filename, errorType, response)</strong></td>
+            <td>
+<code>filename</code> (String), <code>errorType</code> (String), <code>response</code> (String)</td>
+            <td>Function to be called if an error occurs during upload. The function gets passsed three parameters: a string containing the filename; a string containing the error type; a string containing the server response, if any.</td>
+        </tr>
+<tr>
+<td><strong>startXHR(filename, fileSize)</strong></td>
+            <td>
+<code>filename</code> (String), <code>fileSize</code> (Integer)</td>
+            <td>Function to be called only in browsers that support XHR uploads. Called after <code>onSubmit()</code> but prior to upload start. The function gets passed two arguments: a string containing the filename; a number that is the file size in kilobytes.<br><br>Return <code>false</code> to prevent the upload from starting.</td>
+        </tr>
+<tr>
+<td><strong>endXHR(filename)</strong></td>
+            <td>
+<code>filename</code> (String)</td>
+            <td>Function to be called only in browsers that support XHR uploads. Called after upload is completed but prior to <code>onComplete()</code>. The function gets passed one argument: a string containing the filename.</td>
+        </tr>
+<tr>
+<td><strong>startNonXHR(filename)</strong></td>
+            <td>
+<code>filename</code> (String)</td>
+            <td>Function to be called only in browsers that <strong>do not</strong> support XHR uploads (IE9 and older). Called after <code>onSubmit()</code> but prior to upload start. The function gets passed one argument: a string containing the filename.<br><br>Return <code>false</code> to prevent the upload from starting.</td>
+        </tr>
+<tr>
+<td><strong>endNonXHR(filename)</strong></td>
+            <td>
+<code>filename</code> (String)</td>
+            <td>Function to be called only in browsers that <strong>do not</strong> support XHR uploads (IE9 and older). Called after upload is completed but prior to <code>onComplete()</code>. The function gets passed one argument: a string containing the filename.</td>
+        </tr>
+</table><h3>
+<a name="api-reference---cross-browser-progress-utilities" class="anchor" href="#api-reference---cross-browser-progress-utilities"><span class="octicon octicon-link"></span></a>API Reference - Cross-Browser Progress Utilities</h3>
+
+<p><strong>Note:</strong> The following items are only applicable if the <code>progressUrl</code> option is set to the URL of uploadProgress.php (see above for setup instructions).</p>
+
+<table>
+<tr>
+<th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+<tr>
+<td>
+<strong>checkProgressInterval</strong><br>Default: <code>50</code>
+</td>
+            <td>Integer</td>
+            <td>Length of delay (in milliseconds) between completed progress update checks.</td>
+        </tr>
+<tr>
+<td>
+<strong>keyParamName</strong><br>Default: <code>APC_UPLOAD_PROGRESS</code>
+</td>
+            <td>String</td>
+            <td>The name specified in PHP configuration to activate APC upload progress. This is the value of <code>apc.rfc1867_name</code> in PHP runtime config. (PHP default value is "APC_UPLOAD_PROGRESS")
+            <br><a href="http://php.net/manual/en/apc.configuration.php#ini.apc.rfc1867-name">More info at php.net</a>
+            </td>
+        </tr>
+<tr>
+<td><strong>onUpdateFileSize(filesize)</strong></td>
+            <td>Function</td>
+            <td>This callback function serves the specific purpose of providing the upload file size in browsers that do not support the HTML5 File API. It is called after the first progress update. The function gets passed one argument: the size (in KB) of the uploaded file.</td>
+        </tr>
+</table><h3>
+<a name="api-reference---instance-methods" class="anchor" href="#api-reference---instance-methods"><span class="octicon octicon-link"></span></a>API Reference - Instance Methods</h3>
+
+<p><strong>Note:</strong> See the examples above for instructions on how to use <code>setProgressBar()</code>, <code>setFileSizeBox()</code>, and <code>setProgressContainer()</code>.</p>
+
+<table>
+<tr>
+<th>Name</th>
+            <th>Parameters</th>
+            <th>Description</th>
+        </tr>
+<tr>
+<td><strong>submit()</strong></td>
+            <td><i>none</i></td>
+            <td>Begins the file upload process. Note that if <code>autoSubmit</code> is set to <code>true</code> (the default value), there is no need to manually call <code>submit()</code>. The upload process will begin immediately after the user selects a file.</td>
+        </tr>
+<tr>
+<td><strong>setData(data)</strong></td>
+            <td>
+<code>data</code> (Object)</td>
+            <td>Replaces the data to be sent to the server. Note that all previously set data is entirely removed and replaced.</td>
+        </tr>
+<tr>
+<td><strong>disable()</strong></td>
+            <td><i>none</i></td>
+            <td>Disables upload functionality.</td>
+        </tr>
+<tr>
+<td><strong>enable()</strong></td>
+            <td><i>none</i></td>
+            <td>Restores upload functionality.</td>
+        </tr>
+<tr>
+<td><strong>getQueueSize()</strong></td>
+            <td><i>none</i></td>
+          <td>Returns number of files currently waiting in queue.</td>    
+        </tr>
+<tr>
+<td><strong>removeCurrent()</strong></td>
+            <td><i>none</i></td>
+            <td>Remove the currently active file from the queue. Must be called prior to the start of upload (for example, within <code>onSubmit()</code> or <code>onChange()</code>).</td>
+        </tr>
+<tr>
+<td><strong>setProgressBar(element)</strong></td>
+        <td>
+<code>element</code> (Element)</td>
+        <td>Designates an element to serve as an upload progress bar. The CSS width of the element will be set to 0% at the start of the upload, and then updated accordingly by percentage as the upload progresses.</td>    
+      </tr>
+<tr>
+<td><strong>setFileSizeBox(element)</strong></td>
+        <td>
+<code>element</code> (Element)</td>
+        <td>Designates an element as the container in which the file size of an uploading file will be inserted upon the start of the upload.</td>    
+      </tr>
+<tr>
+<td><strong>setProgressContainer(element)</strong></td>
+        <td>
+<code>element</code> (Element)</td>
+        <td>Designates an element to be removed from the DOM upon completion of an upload. Useful for cleaning up dynamically created progress bars.</td>   
+      </tr>
+</table><h3>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h3>
+
+<p>Released under the MIT license.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Simple-ajax-uploader maintained by <a href="https://github.com/LPology">LPology</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-42337206-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>

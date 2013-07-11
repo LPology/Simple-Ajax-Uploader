@@ -3,8 +3,7 @@ Simple Ajax Uploader
 
 A Javascript plugin for cross-browser Ajax file uploading. Supports multiple file uploading with progress bars.
 
-<a href="http://www.lpology.com/code/ajaxuploader/docs.php">Full API Reference</a>
-
+<a href="http://www.lpology.com/code/ajaxuploader/docs.php">Full API Reference</a><br />
 Live demo: http://www.lpology.com/code/ajaxuploader/
 
 ### Overview ###

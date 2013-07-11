@@ -20,7 +20,6 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
-
 ### Features ###
 * Cross-browser -- works in IE7+, Firefox, Chrome, Safari, Opera
 * Supports multiple, concurrent file uploads (even in non-HTML5 browsers)

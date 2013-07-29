@@ -1,24 +1,29 @@
 /**
  * Simple Ajax Uploader
- * Version 1.6
+ * Version 1.6.1
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC
  * Released under the MIT license
  */
 
-var ss = ss || {};
+;(function(window, document, undefined) {
+
+"use strict";
+
+var ss = window.ss || {};
 
 /**
  * Converts object to query string
  */
 ss.obj2string = function(obj, prefix) {
-  var str = [],
-      prop;
+  var str = [];
+  
   if (typeof obj !== 'object') {
     return '';
   }
-  for (prop in obj) {
+  
+  for (var prop in obj) {
     if (obj.hasOwnProperty(prop)) {
       var k = prefix ? prefix + "[" + prop + "]" : prop, v = obj[prop];
       str.push(typeof v === 'object' ?
@@ -26,6 +31,7 @@ ss.obj2string = function(obj, prefix) {
         encodeURIComponent(k) + '=' + encodeURIComponent(v));
     }
   }
+  
   return str.join('&');
 };
 
@@ -33,11 +39,10 @@ ss.obj2string = function(obj, prefix) {
  * Copies all missing properties from second object to first object
  */
 ss.extendObj = function(first, second) {
-  var prop;
   if (typeof first !== 'object' || typeof second !== 'object') {
     return false;
   }
-  for (prop in second) {
+  for (var prop in second) {
     if (second.hasOwnProperty(prop)) {
       first[prop] = second[prop];
     }
@@ -49,6 +54,7 @@ ss.extendObj = function(first, second) {
  */
 ss.contains = function(array, item) {
   var i = array.length;
+  
   while (i--) {
     if (array[i] === item) {
       return true;
@@ -136,11 +142,13 @@ ss.newXHR = function() {
 ss.getOffsetSum = function(elem) {
   var top = 0,
       left = 0;
+      
   while (elem) {
     top = top + parseInt(elem.offsetTop, 10);
     left = left + parseInt(elem.offsetLeft, 10);
     elem = elem.offsetParent;
   }
+  
   return {top: top, left: left};
 };
 
@@ -158,6 +166,7 @@ ss.getOffsetRect = function(elem) {
       clientLeft = docElem.clientLeft || body.clientLeft || 0,
       top  = box.top +  scrollTop - clientTop,
       left = box.left + scrollLeft - clientLeft;
+      
   return { top: Math.round(top), left: Math.round(left) };
 };
 
@@ -183,6 +192,7 @@ ss.getBox = function(el) {
       top,
       bottom,
       offset = ss.getOffset(el);
+      
   left = offset.left;
   top = offset.top;
   right = left + el.offsetWidth;
@@ -537,6 +547,7 @@ ss.SimpleUpload.prototype = {
   */
   _isXhrUploadSupported: function() {
     var input = document.createElement('input');
+    
     input.type = 'file';
     return (
       'multiple' in input &&
@@ -688,6 +699,7 @@ ss.SimpleUpload.prototype = {
   */
   rerouteClicks: function(elem) {
     var self = this;
+    
     elem = ss.verifyElem(elem);
 
     ss.addEvent(elem, 'mouseover', function() {
@@ -728,7 +740,7 @@ ss.SimpleUpload.prototype = {
   */
   _createForm: function(iframe) {
     var form = ss.toElement('<form method="post" enctype="multipart/form-data"></form>');
-
+    
     document.body.appendChild(form);
     form.style.display = 'none';
     form.setAttribute('action', this._settings.url);
@@ -744,6 +756,7 @@ ss.SimpleUpload.prototype = {
   */
   _createHiddenInput: function(name, value) {
     var input = document.createElement('input');
+    
     input.setAttribute('type', 'hidden');
     input.setAttribute('name', name);
     input.setAttribute('value', value);
@@ -1131,6 +1144,7 @@ ss.SimpleUpload.prototype = {
   _checkExtension: function(ext) {
     var allowed = this._settings.allowedExtensions,
         i = allowed.length;
+        
     ext = ext.toLowerCase();
     while (i--) {
       if (allowed[i].toLowerCase() == ext) {
@@ -1224,3 +1238,8 @@ ss.SimpleUpload.prototype = {
     }
   }
 };
+
+// Expose to the global window object
+window.ss = ss;
+
+})(window, document);

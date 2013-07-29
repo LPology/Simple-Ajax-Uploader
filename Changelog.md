@@ -1,5 +1,11 @@
 Change Log
 ============================
+### Version 1.6.1 ###
+* Plugin is now wrapped in an IIFE
+* Leading semicolon added to close any previous statement 
+* Code is now in strict mode
+* Cleaned up a few messy areas
+
 ### Version 1.6 ###
 If the 1.6 release has a theme, it is flexibility. Nearly every update in this release is intended to allow greater flexibility for developers.
 

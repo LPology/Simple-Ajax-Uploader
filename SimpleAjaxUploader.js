@@ -17,12 +17,10 @@ var ss = window.ss || {};
  * Converts object to query string
  */
 ss.obj2string = function(obj, prefix) {
-  var str = [];
-  
+  var str = [];  
   if (typeof obj !== 'object') {
     return '';
-  }
-  
+  }  
   for (var prop in obj) {
     if (obj.hasOwnProperty(prop)) {
       var k = prefix ? prefix + "[" + prop + "]" : prop, v = obj[prop];
@@ -30,8 +28,7 @@ ss.obj2string = function(obj, prefix) {
         ss.obj2string(v, k) :
         encodeURIComponent(k) + '=' + encodeURIComponent(v));
     }
-  }
-  
+  }  
   return str.join('&');
 };
 
@@ -53,8 +50,7 @@ ss.extendObj = function(first, second) {
  * Returns true if item is found in array
  */
 ss.contains = function(array, item) {
-  var i = array.length;
-  
+  var i = array.length;  
   while (i--) {
     if (array[i] === item) {
       return true;

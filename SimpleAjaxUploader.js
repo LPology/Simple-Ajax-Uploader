@@ -901,7 +901,7 @@ ss.SimpleUpload.prototype = {
     });
 
     ss.addEvent(xhr.upload, 'error', function() {
-      this._errorFinish('transfererror', 'Transfer error during upload', filename, 'None', fileSizeBox, progressContainer);
+      self._errorFinish('transfererror', 'Transfer error during upload', filename, 'None', fileSizeBox, progressContainer);
     });
 
     xhr.onreadystatechange = function() {
@@ -910,7 +910,7 @@ ss.SimpleUpload.prototype = {
           settings.endXHR.call(self, filename, fileSize);
           self._finish(this.responseText, filename, progressBar, fileSizeBox, progressContainer);
         } else {
-          this._errorFinish('servererror', 'Server error. Status: '+this.status, filename, this.responseText, fileSizeBox, progressContainer);
+          self._errorFinish('servererror', 'Server error. Status: '+this.status, filename, this.responseText, fileSizeBox, progressContainer);
         }
       }
     };

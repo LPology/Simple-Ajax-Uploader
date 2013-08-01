@@ -1,8 +1,8 @@
 Change Log
 ============================
 ### Version 1.6.2 ###
-* Did a complete overhaul of error handling to fix a number of problems, including issue #12
-* Added consistent error types for `onError()` callback. The second parameter is a string which will be either:
+* Did a complete overhaul of error handling to fix a number of issues
+* Added consistent error types for `onError()` so that the second parameter will be either:
 `parseerror` (bad JSON from server), 'transfererror' (xfer error during XHR upload), `servererror` (server response not `200 OK`)
 * Fixed problem with null file size parameter for `endXHR()` callback
 

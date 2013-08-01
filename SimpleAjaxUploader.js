@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 1.6.1
+ * Version 1.6.2
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC
@@ -17,10 +17,10 @@ var ss = window.ss || {};
  * Converts object to query string
  */
 ss.obj2string = function(obj, prefix) {
-  var str = [];  
+  var str = [];
   if (typeof obj !== 'object') {
     return '';
-  }  
+  }
   for (var prop in obj) {
     if (obj.hasOwnProperty(prop)) {
       var k = prefix ? prefix + "[" + prop + "]" : prop, v = obj[prop];
@@ -28,7 +28,7 @@ ss.obj2string = function(obj, prefix) {
         ss.obj2string(v, k) :
         encodeURIComponent(k) + '=' + encodeURIComponent(v));
     }
-  }  
+  }
   return str.join('&');
 };
 
@@ -50,7 +50,7 @@ ss.extendObj = function(first, second) {
  * Returns true if item is found in array
  */
 ss.contains = function(array, item) {
-  var i = array.length;  
+  var i = array.length;
   while (i--) {
     if (array[i] === item) {
       return true;
@@ -138,13 +138,13 @@ ss.newXHR = function() {
 ss.getOffsetSum = function(elem) {
   var top = 0,
       left = 0;
-      
+
   while (elem) {
     top = top + parseInt(elem.offsetTop, 10);
     left = left + parseInt(elem.offsetLeft, 10);
     elem = elem.offsetParent;
   }
-  
+
   return {top: top, left: left};
 };
 
@@ -162,7 +162,7 @@ ss.getOffsetRect = function(elem) {
       clientLeft = docElem.clientLeft || body.clientLeft || 0,
       top  = box.top +  scrollTop - clientTop,
       left = box.left + scrollLeft - clientLeft;
-      
+
   return { top: Math.round(top), left: Math.round(left) };
 };
 
@@ -188,7 +188,7 @@ ss.getBox = function(el) {
       top,
       bottom,
       offset = ss.getOffset(el);
-      
+
   left = offset.left;
   top = offset.top;
   right = left + el.offsetWidth;
@@ -360,7 +360,7 @@ ss.SimpleUpload = function(options) {
     checkProgressInterval: 50,
     keyParamName: 'APC_UPLOAD_PROGRESS',
     allowedExtensions: [],
-    accept: '',    
+    accept: '',
     maxSize: false,
     name: '',
     data: {},
@@ -381,7 +381,7 @@ ss.SimpleUpload = function(options) {
     onSizeError: function(filename, fileSize) {},
     onError: function(filename, errorType, response) {},
     startXHR: function(filename, fileSize) {},
-    endXHR: function(filename) {},
+    endXHR: function(filename, fileSize) {},
     startNonXHR: function(filename) {},
     endNonXHR: function(filename) {}
   };
@@ -543,7 +543,7 @@ ss.SimpleUpload.prototype = {
   */
   _isXhrUploadSupported: function() {
     var input = document.createElement('input');
-    
+
     input.type = 'file';
     return (
       'multiple' in input &&
@@ -606,7 +606,7 @@ ss.SimpleUpload.prototype = {
           ext,
           total,
           i;
-          
+
       if (!self._input || self._input.value === '') {
         return;
       }
@@ -695,7 +695,7 @@ ss.SimpleUpload.prototype = {
   */
   rerouteClicks: function(elem) {
     var self = this;
-    
+
     elem = ss.verifyElem(elem);
 
     ss.addEvent(elem, 'mouseover', function() {
@@ -736,7 +736,7 @@ ss.SimpleUpload.prototype = {
   */
   _createForm: function(iframe) {
     var form = ss.toElement('<form method="post" enctype="multipart/form-data"></form>');
-    
+
     document.body.appendChild(form);
     form.style.display = 'none';
     form.setAttribute('action', this._settings.url);
@@ -752,51 +752,79 @@ ss.SimpleUpload.prototype = {
   */
   _createHiddenInput: function(name, value) {
     var input = document.createElement('input');
-    
+
     input.setAttribute('type', 'hidden');
     input.setAttribute('name', name);
     input.setAttribute('value', value);
     return input;
   },
 
-  _finish: function(response, filename, progressBar, fileSizeBox, progressContainer) {
-    this.log('server response: '+response);
+  /**
+  * Completes the upload if an error is detected
+  */
+  _errorFinish: function(errorType, errorMsg, filename, response, fileSizeBox, progressContainer) {
     this._activeUploads--;
+    this.log('error: '+errorMsg);
+    this.log('server response :'+response);
 
+    if (fileSizeBox) {
+      fileSizeBox.innerHTML = '';
+    }
+    if (progressContainer) {
+      ss.remove(progressContainer);
+    }
+
+    this._settings.onError.call(this, filename, errorType, response);
+
+    // Set to null to prevent memory leaks
+    response = null;
+    filename = null;
+    fileSizeBox = null;
+    progressContainer = null;
+
+    this._cycleQueue();
+  },
+
+  /**
+  * Completes the upload if the transfer was successful
+  */
+  _finish: function(response, filename, progressBar, fileSizeBox, progressContainer) {
     if (this._settings.responseType.toLowerCase() == 'json') {
       response = ss.parseJSON(response);
     }
 
     if (response === false) {
-      this.log('bad server response');
-      this._settings.onError.call(this, filename, 'parseerror', response);
+      this._errorFinish('parseerror', 'Bad server response', filename, response, fileSizeBox, progressContainer);
     } else {
       this._settings.onComplete.call(this, filename, response);
     }
 
+    // Note: errorFinish() also decrements _activeUploads, so
+    // only do it after errorFinish() can no longer be called
+    this._activeUploads--;
+    this.log('server response: '+response);
+
     if (fileSizeBox) {
       fileSizeBox.innerHTML = '';
     }
-
     if (progressContainer) {
       ss.remove(progressContainer);
     }
 
-    // Set to null to prevent memory leaks from circular reference
+    // Set to null to prevent memory leaks
     response = null;
     filename = null;
     progressBar = null;
     fileSizeBox = null;
     progressContainer = null;
 
-    if (this._disabled) {
-      this.enable();
-    }
-
     // Begin uploading next file in the queue
     this._cycleQueue();
   },
 
+  /**
+  * Resets file upload data and submits next file if necessary
+  */
   _cycleQueue: function() {
     this._size = null;
     this._file = null;
@@ -805,6 +833,10 @@ ss.SimpleUpload.prototype = {
     this._fileSizeBox = null;
     this._progressBar = null;
     this._progressContainer = null;
+
+    if (this._disabled) {
+      this.enable();
+    }
 
     if (this._queue.length > 0 && this._settings.autoSubmit) {
       this.submit();
@@ -818,7 +850,7 @@ ss.SimpleUpload.prototype = {
     var self = this,
         settings = this._settings,
         filename = this._filename,
-        fileSize = Math.round(this._size / 1024),
+        fileSize = this._size,
         fileSizeBox = this._fileSizeBox,
         progressBar = this._progressBar,
         progressContainer = this._progressContainer,
@@ -869,9 +901,7 @@ ss.SimpleUpload.prototype = {
     });
 
     ss.addEvent(xhr.upload, 'error', function() {
-      self.log('transfer error during upload');
-      settings.endXHR.call(self, filename, fileSize);
-      settings.onError.call(self, filename, 'transfer error', 'none');
+      this._errorFinish('transfererror', 'Transfer error during upload', filename, 'None', fileSizeBox, progressContainer);
     });
 
     xhr.onreadystatechange = function() {
@@ -880,8 +910,7 @@ ss.SimpleUpload.prototype = {
           settings.endXHR.call(self, filename, fileSize);
           self._finish(this.responseText, filename, progressBar, fileSizeBox, progressContainer);
         } else {
-          self.log('Progress key error. Status: '+this.status+' Response: '+this.responseText);
-          settings.onError.call(self, filename, 'server error', this.responseText);
+          this._errorFinish('servererror', 'Server error. Status: '+this.status, filename, this.responseText, fileSizeBox, progressContainer);
         }
       }
     };
@@ -1125,7 +1154,7 @@ ss.SimpleUpload.prototype = {
             self.log('upload progress key received. Key: '+response.key);
           }
         } else {
-          self.log('error retrieving progress key. Status: '+this.status+' Server response: '+this.responseText);
+          self.log('Error retrieving progress key. Status: '+this.status+' Server response: '+this.responseText);
         }
       }
     };
@@ -1136,11 +1165,14 @@ ss.SimpleUpload.prototype = {
     xhr.send();
     xhr = null;
   },
-  
+
+  /**
+  * Check file extension against allowedExtensions
+  */
   _checkExtension: function(ext) {
     var allowed = this._settings.allowedExtensions,
         i = allowed.length;
-        
+
     ext = ext.toLowerCase();
     while (i--) {
       if (allowed[i].toLowerCase() == ext) {
@@ -1148,13 +1180,17 @@ ss.SimpleUpload.prototype = {
       }
     }
     return false;
-  },  
+  },
 
+  /**
+  * Verifies that file is allowed
+  * Checks file extension and file size if limits are set
+  */
   _checkFile: function() {
     var filename = this._filename,
         ext = this._ext,
         size = this._size;
-        
+
     if (!this._file || filename === '') {
       this.log('no file to upload');
       return false;
@@ -1170,7 +1206,7 @@ ss.SimpleUpload.prototype = {
       }
     }
 
-    if (size !== null && this._settings.maxSize !== false && size / 1024 > this._settings.maxSize) {
+    if (size !== null && this._settings.maxSize !== false && size > this._settings.maxSize) {
       this.removeCurrent();
       this.log(filename + ' exceeds ' + this._settings.maxSize + 'K limit');
       this._settings.onSizeError.call(this, filename, size);
@@ -1194,7 +1230,7 @@ ss.SimpleUpload.prototype = {
 
     if (this._XhrIsSupported) {
       this._filename = ss.getFilename(this._queue[0].name);
-      this._size = this._queue[0].size;
+      this._size = Math.round( this._queue[0].size / 1024 );
     } else {
       this._filename = ss.getFilename(this._queue[0].value);
     }

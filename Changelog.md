@@ -1,7 +1,10 @@
 Change Log
 ============================
+### Version 1.6.3 ###
+* Fixed bug which allowed `onComplete()` to be called after JSON parse error
+
 ### Version 1.6.2 ###
-* Overhauled error handling to fix a number of issues
+* Overhauled error handling to fix a number of issues. 
 * Added consistent error types for `onError()` so that the second parameter will be either:
 `parseerror` (bad JSON from server), `transfererror` (xfer error during XHR upload), `servererror` (server response not `200 OK`)
 * Fixed problem with null file size parameter for `endXHR()` callback

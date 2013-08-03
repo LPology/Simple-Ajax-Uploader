@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 1.6.2
+ * Version 1.6.3
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC
@@ -313,7 +313,7 @@ ss.remove = function(elem) {
 };
 
 /**
- * Accepts a jquery object, a string containing an element ID, or an element,
+ * Accepts either a jQuery object, a string containing an element ID, or an element,
  * verifies that it exists, and returns the element.
  * @param {Mixed} elem
  * @return {Element}
@@ -634,6 +634,8 @@ ss.SimpleUpload.prototype = {
         }
       }
 
+      // Remove the file input and create another after
+      // files have been added to queue array
       self._clearInput();
 
       // Submit when file selected if autoSubmit option is set
@@ -760,9 +762,9 @@ ss.SimpleUpload.prototype = {
   },
 
   /**
-  * Completes the upload if an error is detected
+  * Completes upload request if an error is detected
   */
-  _errorFinish: function(errorType, errorMsg, filename, response, fileSizeBox, progressContainer) {
+  _errorFinish: function(errorType, errorMsg, filename, response, progressBar, fileSizeBox, progressContainer) {
     this._activeUploads--;
     this.log('error: '+errorMsg);
     this.log('server response :'+response);
@@ -779,6 +781,7 @@ ss.SimpleUpload.prototype = {
     // Set to null to prevent memory leaks
     response = null;
     filename = null;
+    progressBar = null;
     fileSizeBox = null;
     progressContainer = null;
 
@@ -786,23 +789,24 @@ ss.SimpleUpload.prototype = {
   },
 
   /**
-  * Completes the upload if the transfer was successful
+  * Completes upload request if the transfer was successful
   */
   _finish: function(response, filename, progressBar, fileSizeBox, progressContainer) {
+    // Save response text in case it can't be parsed as JSON
+    var responseText = response;
+
     if (this._settings.responseType.toLowerCase() == 'json') {
       response = ss.parseJSON(response);
+      if (response === false) {
+        this._errorFinish('parseerror', 'Bad server response', filename, responseText, progressBar, fileSizeBox, progressContainer);
+        return;
+      }
     }
-
-    if (response === false) {
-      this._errorFinish('parseerror', 'Bad server response', filename, response, fileSizeBox, progressContainer);
-    } else {
-      this._settings.onComplete.call(this, filename, response);
-    }
-
+    
     // Note: errorFinish() also decrements _activeUploads, so
     // only do it after errorFinish() can no longer be called
-    this._activeUploads--;
-    this.log('server response: '+response);
+    this._activeUploads--;    
+    this.log('server response: '+responseText);
 
     if (fileSizeBox) {
       fileSizeBox.innerHTML = '';
@@ -810,6 +814,8 @@ ss.SimpleUpload.prototype = {
     if (progressContainer) {
       ss.remove(progressContainer);
     }
+
+    this._settings.onComplete.call(this, filename, response);
 
     // Set to null to prevent memory leaks
     response = null;
@@ -901,7 +907,7 @@ ss.SimpleUpload.prototype = {
     });
 
     ss.addEvent(xhr.upload, 'error', function() {
-      self._errorFinish('transfererror', 'Transfer error during upload', filename, 'None', fileSizeBox, progressContainer);
+      self._errorFinish('transfererror', 'Transfer error during upload', filename, 'None', progressBar, fileSizeBox, progressContainer);
     });
 
     xhr.onreadystatechange = function() {
@@ -910,7 +916,7 @@ ss.SimpleUpload.prototype = {
           settings.endXHR.call(self, filename, fileSize);
           self._finish(this.responseText, filename, progressBar, fileSizeBox, progressContainer);
         } else {
-          self._errorFinish('servererror', 'Server error. Status: '+this.status, filename, this.responseText, fileSizeBox, progressContainer);
+          self._errorFinish('servererror', 'Server error. Status: '+this.status, filename, this.responseText, progressBar, fileSizeBox, progressContainer);
         }
       }
     };

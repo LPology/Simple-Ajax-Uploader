@@ -798,7 +798,7 @@ ss.SimpleUpload.prototype = {
     if (this._settings.responseType.toLowerCase() == 'json') {
       response = ss.parseJSON(response);
       if (response === false) {
-        this._errorFinish('parseerror', 'Bad server response', filename, responseText, progressBar, fileSizeBox, progressContainer);
+        this._errorFinish('parseerror', 'Bad server response - unable to parse JSON', filename, responseText, progressBar, fileSizeBox, progressContainer);
         return;
       }
     }
@@ -819,6 +819,7 @@ ss.SimpleUpload.prototype = {
 
     // Set to null to prevent memory leaks
     response = null;
+    responseText = null;
     filename = null;
     progressBar = null;
     fileSizeBox = null;

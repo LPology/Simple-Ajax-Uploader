@@ -2,7 +2,7 @@
 
 /**
  * Simple Ajax Uploader
- * Version 1.6.3
+ * Version 1.6.4
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2013 LPology, LLC  
@@ -17,7 +17,7 @@
 class FileUploadXHR {
   public $uploadName;
   public function Save($savePath) {
-    if (file_put_contents($savePath, fopen('php://input', 'r'))) {	
+    if (false !== file_put_contents($savePath, fopen('php://input', 'r'))) {	
       return true;
     }
     return false;
@@ -137,7 +137,7 @@ class FileUpload {
       return false;    
     }
     
-    if ($uploadDir !== null) {
+    if (!empty($uploadDir)) {
       $this->uploadDir = $uploadDir;
     }    
     if ($allowedExtensions !== null && is_array($allowedExtensions)) {
@@ -146,7 +146,7 @@ class FileUpload {
     
     $this->uploadDir = $this->fixDir($this->uploadDir);    
     
-    if ($this->newFileName !== null) {
+    if (!empty($this->newFileName)) {
       $this->fileName = $this->newFileName;
       $this->savedFile = $this->uploadDir.$this->newFileName;
     }	else {
@@ -165,7 +165,7 @@ class FileUpload {
       $this->setErrorMsg('File size exceeds limit');
       return false;    
     }
-    if ($this->allowedExtensions !== null) {
+    if (!empty($this->allowedExtensions)) {
       if (!$this->checkExtension($this->fileExtension, $this->allowedExtensions)) {
         $this->setErrorMsg('Invalid file type');
         return false;      

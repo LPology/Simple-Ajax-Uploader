@@ -1,5 +1,11 @@
 Change Log
 ============================
+### Version 1.6.4 ###
+* Switched from using `setAttribute` to dot notation for setting element properties (some versions of IE don't handle `setAttribute` well)
+* `ss.removeItem()` now uses the faster countdown method to loop through arrays
+* In accordance with W3 standards, `_uploadXhr()` now accepts either a `200 OK` or `201 Created` as a successful response
+* Uploader.php - the `handleUpload()` method now checks whether the `allowedExtensions` property is `empty` instead of `null`. This prevents an "Invalid file type" error resulting from passing an empty array.
+
 ### Version 1.6.3 ###
 * Fixed bug which allowed `onComplete()` to be called after JSON parse error
 

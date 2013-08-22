@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 1.6.3
+ * Version 1.6.4
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC
@@ -63,10 +63,10 @@ ss.contains = function(array, item) {
  * Remove all instances of an item from an array
  */
 ss.removeItem = function(array, item) {
-  for (var i in array) {
+  var i = array.length;
+  while (i--) {
     if (array[i] == item) {
-      array.splice(i,1);
-      break;
+      array.splice(i, 1);
     }
   }
 };
@@ -517,7 +517,7 @@ ss.SimpleUpload.prototype = {
     this._disabled = true;
 
     if (nodeName == 'INPUT' || nodeName == 'BUTTON') {
-      this._button.setAttribute('disabled', 'disabled');
+      this._button.disabled = true;
     }
 
     // hide input
@@ -534,7 +534,7 @@ ss.SimpleUpload.prototype = {
   */
   enable: function() {
     ss.removeClass(this._button, this._settings.disabledClass);
-    this._button.removeAttribute('disabled');
+    this._button.disabled = false;
     this._disabled = false;
   },
 
@@ -561,14 +561,14 @@ ss.SimpleUpload.prototype = {
         div = document.createElement('div');
 
     this._input = document.createElement('input');
-    this._input.setAttribute('type', 'file');
-    this._input.setAttribute('name', this._settings.name);
+    this._input.type = 'file';
+    this._input.name = this._settings.name;
 
     if (this._XhrIsSupported) {
-      this._input.setAttribute('multiple', true);
+      this._input.multiple = true;
       // accept attribute is supported by same browsers that support XHR uploads
       if (this._settings.accept !== '') {
-        this._input.setAttribute('accept', this._settings.accept);
+        this._input.accept = this._settings.accept;
       }
     }
 
@@ -727,7 +727,7 @@ ss.SimpleUpload.prototype = {
 
     document.body.appendChild(iframe);
     iframe.style.display = 'none';
-    iframe.setAttribute('id', id);
+    iframe.id = id;
     return iframe;
   },
 
@@ -741,8 +741,8 @@ ss.SimpleUpload.prototype = {
 
     document.body.appendChild(form);
     form.style.display = 'none';
-    form.setAttribute('action', this._settings.url);
-    form.setAttribute('target', iframe.name);
+    form.action = this._settings.url;
+    form.target = iframe.name;
     return form;
   },
 
@@ -755,9 +755,9 @@ ss.SimpleUpload.prototype = {
   _createHiddenInput: function(name, value) {
     var input = document.createElement('input');
 
-    input.setAttribute('type', 'hidden');
-    input.setAttribute('name', name);
-    input.setAttribute('value', value);
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
     return input;
   },
 
@@ -802,10 +802,10 @@ ss.SimpleUpload.prototype = {
         return;
       }
     }
-    
+
     // Note: errorFinish() also decrements _activeUploads, so
     // only do it after errorFinish() can no longer be called
-    this._activeUploads--;    
+    this._activeUploads--;
     this.log('server response: '+responseText);
 
     if (fileSizeBox) {
@@ -853,7 +853,7 @@ ss.SimpleUpload.prototype = {
   /**
   * Handles uploading with XHR
   */
-  _uploadXhr: function(id) {
+  _uploadXhr: function() {
     var self = this,
         settings = this._settings,
         filename = this._filename,
@@ -1236,10 +1236,10 @@ ss.SimpleUpload.prototype = {
     this._file = this._queue[0];
 
     if (this._XhrIsSupported) {
-      this._filename = ss.getFilename(this._queue[0].name);
-      this._size = Math.round( this._queue[0].size / 1024 );
+      this._filename = ss.getFilename(this._file.name);
+      this._size = Math.round( this._file.size / 1024 );
     } else {
-      this._filename = ss.getFilename(this._queue[0].value);
+      this._filename = ss.getFilename(this._file.value);
     }
 
     this._ext = ss.getExt(this._filename);

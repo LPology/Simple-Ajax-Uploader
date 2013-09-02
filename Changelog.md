@@ -1,5 +1,9 @@
 Change Log
 ============================
+### Version 1.6.5 ###
+* When using `multipart`, additional data will now also appended to the multipart form.
+* Cleaned up some messy code -- organization, unnecessary variable copying, etc.
+
 ### Version 1.6.4 ###
 * Switched from using `setAttribute` to dot notation for setting element properties (some versions of IE don't handle `setAttribute` well)
 * `ss.removeItem()` now uses the faster countdown method to loop through arrays

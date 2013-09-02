@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 1.6.4
+ * Version 1.6.5
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC
@@ -52,7 +52,7 @@ ss.extendObj = function(first, second) {
 ss.contains = function(array, item) {
   var i = array.length;
   while (i--) {
-    if (array[i] === item) {
+    if (array[i] == item) {
       return true;
     }
   }
@@ -76,7 +76,7 @@ ss.addEvent = function(elem, type, fn) {
     elem = document.getElementById(elem);
   }
   if (elem.attachEvent) {
-    elem.attachEvent('on'+type, fn);
+    elem.attachEvent('on' + type, fn);
   } else {
     elem.addEventListener(type, fn, false);
   }
@@ -932,7 +932,12 @@ ss.SimpleUpload.prototype = {
 
     if (settings.multipart === true) {
       var formData = new FormData();
-      formData.append(settings.name, this._file);
+      for (var prop in settings.data) {
+        if (settings.data.hasOwnProperty(prop)) {
+          formData.append(prop, settings.data[prop]);
+        }
+      }
+      formData.append(settings.name, this._file);      
       this.log('commencing upload using multipart form');
       xhr.send(formData);
     } else {
@@ -989,14 +994,7 @@ ss.SimpleUpload.prototype = {
         fileSizeBox = this._fileSizeBox,
         filename = this._filename,
         iframe = this._createIframe(),
-        form = this._createForm(iframe),
-        data;
-
-    // Upload progress key field must come before the file field
-    if (this._doProgressUpdates) {
-      var keyField = this._createHiddenInput(settings.keyParamName, key);
-      form.appendChild(keyField);
-    }
+        form = this._createForm(iframe);
 
     if (false === settings.startNonXHR.call(this, filename)) {
       if (this._disabled) {
@@ -1006,13 +1004,17 @@ ss.SimpleUpload.prototype = {
       return;
     }
 
+    // Upload progress key field must come before the file field
+    if (this._doProgressUpdates) {
+      var keyField = this._createHiddenInput(settings.keyParamName, key);
+      form.appendChild(keyField);
+    }
+
     // We get the any additional data here after startNonXHR()
     // in case the data was changed with setData() prior to submitting
-    data = settings.data;
-
-    for (var prop in data) {
-      if (data.hasOwnProperty(prop)) {
-        var input = this._createHiddenInput(prop, data[prop]);
+    for (var prop in settings.data) {
+      if (settings.data.hasOwnProperty(prop)) {
+        var input = this._createHiddenInput(prop, settings.data[prop]);
         form.appendChild(input);
       }
     }
@@ -1028,9 +1030,7 @@ ss.SimpleUpload.prototype = {
 
     ss.addEvent(iframe, 'load', function() {
       // Remove key from active progress keys array
-      if (ss.contains(self._activeProgressKeys, key)) {
-        ss.removeItem(self._activeProgressKeys, key);
-      }
+      ss.removeItem(self._activeProgressKeys, key);      
       ss.removeEvent(iframe, 'load', arguments.callee);
       settings.endNonXHR.call(self, filename);
       self._handleIframeResponse(iframe, filename, progressBar, fileSizeBox, progressContainer);

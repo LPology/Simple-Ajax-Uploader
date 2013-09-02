@@ -5,7 +5,7 @@
  *
  * Copyright 2012-2013 LPology, LLC
  * Released under the MIT license
- */
+ */ 
 
 ;(function(window, document, undefined) {
 

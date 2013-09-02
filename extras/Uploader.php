@@ -1,5 +1,5 @@
 <?php
-
+ 
 /**
  * Simple Ajax Uploader
  * Version 1.6.5

@@ -8,7 +8,7 @@ SimpleAjaxUploader.js:
 * Switched to a smaller, faster process for cross-browser bounding box calculation
 * Updated to faster methods of checking for, adding, and removing element CSS classes
 * Combined `_checkExtension()` with `_checkFile()` to eliminate a function call/reduce code size
-* Combined `_handleIframeResponse()` with '_uploadIframe()' and switched to a more efficient method of getting iframe contents
+* Combined `_handleIframeResponse()` with `_uploadIframe()` and switched to a more efficient method of getting iframe contents
 * Removed a number of unnecessary/redundant function calls, along with some unnecessary variable copying
 * Updated `ss.verifyElem()` to use the much faster `charAt()` and `substr()` in place of a regex and `slice()`
 * Added separate feature detection for file input `accept` attribute

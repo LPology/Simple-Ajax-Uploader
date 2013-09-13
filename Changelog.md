@@ -4,7 +4,7 @@ Change Log
 SimpleAjaxUploader.js:
 * Fixed IE6/IE7 memory leak when removing elements without first removing event listeners (<a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/21">issue #21</a>)
 * Fixed possible race condition in which `removeCurrent()` could potentially delete the wrong file from the upload queue
-* Multiple file inputs are now disabled in Safari due to a browser bug that just screws everything up (see: http://stackoverflow.com/questions/7231054/file-input-size-issue-in-safari-for-multiple-file-selection)
+* Multiple file inputs are now disabled in Safari due to a browser bug that just screws everything up (see: http://stackoverflow.com/q/7231054/1091949)
 * Switched to a smaller, faster process for cross-browser bounding box calculation
 * Updated to faster methods of checking for, adding, and removing element CSS classes
 * Combined `_checkExtension()` with `_checkFile()` to eliminate a function call/reduce code size

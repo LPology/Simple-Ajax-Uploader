@@ -1,5 +1,22 @@
 Change Log 
 ============================
+### Version 1.7 ###
+SimpleAjaxUploader.js:
+* Fixed IE6/IE7 memory leak when removing elements without first removing event listeners (<a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/21">issue #21</a>)
+* Fixed possible race condition in which `removeCurrent()` could potentially delete the wrong file from the upload queue
+* Multiple file inputs are now disabled in Safari due to a browser bug that just screws everything up (see: http://stackoverflow.com/questions/7231054/file-input-size-issue-in-safari-for-multiple-file-selection)
+* Switched to a smaller, faster process for cross-browser bounding box calculation
+* Updated to faster methods of checking for, adding, and removing element CSS classes
+* Combined `_checkExtension()` with `_checkFile()` to eliminate a function call/reduce code size
+* Combined `_handleIframeResponse()` with '_uploadIframe()' and switched to a more efficient method of getting iframe contents
+* Removed a number of unnecessary/redundant function calls, along with some unnecessary variable copying
+* Updated `ss.verifyElem()` to use the much faster `charAt()` and `substr()` in place of a regex and `slice()`
+* Added separate feature detection for file input `accept` attribute
+
+Uploader.php:
+* Removed unnecessary check of `$allowedExtensions` for `null` value in `handleUpload()`
+* Added `final` keyword to `FileUploadXHR` and `FileUploadPOSTForm` classes and their respective methods to discourage direct use
+
 ### Version 1.6.5 ###
 * When using `multipart`, additional data will now also appended to the multipart form.
 * Cleaned up some messy code -- organization, unnecessary variable copying, etc.

@@ -7,7 +7,7 @@ SimpleAjaxUploader.js:
 * Added `onAbort()` callback function to specify behavior upon manual abort
 * Added `setPctBox()` method to designate an element to be injected with completed upload percentage as progress updates
 * Switched to a unique ID function that is RFC 4122 version 4 compliant
-* The `button` option will now accept either a single button (ID string, element, or jQuery object) or an array of buttons. If an array is passed, each element in the array will work as an upload button
+* The `button` option will accepts either a single button (ID string, element, or jQuery object) or an array of buttons. If an array is passed, each element in the array will work as an upload button
 * Upload progress update request keys are now locally generated
 * Fixed bug that was causing `onError()` to be fired twice
 * For consistency with jQuery behavior, any 2xx status code is now handled as a successful response (previously, only `200` and `201` were successful)

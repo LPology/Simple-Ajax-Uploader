@@ -3,7 +3,7 @@ Change Log
 ### Version 1.8 ###
 SimpleAjaxUploader.js:
 * Added support for <a href="http://wiki.nginx.org/HttpUploadProgressModule">Nginx Upload Progress Module</a>
-* Added `setAbortBtn()` method to designate an element as cancel upload button
+* Added `setAbortBtn()` method to designate an element as "cancel upload" button
 * Added `onAbort()` callback function to specify behavior upon manual abort
 * Added `setPctBox()` method to designate an element to be injected with completed upload percentage as progress updates
 * Switched to a unique ID function that is RFC 4122 version 4 compliant

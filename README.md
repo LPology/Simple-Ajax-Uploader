@@ -23,8 +23,8 @@ var uploader = new ss.SimpleUpload({
 * Cross-browser -- works in IE7+, Firefox, Chrome, Safari, Opera
 * Supports multiple, concurrent file uploads (even in non-HTML5 browsers)
 * No flash or external CSS -- under 5Kb Javascript file (minified and gzipped)
+* Progress bars in all browsers, including IE9 and older -- built-in support for both <a href="http://wiki.nginx.org/HttpUploadProgressModule">Nginx Upload Progress Module</a> and <a href="http://www.php.net/manual/en/apc.configuration.php#ini.apc.rfc1867">PHP APC File Upload Progress</a>
 * Use any HTML element as the upload button
-* Optional, built-in support for truly cross-browser progress bars
 * No dependencies - use it with or without jQuery
 * Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads
 

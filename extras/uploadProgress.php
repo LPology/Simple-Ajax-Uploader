@@ -2,7 +2,7 @@
  
 /**
  * Simple Ajax Uploader
- * Version 1.7
+ * Version 1.8
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC  
@@ -13,14 +13,13 @@
  *
  */ 
 
-if (isset($_REQUEST['getkey'])) 
-  exit(json_encode(array('key' => uniqid())));
-elseif (isset($_REQUEST['progresskey'])) 
+if (isset($_REQUEST['progresskey'])) 
   $status = apc_fetch('upload_'.$_REQUEST['progresskey']);
 else 
   exit(json_encode(array('success' => false)));
 
-$pct = 0; $size = 0;
+$pct = 0;
+$size = 0;
 
 if (is_array($status)) {
   if (array_key_exists('total', $status) && array_key_exists('current', $status)) {

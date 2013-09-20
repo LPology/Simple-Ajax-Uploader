@@ -483,7 +483,11 @@ ss.SimpleUpload = function( options ) {
     this._XhrOk = false;
 
     if ( this._opts.progressUrl || this._opts.nginxProgressUrl ) {
-      this._progKey = ss.getUID(); // Generate upload ID progress key
+      // Store keys in _sizeFlags after first time setting sizeBox 
+      // and calling nUpdateFileSize(). No need to do it > 1 time
+      this._sizeFlags = {};      
+      // Generate upload ID progress key
+      this._progKey = ss.getUID();
     }
   }
 
@@ -1187,8 +1191,14 @@ ss.SimpleUpload.prototype = {
       } catch ( e ) {
         self._errorFinish( '', e.message, 'error', filename, sizeBox, progBox, pctBox );
       }
+
+      // Delete upload key from size update flags
+      if (self._sizeFlags[key]) {
+        delete self._sizeFlags.key;
+      }      
+      
       // Null to avoid leaks in IE
-      settings = key = iframe = sizeBox = progBox = pctBox = null;
+      settings = key = iframe = sizeBox = progBox = pctBox = null;      
     });
 
     self.log( 'Commencing upload using iframe' );
@@ -1203,7 +1213,7 @@ ss.SimpleUpload.prototype = {
       // Start timer for first progress update
       window.setTimeout( function() {
           self._getProg( key, progBar, sizeBox, pctBox, 1 );
-          key = progBar = sizeBox = pctBox = null;
+          progBar = sizeBox = pctBox = null;
       }, self._opts.checkProgressInterval );
 
       // Get new upload progress key
@@ -1308,8 +1318,12 @@ ss.SimpleUpload.prototype = {
               self._opts.onProgress.call( self, pct );
             }
 
-            // Update file size box
-            if ( size ) {
+            // Update file size box if we haven't yet done so            
+            if ( size && !self._sizeFlags[key] ) {
+              // Set a flag so we don't do it again -- file size doesn't 
+              // change, so no need to mess with the DOM more than once
+              self._sizeFlags[key] = 1;
+              
               if ( sizeBox ) {
                 sizeBox.innerHTML = size + 'K';
               }
@@ -1318,8 +1332,8 @@ ss.SimpleUpload.prototype = {
 
             // Stop attempting progress checks if we keep failing
             if ( !pct &&
-                !size &&
-                counter >= self._maxFails )
+                 !size &&
+                 counter >= self._maxFails )
             {
               self.log( 'Failed progress request limit reached' );
               return;

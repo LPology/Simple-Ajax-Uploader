@@ -10,7 +10,7 @@ SimpleAjaxUploader.js:
 * The `button` option will now accept either a single button (ID string, element, or jQuery object) or an array of buttons. If an array is passed, each element in the array will serve as an upload button
 * Upload progress update request keys are now locally generated
 * Fixed bug that was causing `onError()` to be fired twice
-* For consistency with jQuery behavior, any 2xx status code is now handled as a successful response (previously only `200` and `201` were successful)
+* For consistency with jQuery behavior, any 2xx status code is now handled as a successful response (previously, only `200` and `201` were successful)
 * Upload buttons are now being properly disabled/enabled at correct points
 * Made significant improvements to error handling, particularly with iframe uploads and retrieving server provided progress updates
 * Fixed a number of potential memory leaks for Internet Explorer

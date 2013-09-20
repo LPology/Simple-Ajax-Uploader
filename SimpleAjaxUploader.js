@@ -483,8 +483,8 @@ ss.SimpleUpload = function( options ) {
     this._XhrOk = false;
 
     if ( this._opts.progressUrl || this._opts.nginxProgressUrl ) {
-      // Store keys in _sizeFlags after first time setting sizeBox 
-      // and calling nUpdateFileSize(). No need to do it > 1 time
+      // Store keys in _sizeFlags after the first time we set sizeBox 
+      // and call UpdateFileSize(). No need to do it > 1 time
       this._sizeFlags = {};      
       // Generate upload ID progress key
       this._progKey = ss.getUID();

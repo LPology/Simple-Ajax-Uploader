@@ -424,7 +424,7 @@ ss.SimpleUpload = function( options ) {
     hoverClass: '',
     focusClass: '',
     disabledClass: '',
-    onCancel: function( filename ) {},
+    onAbort: function( filename ) {},
     onChange: function( filename, extension ) {},
     onSubmit: function( filename, extension ) {},
     onProgress: function( pct ) {},

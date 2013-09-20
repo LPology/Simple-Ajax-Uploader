@@ -3,21 +3,21 @@ Change Log
 ### Version 1.8 ###
 SimpleAjaxUploader.js:
 * Added support for <a href="http://wiki.nginx.org/HttpUploadProgressModule">Nginx Upload Progress Module</a>
-* Added `setCancelBtn()` to designate an element as cancel upload button
-* Added `onCancelBtn()` callback to specify behavior upon manual abort
+* Added `setAbortBtn()` to designate an element as cancel upload button
+* Added `onAbort()` callback to specify behavior upon manual abort
 * Added `setPctBox()` function to designate an element to be injected with completed upload percentage as progress updates
 * Switched to a unique ID function that is RFC 4122 version 4 compliant
 * The `button` option will now accept either a single button (ID string, element, or jQuery object) or an array of buttons. If an array is passed, each element in the array will serve as an upload button
 * Upload progress update request keys are now locally generated
-* Fixed bug that was causing onError to be fired twice
+* Fixed bug that was causing `onError()` to be fired twice
 * For consistency with jQuery behavior, any 2xx status code is now handled as a successful response (previously only `200` and `201` were successful)
 * Upload buttons are now being properly disabled/enabled at correct points
-* Made significant improvements with error handling, particularly with iframe uploads and retrieving server provided progress updates
+* Made significant improvements to error handling, particularly with iframe uploads and retrieving server provided progress updates
 * Fixed a number of potential memory leaks for Internet Explorer
 * Regular expressions are now pre-compiled and cached for better performance
 
 uploadProgress.php:
-* Removed functionality for returning upload keys, as RFC 4122 v4 UUIDs are now generated client side
+* Removed functionality for returning upload keys, as RFC 4122 v4 compliant UUIDs are now generated client side
 
 ### Version 1.7 ###
 SimpleAjaxUploader.js:

@@ -24,7 +24,7 @@ var uploader = new ss.SimpleUpload({
 * Supports multiple, concurrent file uploads (even in non-HTML5 browsers)
 * No flash or external CSS -- under 5Kb Javascript file (minified and gzipped)
 * Progress bars in all browsers, including IE9 and older. Built-in support for both:
-    * <a href="http://wiki.nginx.org/HttpUploadProgressModule">Nginx Upload Progress Module</a> (<strong><small>new in v1.8</small></strong>)
+    * <a href="http://wiki.nginx.org/HttpUploadProgressModule">Nginx Upload Progress Module</a> (<strong>new in v1.8</strong>)
     * <a href="http://www.php.net/manual/en/apc.configuration.php#ini.apc.rfc1867">PHP APC File Upload Progress</a>
 * Use any HTML element as the upload button
 * No dependencies - use it with or without jQuery

@@ -1156,12 +1156,12 @@ ss.SimpleUpload.prototype = {
 
     form.appendChild( this._file );
 
-    // Begin progress bars at 0%
+    // Begin progress bars at 0%    
+    settings.onProgress.call( this, 0 );    
+
     if ( pctBox ) {
       pctBox.innerHTML = '0%';
     }
-
-    settings.onProgress.call( this, 0 );
 
     if ( progBar ) {
       progBar.style.width = '0%';

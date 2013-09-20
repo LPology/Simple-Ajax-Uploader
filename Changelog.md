@@ -15,7 +15,7 @@ SimpleAjaxUploader.js:
 * Made significant improvements to error handling, particularly with iframe uploads and retrieving server provided progress updates
 * Fixed a number of potential memory leaks for Internet Explorer
 * Regular expressions are now pre-compiled and cached for better performance
-* For server progress tracking, `sizeBox` and `onUpdateFileSize()` will not be pointlessly set/called again after first progress update is received
+* For server progress tracking, `sizeBox` and `onUpdateFileSize()` are no longer pointlessly set/called again after first progress update is received
 
 uploadProgress.php:
 * Removed functionality for returning upload keys, as RFC 4122 v4 compliant UUIDs are now generated client side

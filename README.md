@@ -139,39 +139,6 @@ For multiple file uploads, we use an additional function: `setProgressContainer(
 
 In the example, the element set to be removed with `setProgressContainer()` is the outer container for the progress elements. As a result, progress bars will be removed from the DOM after each upload is completed.
 
-### Cross-Browser Progress Support - How it Works ###
-
-Because the `progress` event is not supported by Internet Explorer 9 (and older), progress updates must be retrieved from the server in order to provide progress bars in those browsers. The plugin includes optional, built-in support for handling this.
-
-When the plugin detects support for the File API, the `progress` event is used. For older browsers (i.e., IE9 and below), the plugin will instead retrieve progress updates from the server, which are provided by uploadProgress.php (PHP w/ APC extension required - instructions below).
-
-In both cases, everything is handled internally - feature detection, calculation, key handling, etc. To enable this behavior, just provide the URL for uploadProgress.php in the `progressUrl` option.
-
-#### Installing the APC extension ####
-
-The optional support for server-provided progress updates requires PHP with the APC extension installed and the `apc.rfc1867` option enabled. To install APC:
-
-```
-sudo pecl install apc
-```
-
-Accept the default settings, and then create a configuration file:
-
-```
-sudo vi /etc/php.d/apc.ini
-```
-
-Add these two lines, and then save:
-
-```
-extension=apc.so
-apc.rfc1867 = 1
-```
-
-Restart your web server for the changes to take effect.
-
-<strong>Note:</strong> If APC is already installed, you may still need to add `apc.rfc1867 = 1` to apc.ini, as it is not enabled by default.
-
 ### Cross-Browser Helper Functions ###
 
 To ease the pain of supporting older browsers, the plugin includes a set of callback functions which allow specific behavior to be defined based on whether the user's browser supports XHR uploads/HTML5 File API:

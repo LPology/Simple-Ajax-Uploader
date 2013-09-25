@@ -513,6 +513,9 @@ ss.SimpleUpload = function( options ) {
 
 ss.SimpleUpload.prototype = {
 
+  /**
+  * Completely removes uploader functionality
+  */
   destroy: function() {
     "use strict";
 

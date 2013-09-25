@@ -1,5 +1,10 @@
 Change Log 
 ============================
+### Version 1.8.1 ###
+* Added `destroy()` method for completely removing upload functionality
+* Removed redundant call to `ss.verifyElem()` inside of `rerouteClicks()`
+* Moved browser-specific checks to top of IIFE, as they only need to execute once
+
 ### Version 1.8 ###
 SimpleAjaxUploader.js:
 * Added support for <a href="http://wiki.nginx.org/HttpUploadProgressModule">Nginx Upload Progress Module</a>

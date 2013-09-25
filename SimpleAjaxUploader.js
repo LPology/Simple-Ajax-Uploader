@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 1.8
+ * Version 1.8.1
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC
@@ -11,10 +11,8 @@
 
   var ss = window.ss || {},
 
-/**
- * Pre-compile and cache our regular expressions
- * Except for JSON regex. Only IE6 and IE7 use it. Screw them.
- */
+  // Pre-compile and cache our regular expressions
+  // Except for JSON regex. Only IE6 and IE7 use it. Screw them.
   // ss.trim()
   rLWhitespace = /^\s+/,
   rTWhitespace = /\s+$/,
@@ -29,7 +27,22 @@
   rExt = /.*[.]/,
 
   // ss.hasClass()
-  rHasClass = /[\t\r\n]/g;
+  rHasClass = /[\t\r\n]/g,
+
+  // Check for Safari -- it doesn't like multi file uploading. At all.
+  // We do it up here so it only needs to be done once, no matter the # of uploaders
+  // http://stackoverflow.com/a/9851769/1091949
+  isSafari = Object.prototype.toString.call( window.HTMLElement ).indexOf( 'Constructor' ) > 0,
+
+  // Check whether XHR uploads are supported
+  // This also is done here so it only occurs once
+  input = document.createElement( 'input' ),
+  XhrOk;
+  input.type = 'file';
+  XhrOk = (
+    'multiple' in input &&
+    typeof File !== 'undefined' &&
+    typeof ( new XMLHttpRequest() ).upload !== 'undefined' );
 
 /**
  * Converts object to query string
@@ -100,6 +113,9 @@ ss.addEvent = function( elem, type, fn ) {
   } else {
     elem.attachEvent( 'on' + type, fn );
   }
+  return function() {
+    ss.removeEvent( elem, type, fn );
+  };
 };
 
 ss.removeEvent = function( elem, type, fn ) {
@@ -144,12 +160,12 @@ ss.newXHR = function() {
       return false;
     }
   }
-if ( data ) {
-    if (/^[\],:{}\s]*$/.test( data.replace(/\\(?:["\\\/bfnrt]|u[\da-fA-F]{4})/g, "@" )
-      .replace(/"[^"\\\r\n]*"|true|false|null|-?(?:\d+\.|)\d+(?:[eE][+-]?\d+|)/g, "]" )
-      .replace(/(?:^|:|,)(?:\s*\[)+/g, "")) ) {
-      return ( new Function( "return " + data ) )();
-    }
+  if ( data ) {
+      if (/^[\],:{}\s]*$/.test( data.replace(/\\(?:["\\\/bfnrt]|u[\da-fA-F]{4})/g, "@" )
+        .replace(/"[^"\\\r\n]*"|true|false|null|-?(?:\d+\.|)\d+(?:[eE][+-]?\d+|)/g, "]" )
+        .replace(/(?:^|:|,)(?:\s*\[)+/g, "")) ) {
+        return ( new Function( "return " + data ) )();
+      }
   }
   return false;
 };
@@ -228,10 +244,10 @@ ss.toElement = ( function() {
     div.removeChild( element );
     return element;
   };
-} )();
+})();
 
 /**
-* Generates unique id
+* Generates unique ID
 * Complies with RFC 4122 version 4
 * http://stackoverflow.com/a/2117523/1091949
 */
@@ -304,7 +320,7 @@ ss.removeClass = (function() {
     if ( !c[name] ) {
       c[name] = new RegExp('(?:^|\\s)' + name + '(?!\\S)');
     }
-    e.className = e.className.replace( c[name] ,'');
+    e.className = e.className.replace( c[name], '' );
   };
 })();
 
@@ -341,10 +357,9 @@ ss.purge = function( d ) {
 ss.remove = function( elem ) {
   "use strict";
 
-  // null out event handlers for IE
-  ss.purge( elem );
-
   if ( elem.parentNode ) {
+    // null out event handlers for IE
+    ss.purge( elem );
     elem.parentNode.removeChild( elem );
   }
   elem = null;
@@ -443,27 +458,31 @@ ss.SimpleUpload = function( options ) {
   options = null; // Null to avoid leaks in IE
   this._btns = [];
 
+  // An array of buttons
   if ( this._opts.button instanceof Array ) {
     len = this._opts.button.length;
+
     for ( i = 0; i < len; i++ ) {
       btn = ss.verifyElem( this._opts.button[i] );
-
       if ( btn !== false ) {
-        this._btns.push( btn );
+        this._btns.push( this.rerouteClicks( btn ) );
       } else {
-        this.log( 'Button with array index '+ i + ' is invalid' );
+        this.log( 'Button with array index ' + i + ' is invalid' );
       }
     }
 
+  // A single button
   } else {
-    this._btns[0] = ss.verifyElem( this._opts.button );
+    btn = ss.verifyElem( this._opts.button );
+    if ( btn !== false ) {
+      this._btns.push( this.rerouteClicks( btn ) );
+    }
   }
 
   delete this._opts.button;
-  this._numBtns = this._btns.length;
 
   // No valid elements were passed to button option
-  if ( this._numBtns < 1 || this._btns[0] === false ) {
+  if ( this._btns.length < 1 || this._btns[0] === false ) {
     throw new Error( "Invalid button. Make sure the element you're passing exists." );
   }
 
@@ -477,35 +496,55 @@ ss.SimpleUpload = function( options ) {
   this._progKeys = []; // contains the currently active upload ID progress keys
   this._maxFails = 10; // max allowed failed progress updates requests in iframe mode
 
-  if ( this._isXhrOk() ) {
-    this._XhrOk = true;
-  } else {
-    this._XhrOk = false;
-
+  if ( !XhrOk ) {
     if ( this._opts.progressUrl || this._opts.nginxProgressUrl ) {
-      // Store keys in _sizeFlags after the first time we set sizeBox 
+      // Store keys in _sizeFlags after the first time we set sizeBox
       // and call UpdateFileSize(). No need to do it > 1 time
-      this._sizeFlags = {};      
+      this._sizeFlags = {};
       // Generate upload ID progress key
       this._progKey = ss.getUID();
     }
   }
 
-  // Check for Safari - it doesn't like multi file uploading. At all.
-  // http://stackoverflow.com/a/9851769/1091949
-  this._isSafari = Object.prototype.toString.call( window.HTMLElement ).indexOf( 'Constructor' ) > 0;
-
   // Calls below this line must always be last
   this._createInput();
   this.enable();
-
-  // Reroute clicks for each of the upload buttons
-  for ( i = 0; i < this._numBtns; i++ ) {
-    this.rerouteClicks( this._btns[i] );
-  }
 };
 
 ss.SimpleUpload.prototype = {
+
+  destroy: function() {
+    "use strict";
+
+    // # of upload buttons
+    var i = this._btns.length;
+
+    // Put upload buttons back to the way we found them
+    while ( i-- ) {
+      // Remove event listener
+      if ( this._btns[i].off ) {
+        this._btns[i].off();
+      }
+
+      // Remove any lingering classes
+      ss.removeClass( this._btns[i], this._opts.hoverClass );
+      ss.removeClass( this._btns[i], this._opts.focusClass );
+      ss.removeClass( this._btns[i], this._opts.disabledClass );
+
+      // In case we disabled it
+      this._btns[i].disabled = false;
+    }
+
+    // Remove div/file input combos from the DOM
+    ss.remove( this._input.parentNode );
+
+    // Now burn it all down
+    for ( var prop in this ) {
+      if ( this.hasOwnProperty( prop ) ) {
+        delete this.prop;
+      }
+    }
+  },
 
   /**
   * Send data to browser console if debug is set to true
@@ -614,13 +653,14 @@ ss.SimpleUpload.prototype = {
   disable: function() {
     "use strict";
 
-    var i,
+    var i = this._btns.length,
         nodeName;
 
-    for ( i = 0; i < this._numBtns; i++ ) {
+    this._disabled = true;
+
+    while ( i-- ) {
       nodeName = this._btns[i].nodeName.toUpperCase();
       ss.addClass( this._btns[i], this._opts.disabledClass );
-      this._disabled = true;
 
       if ( nodeName == 'INPUT' || nodeName == 'BUTTON' ) {
         this._btns[i].disabled = true;
@@ -640,27 +680,14 @@ ss.SimpleUpload.prototype = {
   enable: function() {
     "use strict";
 
-    var i;
-    for ( i = 0; i < this._numBtns; i++ ) {
+    var i = this._btns.length;
+
+    this._disabled = false;
+
+    while ( i-- ) {
       ss.removeClass( this._btns[i], this._opts.disabledClass );
       this._btns[i].disabled = false;
     }
-    this._disabled = false;
-  },
-
-  /**
-  * Checks whether browser supports XHR uploads
-  */
-  _isXhrOk: function() {
-    "use strict";
-
-    var input = document.createElement( 'input' );
-
-    input.type = 'file';
-    return (
-      'multiple' in input &&
-      typeof File != 'undefined' &&
-      typeof ( new XMLHttpRequest() ).upload != 'undefined' );
   },
 
   /**
@@ -680,7 +707,7 @@ ss.SimpleUpload.prototype = {
 
     // Don't allow multiple file selection in Safari -- it has a nasty bug
     // http://stackoverflow.com/q/7231054/1091949
-    if ( this._XhrOk && !this._isSafari ) {
+    if ( XhrOk && !isSafari ) {
       this._input.multiple = true;
     }
 
@@ -725,7 +752,7 @@ ss.SimpleUpload.prototype = {
         return;
       }
 
-      if ( !self._XhrOk ) {
+      if ( !XhrOk ) {
         filename = ss.getFilename( self._input.value );
         ext = ss.getExt( filename );
 
@@ -760,7 +787,6 @@ ss.SimpleUpload.prototype = {
 
       ss.remove( self._input.parentNode );
       delete self._input;
-      self._input = null;
 
       // Then create a new file input
       self._createInput();
@@ -802,13 +828,9 @@ ss.SimpleUpload.prototype = {
 
     var self = this;
 
-    elem = ss.verifyElem( elem );
-
-    if ( !elem ) {
-      return false;
-    }
-
-    ss.addEvent( elem, 'mouseover', function() {
+    // ss.addEvent() returns a function to detach, which
+    // allows us to call elem.off() to remove mouseover listener
+    elem.off = ss.addEvent( elem, 'mouseover', function() {
       if ( self._disabled ) {
         return;
       }
@@ -821,6 +843,8 @@ ss.SimpleUpload.prototype = {
       ss.copyLayout( elem, self._input.parentNode );
       self._input.parentNode.style.visibility = 'visible';
     });
+
+    return elem;
   },
 
   /**
@@ -925,24 +949,21 @@ ss.SimpleUpload.prototype = {
   _finish: function( status, statusText, response, filename, sizeBox, progBox, pctBox, abortBtn, removeAbort ) {
     "use strict";
 
-    // Save response text in case it can't be parsed as JSON
-    var responseText = response;
+    this.log( 'Server response: ' + response );
 
     if ( this._opts.responseType.toLowerCase() == 'json' ) {
       response = ss.parseJSON( response );
-
       if ( response === false ) {
         this._errorFinish( status, statusText, 'parseerror', filename, sizeBox, progBox, abortBtn, removeAbort );
         return;
       }
     }
 
-    this.log( 'Server response: '+responseText );
     this._opts.onComplete.call( this, filename, response );
     this._last( sizeBox, progBox, pctBox, abortBtn, removeAbort );
 
     // Null to avoid leaks in IE
-    responseText = status = statusText = response = filename = sizeBox = progBox = pctBox = abortBtn = removeAbort = null;
+    status = statusText = response = filename = sizeBox = progBox = pctBox = abortBtn = removeAbort = null;
   },
 
   /**
@@ -1012,16 +1033,16 @@ ss.SimpleUpload.prototype = {
       // of an xhr when a network error occurred
       try {
         // Was never called and is aborted or complete
-        if (  callback && (  isAbort || xhr.readyState === 4  )  ) {
+        if ( callback && ( isAbort || xhr.readyState === 4 ) ) {
 
           xhr.onreadystatechange = function() {};
           callback = undefined;
 
           // If it's an abort
-          if (  isAbort  ) {
+          if ( isAbort ) {
 
             // Abort it manually if needed
-            if (  xhr.readyState !== 4  ) {
+            if ( xhr.readyState !== 4 ) {
               xhr.abort();
             }
 
@@ -1051,8 +1072,8 @@ ss.SimpleUpload.prototype = {
           }
         }
       }
-      catch (  e  ) {
-        if (  !isAbort  ) {
+      catch ( e ) {
+        if ( !isAbort ) {
           self._errorFinish( -1, e.message, 'error', filename, sizeBox, progBox, pctBox, abortBtn, removeAbort );
         }
       }
@@ -1074,7 +1095,7 @@ ss.SimpleUpload.prototype = {
 
     ss.addEvent( xhr.upload, 'progress', function( event ) {
       if ( event.lengthComputable ) {
-        var pct = Math.round(  (  event.loaded / event.total  ) * 100 );
+        var pct = Math.round( ( event.loaded / event.total ) * 100 );
 
         settings.onProgress.call( self, pct );
 
@@ -1122,11 +1143,14 @@ ss.SimpleUpload.prototype = {
   * Handles uploading with iFrame
   */
   _uploadIframe: function( filename, sizeBox, progBar, progBox, pctBox ) {
+    "use strict";
+
     var self = this,
         settings = this._opts,
         key = this._progKey,
         iframe = this._getFrame(),
         form = this._getForm( iframe ),
+        callback,
         input;
 
     if ( false === settings.startNonXHR.call( this, filename ) ) {
@@ -1160,8 +1184,8 @@ ss.SimpleUpload.prototype = {
 
     form.appendChild( this._file );
 
-    // Begin progress bars at 0%    
-    settings.onProgress.call( this, 0 );    
+    // Begin progress bars at 0%
+    settings.onProgress.call( this, 0 );
 
     if ( pctBox ) {
       pctBox.innerHTML = '0%';
@@ -1171,16 +1195,12 @@ ss.SimpleUpload.prototype = {
       progBar.style.width = '0%';
     }
 
-    ss.addEvent( iframe, 'load', function() {
+    callback = ss.addEvent( iframe, 'load', function() {
       try {
         var doc = iframe.contentDocument ?
               iframe.contentDocument :
               iframe.contentWindow.document,
             response = doc.body.innerHTML;
-
-      /*jslint noarg: false*/
-        ss.removeEvent( iframe, 'load', arguments.callee );
-        ss.remove( iframe );
 
         // Remove key from active progress keys array
         ss.removeItem( self._progKeys, key );
@@ -1195,10 +1215,14 @@ ss.SimpleUpload.prototype = {
       // Delete upload key from size update flags
       if (self._sizeFlags[key]) {
         delete self._sizeFlags.key;
-      }      
-      
+      }
+
+      // Removes event listener from iframe
+      callback();
+      ss.remove( iframe );
+
       // Null to avoid leaks in IE
-      settings = key = iframe = sizeBox = progBox = pctBox = null;      
+      settings = key = iframe = sizeBox = progBox = pctBox = null;
     });
 
     self.log( 'Commencing upload using iframe' );
@@ -1226,7 +1250,7 @@ ss.SimpleUpload.prototype = {
 
   /**
   * Retrieves upload progress updates from the server
-  * ( for fallback upload progress support )
+  * (for fallback upload progress support)
   */
   _getProg: function( key, progBar, sizeBox, pctBox, counter ) {
     "use strict";
@@ -1286,8 +1310,8 @@ ss.SimpleUpload.prototype = {
               if ( response.state == 'uploading' ) {
                 size = response.size;
                 if ( size > 0 ) {
-                  pct = Math.round(  (  response.received / size  ) * 100  );
-                  size = Math.round(  size / 1024  ); // convert to kilobytes
+                  pct = Math.round( ( response.received / size ) * 100 );
+                  size = Math.round( size / 1024 ); // convert to kilobytes
                 }
 
               } else if ( response.state == 'done' ) {
@@ -1318,12 +1342,12 @@ ss.SimpleUpload.prototype = {
               self._opts.onProgress.call( self, pct );
             }
 
-            // Update file size box if we haven't yet done so            
+            // Update file size box if we haven't yet done so
             if ( size && !self._sizeFlags[key] ) {
-              // Set a flag so we don't do it again -- file size doesn't 
+              // Set a flag so we don't do it again -- file size doesn't
               // change, so no need to mess with the DOM more than once
               self._sizeFlags[key] = 1;
-              
+
               if ( sizeBox ) {
                 sizeBox.innerHTML = size + 'K';
               }
@@ -1344,7 +1368,7 @@ ss.SimpleUpload.prototype = {
               window.setTimeout( function() {
                   self._getProg( key, progBar, sizeBox, pctBox, counter );
                   // Null to avoid leaks in IE
-                  self = key = progBar = sizeBox = pctBox = counter = null;
+                  key = progBar = sizeBox = pctBox = counter = null;
               }, self._opts.checkProgressInterval );
             }
 
@@ -1438,10 +1462,10 @@ ss.SimpleUpload.prototype = {
     // The next file in the queue will always be in the front of the array
     this._file = this._queue[0];
 
-    if ( this._XhrOk ) {
+    if ( XhrOk ) {
       filename = ss.getFilename( this._file.name );
       // Convert from bytes to kilobytes
-      size = Math.round(  this._file.size / 1024  );
+      size = Math.round( this._file.size / 1024 );
     } else {
       filename = ss.getFilename( this._file.value );
     }
@@ -1469,7 +1493,7 @@ ss.SimpleUpload.prototype = {
     }
 
     // Use XHR if supported by browser
-    if ( this._XhrOk ) {
+    if ( XhrOk ) {
       this._uploadXhr( filename, size, this._sizeBox, this._progBar, this._progBox, this._pctBox );
 
     // Otherwise use iframe method

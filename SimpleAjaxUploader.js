@@ -794,10 +794,10 @@ ss.SimpleUpload.prototype = {
         }
       }
 
-      // Now that file is in upload queue, remove the file input
       ss.removeClass( self._overBtn, self._opts.hoverClass );
       ss.removeClass( self._overBtn, self._opts.focusClass );
 
+      // Now that file is in upload queue, remove the file input            
       ss.remove( self._input.parentNode );
       delete self._input;
 

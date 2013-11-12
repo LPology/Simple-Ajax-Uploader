@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 1.8.1
+ * Version 1.8.2
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC
@@ -439,19 +439,19 @@ ss.SimpleUpload = function( options ) {
     hoverClass: '',
     focusClass: '',
     disabledClass: '',
-    onAbort: function( filename ) {},
-    onChange: function( filename, extension ) {},
-    onSubmit: function( filename, extension ) {},
+    onAbort: function( filename, uploadBtn ) {},
+    onChange: function( filename, extension, uploadBtn ) {},
+    onSubmit: function( filename, extension, uploadBtn ) {},
     onProgress: function( pct ) {},
     onUpdateFileSize: function( filesize ) {},
-    onComplete: function( filename, response ) {},
+    onComplete: function( filename, response, uploadBtn ) {},
     onExtError: function( filename, extension ) {},
     onSizeError: function( filename, fileSize ) {},
-    onError: function( filename, type, status, statusText ) {},
-    startXHR: function( filename, fileSize ) {},
-    endXHR: function( filename, fileSize ) {},
-    startNonXHR: function( filename ) {},
-    endNonXHR: function( filename ) {}
+    onError: function( filename, type, status, statusText, uploadBtn ) {},
+    startXHR: function( filename, fileSize, uploadBtn ) {},
+    endXHR: function( filename, fileSize, uploadBtn ) {},
+    startNonXHR: function( filename, uploadBtn ) {},
+    endNonXHR: function( filename, uploadBtn ) {}
   };
 
   ss.extendObj( this._opts, options );
@@ -490,20 +490,21 @@ ss.SimpleUpload = function( options ) {
     this._opts.maxUploads = 1;
   }
 
+  // An array of objects, each containing two items, a file and a reference
+  // to the button which triggered the upload: { file: uploadFile, btn: button }
   this._queue = [];
+  
   this._active = 0;
   this._disabled = false; // if disabled, clicking on button won't do anything
   this._progKeys = []; // contains the currently active upload ID progress keys
   this._maxFails = 10; // max allowed failed progress updates requests in iframe mode
 
   if ( !XhrOk ) {
-    if ( this._opts.progressUrl || this._opts.nginxProgressUrl ) {
-      // Store keys in _sizeFlags after the first time we set sizeBox
-      // and call UpdateFileSize(). No need to do it > 1 time
-      this._sizeFlags = {};
-      // Generate upload ID progress key
-      this._progKey = ss.getUID();
-    }
+    // Generate upload ID progress key
+    this._progKey = ss.getUID();
+    // Store progress keys in _sizeFlags after the first time we set sizeBox
+    // and call UpdateFileSize(). No need to do it > 1 time
+    this._sizeFlags = {};
   }
 
   // Calls below this line must always be last
@@ -643,10 +644,17 @@ ss.SimpleUpload.prototype = {
   */
   removeCurrent: function() {
     "use strict";
+    
+    var i = this._queue.length;
+    
+    while ( i-- ) {
+      if ( this._queue[i].file === this._file ) {
+        this._queue.splice( i, 1 );
+        break;
+      }
+    }    
 
-    ss.removeItem( this._queue, this._file );
     delete this._file;
-    this._file = null;
     this._cycleQueue();
   },
 
@@ -742,33 +750,35 @@ ss.SimpleUpload.prototype = {
 
     // Make sure that element opacity exists. Otherwise use IE filter
     if ( div.style.opacity !== '0' ) {
-      div.style.filter = 'alpha( opacity=0 )';
+      div.style.filter = 'alpha(opacity=0)';
     }
 
     ss.addEvent( this._input, 'change', function() {
-      var filename,
+      var uploadBtn = self._overBtn,
+          filename,
           ext,
           total,
           i;
 
       if ( !self._input || self._input.value === '' ) {
         return;
-      }
+      }      
 
       if ( !XhrOk ) {
         filename = ss.getFilename( self._input.value );
         ext = ss.getExt( filename );
 
-        if ( false === self._opts.onChange.call( self, filename, ext ) ) {
+        if ( false === self._opts.onChange.call( self, filename, ext, uploadBtn ) ) {
           return;
         }
-        self._queue.push( self._input );
+        
+        self._queue.push( { file: self._input, btn: uploadBtn } );
 
       } else {
         filename = ss.getFilename( self._input.files[0].name );
         ext = ss.getExt( filename );
 
-        if ( false === self._opts.onChange.call( self, filename, ext ) ) {
+        if ( false === self._opts.onChange.call( self, filename, ext, uploadBtn ) ) {
           return;
         }
 
@@ -780,7 +790,7 @@ ss.SimpleUpload.prototype = {
         }
 
         for ( i = 0; i < total; i++ ) {
-          self._queue.push( self._input.files[i] );
+          self._queue.push( { file: self._input.files[i], btn: uploadBtn } );
         }
       }
 
@@ -935,21 +945,21 @@ ss.SimpleUpload.prototype = {
   /**
   * Completes upload request if an error is detected
   */
-  _errorFinish: function( status, statusText, errorType, filename, sizeBox, progBox, pctBox, abortBtn, removeAbort ) {
+  _errorFinish: function( status, statusText, errorType, filename, sizeBox, progBox, pctBox, abortBtn, removeAbort, uploadBtn ) {
     "use strict";
 
     this.log( 'Upload failed: '+status+' '+statusText );
-    this._opts.onError.call( this, filename, errorType, status, statusText );
+    this._opts.onError.call( this, filename, errorType, status, statusText, uploadBtn );
     this._last( sizeBox, progBox, pctBox, abortBtn, removeAbort );
 
     // Null to avoid leaks in IE
-    status = statusText = errorType = filename = sizeBox = progBox = pctBox = abortBtn = removeAbort = null;
+    status = statusText = errorType = filename = sizeBox = progBox = pctBox = abortBtn = removeAbort = uploadBtn = null;
   },
 
   /**
   * Completes upload request if the transfer was successful
   */
-  _finish: function( status, statusText, response, filename, sizeBox, progBox, pctBox, abortBtn, removeAbort ) {
+  _finish: function( status, statusText, response, filename, sizeBox, progBox, pctBox, abortBtn, removeAbort, uploadBtn ) {
     "use strict";
 
     this.log( 'Server response: ' + response );
@@ -957,22 +967,22 @@ ss.SimpleUpload.prototype = {
     if ( this._opts.responseType.toLowerCase() == 'json' ) {
       response = ss.parseJSON( response );
       if ( response === false ) {
-        this._errorFinish( status, statusText, 'parseerror', filename, sizeBox, progBox, abortBtn, removeAbort );
+        this._errorFinish( status, statusText, 'parseerror', filename, sizeBox, progBox, abortBtn, removeAbort, uploadBtn );
         return;
       }
     }
 
-    this._opts.onComplete.call( this, filename, response );
+    this._opts.onComplete.call( this, filename, response, uploadBtn );
     this._last( sizeBox, progBox, pctBox, abortBtn, removeAbort );
 
     // Null to avoid leaks in IE
-    status = statusText = response = filename = sizeBox = progBox = pctBox = abortBtn = removeAbort = null;
+    status = statusText = response = filename = sizeBox = progBox = pctBox = abortBtn = removeAbort = uploadBtn = null;
   },
 
   /**
   * Handles uploading with XHR
   */
-  _uploadXhr: function( filename, size, sizeBox, progBar, progBox, pctBox ) {
+  _uploadXhr: function( filename, size, sizeBox, progBar, progBox, pctBox, abortBtn, removeAbort, uploadBtn ) {
     "use strict";
 
     var self = this,
@@ -981,25 +991,7 @@ ss.SimpleUpload.prototype = {
         params = {},
         queryURL,
         callback,
-        abortBtn,
-        removeAbort,
         cancel;
-
-    if ( false === settings.startXHR.call( this, filename, size ) ) {
-      if ( this._disabled ) {
-        this.enable();
-      }
-      this._active--;
-      return;
-    }
-
-    // Wait until after startXHR() to get abort
-    // button in case that's where setAbortBtn() is called
-    abortBtn = this._abortBtn;
-    removeAbort = this._removeAbort;
-
-    // Reset to default
-    this._abortBtn = this._removeAbort = null;
 
     // Add name property to query string
     params[settings.name] = filename;
@@ -1050,7 +1042,7 @@ ss.SimpleUpload.prototype = {
             }
 
             self._last( sizeBox, progBox, pctBox, abortBtn, removeAbort );
-            settings.onAbort.call( self, filename );
+            settings.onAbort.call( self, filename, uploadBtn );
 
           } else {
             status = xhr.status;
@@ -1065,19 +1057,19 @@ ss.SimpleUpload.prototype = {
             }
 
             if ( status >= 200 && status < 300 ) {
-              settings.endXHR.call( self, filename, size );
-              self._finish( status, statusText, xhr.responseText, filename, sizeBox, progBox, pctBox, abortBtn, removeAbort );
+              settings.endXHR.call( self, filename, size, uploadBtn );
+              self._finish( status, statusText, xhr.responseText, filename, sizeBox, progBox, pctBox, abortBtn, removeAbort, uploadBtn );
 
               // We didn't get a 2xx status so throw an error
             } else {
-              self._errorFinish( status, statusText, 'error', filename, sizeBox, progBox, pctBox, abortBtn, removeAbort );
+              self._errorFinish( status, statusText, 'error', filename, sizeBox, progBox, pctBox, abortBtn, removeAbort, uploadBtn );
             }
           }
         }
       }
       catch ( e ) {
         if ( !isAbort ) {
-          self._errorFinish( -1, e.message, 'error', filename, sizeBox, progBox, pctBox, abortBtn, removeAbort );
+          self._errorFinish( -1, e.message, 'error', filename, sizeBox, progBox, pctBox, abortBtn, removeAbort, uploadBtn );
         }
       }
     };
@@ -1145,7 +1137,7 @@ ss.SimpleUpload.prototype = {
   /**
   * Handles uploading with iFrame
   */
-  _uploadIframe: function( filename, sizeBox, progBar, progBox, pctBox ) {
+  _uploadIframe: function( filename, sizeBox, progBar, progBox, pctBox, uploadBtn ) {
     "use strict";
 
     var self = this,
@@ -1155,14 +1147,6 @@ ss.SimpleUpload.prototype = {
         form = this._getForm( iframe ),
         callback,
         input;
-
-    if ( false === settings.startNonXHR.call( this, filename ) ) {
-      if ( this._disabled ) {
-        this.enable();
-      }
-      this._active--;
-      return;
-    }
 
     // If we're using Nginx Upload Progress Module, append upload key to the URL
     if ( this._opts.nginxProgressUrl ) {
@@ -1207,16 +1191,16 @@ ss.SimpleUpload.prototype = {
 
         // Remove key from active progress keys array
         ss.removeItem( self._progKeys, key );
-        settings.endNonXHR.call( self, filename );
+        settings.endNonXHR.call( self, filename, uploadBtn );
 
         // No way to get status and statusText for an iframe so return empty strings
-        self._finish( '', '', response, filename, sizeBox, progBox, pctBox );
+        self._finish( '', '', response, filename, sizeBox, progBox, pctBox, undefined, undefined, uploadBtn );
       } catch ( e ) {
-        self._errorFinish( '', e.message, 'error', filename, sizeBox, progBox, pctBox );
+        self._errorFinish( '', e.message, 'error', filename, sizeBox, progBox, pctBox, undefined, undefined, uploadBtn );
       }
 
       // Delete upload key from size update flags
-      if (self._sizeFlags[key]) {
+      if (self._sizeFlags && self._sizeFlags[key]) {
         delete self._sizeFlags.key;
       }
 
@@ -1225,7 +1209,7 @@ ss.SimpleUpload.prototype = {
       ss.remove( iframe );
 
       // Null to avoid leaks in IE
-      settings = key = iframe = sizeBox = progBox = pctBox = null;
+      settings = key = iframe = sizeBox = progBox = pctBox = uploadBtn = null;
     });
 
     self.log( 'Commencing upload using iframe' );
@@ -1452,6 +1436,7 @@ ss.SimpleUpload.prototype = {
     "use strict";
 
     var filename,
+        uploadBtn,
         ext,
         size;
 
@@ -1463,7 +1448,10 @@ ss.SimpleUpload.prototype = {
     }
 
     // The next file in the queue will always be in the front of the array
-    this._file = this._queue[0];
+    this._file = this._queue[0].file;
+    
+    // Button that triggered the upload
+    uploadBtn = this._queue[0].btn;
 
     if ( XhrOk ) {
       filename = ss.getFilename( this._file.name );
@@ -1480,7 +1468,7 @@ ss.SimpleUpload.prototype = {
     }
 
     // User returned false to cancel upload
-    if ( false === this._opts.onSubmit.call( this, filename, ext ) ) {
+    if ( false === this._opts.onSubmit.call( this, filename, ext, uploadBtn ) ) {
       return;
     }
 
@@ -1497,15 +1485,34 @@ ss.SimpleUpload.prototype = {
 
     // Use XHR if supported by browser
     if ( XhrOk ) {
-      this._uploadXhr( filename, size, this._sizeBox, this._progBar, this._progBox, this._pctBox );
+      // Call the startXHR() callback and stop upload if it returns false
+      // We call it before _uploadXhr() in case setProgressBar, setPctBox, etc., is called
+      if ( false === this._opts.startXHR.call( this, filename, size, uploadBtn ) ) {
+        if ( this._disabled ) {
+          this.enable();
+        }
+        this._active--;
+        return;
+      }
+
+      this._uploadXhr( filename, size, this._sizeBox, this._progBar, this._progBox, this._pctBox, this._abortBtn, this._removeAbort, uploadBtn );
 
     // Otherwise use iframe method
     } else {
-      this._uploadIframe( filename, this._sizeBox, this._progBar, this._progBox, this._pctBox );
+      // Call the startNonXHR() callback and stop upload if it returns false
+      if ( false === this._opts.startNonXHR.call( this, filename, uploadBtn ) ) {
+        if ( this._disabled ) {
+          this.enable();
+        }
+        this._active--;
+        return;
+      }
+
+      this._uploadIframe( filename, this._sizeBox, this._progBar, this._progBox, this._pctBox, uploadBtn );
     }
 
     // Null to avoid leaks in IE
-    this._sizeBox = this._progBar = this._progBox = this._pctBox = null;
+    this._sizeBox = this._progBar = this._progBox = this._pctBox = this._abortBtn = this._removeAbort = uploadBtn = null;
   }
 };
 

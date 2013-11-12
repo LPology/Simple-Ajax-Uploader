@@ -1,5 +1,10 @@
 Change Log 
 ============================
+### Version 1.8.2 ###
+* A reference to the button which triggered an upload is now passed as the last argument to the following callbacks: `onAbort()`, `onChange()`, `onSubmit()`, `onComplete()`, `onError()`, `startXHR()`, `endXHR()`, `startNonXHR()`, `endNonXHR()` (can be useful when using multiple upload buttons)
+* Fixed bug which caused some methods to not work if called inside of `startXHR()` or `startNonXHR()`
+* Fixed bug causing undefined variable in IE9 and older if `progressUrl` and `nginxProgressUrl` are not set
+
 ### Version 1.8.1 ###
 * Added `destroy()` method for completely removing upload functionality
 * Removed redundant call to `ss.verifyElem()` inside of `rerouteClicks()`

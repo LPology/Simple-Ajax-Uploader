@@ -1436,7 +1436,6 @@ ss.SimpleUpload.prototype = {
     "use strict";
 
     var filename,
-        uploadBtn,
         ext,
         size;
 
@@ -1449,9 +1448,6 @@ ss.SimpleUpload.prototype = {
 
     // The next file in the queue will always be in the front of the array
     this._file = this._queue[0].file;
-    
-    // Button that triggered the upload
-    uploadBtn = this._queue[0].btn;
 
     if ( XhrOk ) {
       filename = ss.getFilename( this._file.name );
@@ -1468,7 +1464,7 @@ ss.SimpleUpload.prototype = {
     }
 
     // User returned false to cancel upload
-    if ( false === this._opts.onSubmit.call( this, filename, ext, uploadBtn ) ) {
+    if ( false === this._opts.onSubmit.call( this, filename, ext, this._queue[0].btn /* upload button */ ) ) {
       return;
     }
 
@@ -1487,7 +1483,7 @@ ss.SimpleUpload.prototype = {
     if ( XhrOk ) {
       // Call the startXHR() callback and stop upload if it returns false
       // We call it before _uploadXhr() in case setProgressBar, setPctBox, etc., is called
-      if ( false === this._opts.startXHR.call( this, filename, size, uploadBtn ) ) {
+      if ( false === this._opts.startXHR.call( this, filename, size, this._queue[0].btn /* upload button */ ) ) {
         if ( this._disabled ) {
           this.enable();
         }
@@ -1495,12 +1491,12 @@ ss.SimpleUpload.prototype = {
         return;
       }
 
-      this._uploadXhr( filename, size, this._sizeBox, this._progBar, this._progBox, this._pctBox, this._abortBtn, this._removeAbort, uploadBtn );
+      this._uploadXhr( filename, size, this._sizeBox, this._progBar, this._progBox, this._pctBox, this._abortBtn, this._removeAbort, this._queue[0].btn /* upload button */ );
 
     // Otherwise use iframe method
     } else {
       // Call the startNonXHR() callback and stop upload if it returns false
-      if ( false === this._opts.startNonXHR.call( this, filename, uploadBtn ) ) {
+      if ( false === this._opts.startNonXHR.call( this, filename, this._queue[0].btn /* upload button */ ) ) {
         if ( this._disabled ) {
           this.enable();
         }
@@ -1508,11 +1504,11 @@ ss.SimpleUpload.prototype = {
         return;
       }
 
-      this._uploadIframe( filename, this._sizeBox, this._progBar, this._progBox, this._pctBox, uploadBtn );
+      this._uploadIframe( filename, this._sizeBox, this._progBar, this._progBox, this._pctBox, this._queue[0].btn /* upload button */ );
     }
 
     // Null to avoid leaks in IE
-    this._sizeBox = this._progBar = this._progBox = this._pctBox = this._abortBtn = this._removeAbort = uploadBtn = null;
+    this._sizeBox = this._progBar = this._progBox = this._pctBox = this._abortBtn = this._removeAbort = null;
   }
 };
 

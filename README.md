@@ -6,7 +6,7 @@ A Javascript plugin for cross-browser Ajax file uploading. Supports multiple fil
 <a href="http://www.lpology.com/code/ajaxuploader/">Live Demo</a><br />
 <a href="http://www.lpology.com/code/ajaxuploader/docs.php">Full API Reference</a><br />
 <a href="http://www.lpology.com/code/ajaxuploader/progress.php">How to do upload progress bars that work in IE9 (and older)</a><br />
-<a href="http://www.lpology.com/code/ajaxuploader/How-to-Cross-Domain-File-Uploading.php">CORS &mdash; Cross-domain file uploading with Simple Ajax Uploader</a>
+<a href="http://www.lpology.com/code/ajaxuploader/How-to-Cross-Domain-File-Uploading.php">CORS - Cross-domain file uploading with Simple Ajax Uploader</a>
 
 ### Overview ###
 Simple Ajax Uploader allows developers to easily add Ajax file upload functionality to web applications. It abstracts away standard tasks and browser compatibility issues while preserving wide latitude for custom use.

@@ -24,7 +24,7 @@ var uploader = new ss.SimpleUpload({
 ### Features ###
 * Cross-browser -- works in IE7+, Firefox, Chrome, Safari, Opera
 * Supports multiple, concurrent file uploads (even in non-HTML5 browsers)
-* Built-in CORS support (<strong>new in v1.9</strong>)
+* Built-in CORS support (<strong>new in v1.9</strong>) <a href="http://www.lpology.com/code/ajaxuploader/How-to-Cross-Domain-File-Uploading.php">More info</a>
 * No flash or external CSS -- under 5Kb Javascript file (minified and gzipped)
 * Progress bars in all browsers, including IE9 and older. Built-in support for both:
     * <a href="http://wiki.nginx.org/HttpUploadProgressModule">Nginx Upload Progress Module</a>

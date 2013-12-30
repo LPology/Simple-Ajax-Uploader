@@ -2,7 +2,7 @@
  
 /**
  * Simple Ajax Uploader
- * Version 1.8.2
+ * Version 1.9
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC  
@@ -12,6 +12,14 @@
  * Falling back to this method allows for upload progress support across virtually all browsers.
  *
  */ 
+
+// This "if" statement is only necessary for CORS uploads -- if you're 
+// only doing same-domain uploads then you can delete it if you want
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+  header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+  header('Access-Control-Allow-Credentials: true');
+  header('Access-Control-Max-Age: 86400');    // cache for 1 day
+}
 
 if (isset($_REQUEST['progresskey'])) 
   $status = apc_fetch('upload_'.$_REQUEST['progresskey']);

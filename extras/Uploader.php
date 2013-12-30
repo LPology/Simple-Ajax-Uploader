@@ -2,7 +2,7 @@
 
 /**
  * Simple Ajax Uploader
- * Version 1.8.2
+ * Version 1.9
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2013 LPology, LLC
@@ -15,18 +15,21 @@
 * Handles XHR uploads
 * Used by FileUpload below -- don't call this class directly.
 */
-final class FileUploadXHR {
+class FileUploadXHR {
   public $uploadName;
-  final public function Save($savePath) {
+  
+  public function Save($savePath) {
     if (false !== file_put_contents($savePath, fopen('php://input', 'r'))) {
       return true;
     }
     return false;
   }
-  final public function getFileName() {
+  
+  public function getFileName() {
     return $_GET[$this->uploadName];
   }
-  final public function getFileSize() {
+  
+  public function getFileSize() {
     if (isset($_SERVER['CONTENT_LENGTH'])) {
       return (int)$_SERVER['CONTENT_LENGTH'];
     } else {
@@ -39,18 +42,21 @@ final class FileUploadXHR {
 * Handles form uploads through hidden iframe
 * Used by FileUpload below -- don't call this class directly.
 */
-final class FileUploadPOSTForm {
+class FileUploadPOSTForm {
   public $uploadName;
-  final public function Save($savePath) {
+  
+  public function Save($savePath) {
     if (move_uploaded_file($_FILES[$this->uploadName]['tmp_name'], $savePath)) {
       return true;
     }
     return false;
   }
-  final public function getFileName() {
+  
+  public function getFileName() {
     return $_FILES[$this->uploadName]['name'];
   }
-  final public function getFileSize() {
+  
+  public function getFileSize() {
     return $_FILES[$this->uploadName]['size'];
   }
 }
@@ -63,6 +69,7 @@ class FileUpload {
   public $allowedExtensions;            // Array of permitted file extensions
   public $sizeLimit = 10485760;         // Max file upload size in bytes (default 10MB)
   public $newFileName;                  // Optionally save uploaded files with a new name by setting this
+  public $corsInputName = 'XHR_CORS_TARGETORIGIN';
   private $fileName;                    // Filename of the uploaded file
   private $fileSize;                    // Size of uploaded file in bytes
   private $fileExtension;               // File extension of uploaded file
@@ -130,6 +137,35 @@ class FileUpload {
       $dir = substr($dir, 0, -1);
     }
     return $dir . DIRECTORY_SEPARATOR;
+  }
+
+  // escapeJS and jsMatcher are adapted from the Escaper component of 
+  // Zend Framework, Copyright (c) 2005-2013, Zend Technologies USA, Inc.
+  // https://github.com/zendframework/zf2/tree/master/library/Zend/Escaper
+  private function escapeJS($string) {
+    return preg_replace_callback('/[^a-z0-9,\._]/iSu', $this->jsMatcher, $string);
+  }
+
+  private function jsMatcher($matches) {
+    $chr = $matches[0];
+    if (strlen($chr) == 1) {
+      return sprintf('\\x%02X', ord($chr));
+    }
+    if (function_exists('iconv')) {
+      $chr = iconv('UTF-16BE', 'UTF-8', $chr);
+    } elseif (function_exists('mb_convert_encoding')) {
+      $chr = mb_convert_encoding($chr, 'UTF-8', 'UTF-16BE');
+    }
+    return sprintf('\\u%04s', strtoupper(bin2hex($chr)));
+  }
+
+  public function corsResponse($data) {
+    if (isset($_REQUEST[$this->corsInputName])) {
+      $targetOrigin = $this->escapeJS($_REQUEST[$this->corsInputName]);
+      $targetOrigin = htmlspecialchars($targetOrigin, ENT_QUOTES, 'UTF-8');
+      return "<script>window.parent.postMessage('$data','$targetOrigin');</script>";
+    }
+    return $data;
   }
 
   public function handleUpload($uploadDir = null, $allowedExtensions = null) {

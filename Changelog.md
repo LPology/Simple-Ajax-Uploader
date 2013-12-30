@@ -1,7 +1,7 @@
 Change Log 
 ============================
 ### Version 1.9 ###
-* Added CORS support (<a href="http://www.lpology.com/code/ajaxuploader/How-to-Cross-Domain-File-Uploading.php">Learn more</a>)
+* Added CORS support - <a href="http://www.lpology.com/code/ajaxuploader/How-to-Cross-Domain-File-Uploading.php">Learn more</a>
 * Query string parameters for Nginx Upload Progress Module in `_uploadIframe()` are now encoded with `encodeURIComponent()`
 * Upload progress ID keys are now generated prior to each upload instead of on page load
 * Query string parameters passed to `url` are now preserved - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/34">#34</a> (special thanks to <a href="https://github.com/Deefjuh">Deefjuh</a> for this)

@@ -1,5 +1,11 @@
 Change Log 
 ============================
+### Version 1.9 ###
+* Added CORS support (<a href="http://www.lpology.com/code/ajaxuploader/How-to-Cross-Domain-File-Uploading.php">Learn more</a>)
+* Query string parameters for Nginx Upload Progress Module in `_uploadIframe()` are now encoded with `encodeURIComponent()`
+* Upload progress ID keys are now generated prior to each upload instead of on page load
+* Query string parameters passed to `url` are now preserved - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/34">#34</a> (special thanks to <a href="https://github.com/Deefjuh">Deefjuh</a> for this)
+
 ### Version 1.8.2 ###
 * A reference to the button which triggers an upload is now passed as the last argument to the following callbacks: `onAbort()`, `onChange()`, `onSubmit()`, `onComplete()`, `onError()`, `startXHR()`, `endXHR()`, `startNonXHR()`, `endNonXHR()` (can be useful when using multiple upload buttons)
 * Fixed bug which caused some methods to not work if called inside of `startXHR()` or `startNonXHR()`

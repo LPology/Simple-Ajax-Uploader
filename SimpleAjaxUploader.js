@@ -968,15 +968,16 @@ ss.SimpleUpload.prototype = {
   /**
   * Completes upload request if an error is detected
   */
-  _errorFinish: function( status, statusText, errorType, filename, sizeBox, progBox, pctBox, abortBtn, removeAbort, uploadBtn ) {
+  _errorFinish: function( status, statusText, response, errorType, filename, sizeBox, progBox, pctBox, abortBtn, removeAbort, uploadBtn ) {
     "use strict";
 
     this.log( 'Upload failed: ' + status + ' ' + statusText );
-    this._opts.onError.call( this, filename, errorType, status, statusText, uploadBtn );
+    response = ss.parseJSON( response );
+    this._opts.onError.call( this, filename, errorType, status, statusText, response, uploadBtn );
     this._last( sizeBox, progBox, pctBox, abortBtn, removeAbort );
 
     // Null to avoid leaks in IE
-    status = statusText = errorType = filename = sizeBox = progBox = pctBox = abortBtn = removeAbort = uploadBtn = null;
+    status = statusText = response = errorType = filename = sizeBox = progBox = pctBox = abortBtn = removeAbort = uploadBtn = null;
   },
 
   /**
@@ -990,7 +991,7 @@ ss.SimpleUpload.prototype = {
     if ( this._opts.responseType.toLowerCase() == 'json' ) {
       response = ss.parseJSON( response );
       if ( response === false ) {
-        this._errorFinish( status, statusText, 'parseerror', filename, sizeBox, progBox, abortBtn, removeAbort, uploadBtn );
+        this._errorFinish( status, statusText, false, 'parseerror', filename, sizeBox, progBox, abortBtn, removeAbort, uploadBtn );
         return;
       }
     }
@@ -1085,14 +1086,14 @@ ss.SimpleUpload.prototype = {
 
               // We didn't get a 2xx status so throw an error
             } else {
-              self._errorFinish( status, statusText, 'error', filename, sizeBox, progBox, pctBox, abortBtn, removeAbort, uploadBtn );
+              self._errorFinish( status, statusText, xhr.responseText, 'error', filename, sizeBox, progBox, pctBox, abortBtn, removeAbort, uploadBtn );
             }
           }
         }
       }
       catch ( e ) {
         if ( !isAbort ) {
-          self._errorFinish( -1, e.message, 'error', filename, sizeBox, progBox, pctBox, abortBtn, removeAbort, uploadBtn );
+          self._errorFinish( -1, e.message, false, 'error', filename, sizeBox, progBox, pctBox, abortBtn, removeAbort, uploadBtn );
         }
       }
     };
@@ -1254,7 +1255,7 @@ ss.SimpleUpload.prototype = {
             // If msgLoaded has not been set to true after "message" event fires, we
             // infer that an error must have occurred and respond accordingly
             if ( !msgLoaded ) {
-              self._errorFinish( '', '', 'error', filename, sizeBox, progBox, pctBox, undefined, undefined, uploadBtn );
+              self._errorFinish( '', '', false, 'error', filename, sizeBox, progBox, pctBox, undefined, undefined, uploadBtn );
             }
 
             // Null to avoid leaks in IE
@@ -1275,7 +1276,7 @@ ss.SimpleUpload.prototype = {
           // No way to get status and statusText for an iframe so return empty strings
           self._finish( '', '', response, filename, sizeBox, progBox, pctBox, undefined, undefined, uploadBtn );
         } catch ( e ) {
-          self._errorFinish( '', e.message, 'error', filename, sizeBox, progBox, pctBox, undefined, undefined, uploadBtn );
+          self._errorFinish( '', e.message, false, 'error', filename, sizeBox, progBox, pctBox, undefined, undefined, uploadBtn );
         }
 
         ss.remove( iframe );

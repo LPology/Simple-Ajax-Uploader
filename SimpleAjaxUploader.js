@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 1.9
+ * Version 1.9.1
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC
@@ -450,7 +450,7 @@ ss.SimpleUpload = function( options ) {
     onComplete: function( filename, response, uploadBtn ) {},
     onExtError: function( filename, extension ) {},
     onSizeError: function( filename, fileSize ) {},
-    onError: function( filename, type, status, statusText, uploadBtn ) {},
+    onError: function( filename, type, status, statusText, response, uploadBtn ) {},
     startXHR: function( filename, fileSize, uploadBtn ) {},
     endXHR: function( filename, fileSize, uploadBtn ) {},
     startNonXHR: function( filename, uploadBtn ) {},

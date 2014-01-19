@@ -2,9 +2,11 @@ Change Log
 ============================
 ### Version 1.9.1 ###
 * `onError()` callback now receives server response as an argument, if it exists, or `false` if not
-<br /><br />
-<strong>API Change Note:</strong> For consistency with other callbacks, the server response is passed as the next to last argument, directly before the upload button.
-<br /><br />
+<br />
+<br />
+<strong>API Change Note:</strong> For consistency with other callbacks, the server response is passed as the next to last argument, directly before the upload button. If you are using the upload button parameter in `onError()`, you will need to update your code before upgrading to.
+<br />
+<br />
 * Switched from Google Closure Compiler to YUI Compressor for minification
 
 ### Version 1.9 ###

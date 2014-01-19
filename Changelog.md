@@ -1,7 +1,7 @@
 Change Log 
 ============================
 ### Version 1.9.1 ###
-* `onError()` callback now receives server response as an argument, if it exists, or `false` if not
+* `onError()` callback now receives server response as an argument, if it exists, or `false` if it does not - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/37">#37</a> (special thanks to <a href="https://github.com/KSDaemon">KSDaemon</a> for this) 
 <br />
 <br />
 <strong>API Change Note:</strong> For consistency with the other callbacks, the server response is passed to `onError()` as the next to last argument, directly before the upload button. Therefore, if you use the upload button parameter in `onError()`, you will need to update your code when upgrading.

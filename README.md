@@ -3,10 +3,10 @@ Simple Ajax Uploader
 
 A Javascript plugin for cross-browser Ajax file uploading. Supports multiple file uploading with progress bars.
 
-<a href="http://www.lpology.com/code/ajaxuploader/">Live Demo</a><br />
-<a href="http://www.lpology.com/code/ajaxuploader/docs.php">Full API Reference</a><br />
-<a href="http://www.lpology.com/code/ajaxuploader/progress.php">How to do upload progress bars that work in IE9 (and older)</a><br />
-<a href="http://www.lpology.com/code/ajaxuploader/How-to-Cross-Domain-File-Uploading.php">CORS &mdash; Cross-domain file uploading with Simple Ajax Uploader</a>
+<a href="https://www.lpology.com/code/ajaxuploader/">Live Demo</a><br />
+<a href="https://www.lpology.com/code/ajaxuploader/docs.php">Full API Reference</a><br />
+<a href="https://www.lpology.com/code/ajaxuploader/progress.php">How to do upload progress bars that work in IE9 (and older)</a><br />
+<a href="https://www.lpology.com/code/ajaxuploader/How-to-Cross-Domain-File-Uploading.php">CORS &mdash; Cross-domain file uploading with Simple Ajax Uploader</a>
 
 ### Overview ###
 Simple Ajax Uploader allows developers to easily add Ajax file upload functionality to web applications. It abstracts away standard tasks and browser compatibility issues while preserving wide latitude for custom use.
@@ -35,7 +35,6 @@ var uploader = new ss.SimpleUpload({
 
 ### Server-side file handling ###
 Files are uploaded by POST as either raw form data or regular multipart/form-data, depending on the browser.
-
 
 ### How to Use ###
 There are two main ways to use the plugin:
@@ -231,5 +230,3 @@ if ($result) {
 
 ### License ###
 Released under the MIT license.
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/12959a020aff072486c207b468ab8ade "githalytics.com")](http://githalytics.com/LPology/Simple-Ajax-Uploader)

@@ -32,6 +32,7 @@ var uploader = new ss.SimpleUpload({
 * Use any HTML element as the upload button
 * No dependencies - use it with or without jQuery
 * Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads
+* Ability to pass custom headers in request such as the Authorization header
 
 ### Server-side file handling ###
 Files are uploaded by POST as either raw form data or regular multipart/form-data, depending on the browser.
@@ -130,7 +131,7 @@ var uploader = new ss.SimpleUpload({
        // Do something after finishing the upload
        // Note that the progress bar will be automatically removed upon completion because everything 
        // is encased in the "wrapper", which was designated to be removed with setProgressContainer() 
-      onComplete:	function(filename, response) {
+      onComplete:   function(filename, response) {
           if (!response) {
             alert(filename + 'upload failed');
             return false;
@@ -201,9 +202,9 @@ $Upload = new FileUpload('uploadfile');
 $result = $Upload->handleUpload($upload_dir, $valid_extensions);
 
 if (!$result) {
-	echo json_encode(array('success' => false, 'msg' => $Upload->getErrorMsg()));	
+    echo json_encode(array('success' => false, 'msg' => $Upload->getErrorMsg()));   
 } else {
-	echo json_encode(array('success' => true, 'file' => $Upload->getFileName()));
+    echo json_encode(array('success' => true, 'file' => $Upload->getFileName()));
 }
 ```
 
@@ -226,6 +227,18 @@ if ($result) {
   $imgsize = getimagesize($path);
   // image resizing stuff...
 }
+```
+
+### Passing Custom Headers ###
+
+You can pass custom headers in the options upon initialization:
+
+```javascript
+var uploader = new ss.SimpleUpload({
+    customHeaders: {'Authorization': 'my-access-token'},
+    ...
+});
+
 ```
 
 ### License ###

@@ -442,6 +442,7 @@ ss.SimpleUpload = function( options ) {
     hoverClass: '',
     focusClass: '',
     disabledClass: '',
+    customHeaders: [],
     onAbort: function( filename, uploadBtn ) {},
     onChange: function( filename, extension, uploadBtn ) {},
     onSubmit: function( filename, extension, uploadBtn ) {},
@@ -1133,6 +1134,11 @@ ss.SimpleUpload.prototype = {
 
     if ( opts.responseType.toLowerCase() == 'json' ) {
       xhr.setRequestHeader( 'Accept', 'application/json, text/javascript, */*; q=0.01' );
+    }
+
+    // Set custom request headers
+    for ( var headerName in opts.customHeaders ) {
+        xhr.setRequestHeader( headerName, opts.customHeaders[headerName] );
     }
 
     if ( opts.multipart === true ) {

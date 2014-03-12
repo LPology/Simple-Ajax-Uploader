@@ -442,7 +442,7 @@ ss.SimpleUpload = function( options ) {
     hoverClass: '',
     focusClass: '',
     disabledClass: '',
-    customHeaders: [],
+    customHeaders: {},
     onAbort: function( filename, uploadBtn ) {},
     onChange: function( filename, extension, uploadBtn ) {},
     onSubmit: function( filename, extension, uploadBtn ) {},
@@ -1138,7 +1138,9 @@ ss.SimpleUpload.prototype = {
 
     // Set custom request headers
     for ( var headerName in opts.customHeaders ) {
+      if ( opts.customHeaders.hasOwnProperty( headerName ) ) {
         xhr.setRequestHeader( headerName, opts.customHeaders[headerName] );
+      }
     }
 
     if ( opts.multipart === true ) {

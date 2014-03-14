@@ -1,5 +1,10 @@
 Change Log 
 ============================
+### Version 1.10 ###
+* Added `setOptions()` method for setting or changing upload options - (special thanks to <a href="hauru">hauru</a> for this)
+* Added `customHeader` option for sending custom request headers - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/47">#47</a> (special thanks to <a href="https://github.com/cillosis">cillosis</a> for this)
+* Updated `ss.parseJSON()` to use a more secure method of manually parsing JSON 
+
 ### Version 1.9.1 ###
 * `onError()` callback now receives server response as an argument, if it exists, or `false` if it does not - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/37">#37</a> (special thanks to <a href="https://github.com/KSDaemon">KSDaemon</a> for this) 
 <br />

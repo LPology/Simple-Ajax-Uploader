@@ -1,7 +1,7 @@
 Change Log 
 ============================
 ### Version 1.10 ###
-* Added `setOptions()` method for setting or changing upload options - (special thanks to <a href="hauru">hauru</a> for this)
+* Added `setOptions()` method for setting or changing upload options - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/54">#54</a> - (special thanks to <a href="hauru">hauru</a> for this)
 * Added `customHeader` option for sending custom request headers - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/47">#47</a> (special thanks to <a href="https://github.com/cillosis">cillosis</a> for this)
 * Updated `ss.parseJSON()` to use a more secure method of manually parsing JSON 
 

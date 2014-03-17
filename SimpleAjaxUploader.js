@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 1.10
+ * Version 1.10.1
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC
@@ -147,8 +147,8 @@ ss.newXHR = function() {
  * Parses a JSON string and returns a Javascript object
  * Borrowed from www.jquery.com
  */
- ss.parseJSON = function( data ) {
-   "use strict";
+ss.parseJSON = function( data ) {
+  "use strict";
 
   if ( !data ) {
     return false;
@@ -261,22 +261,6 @@ ss.copyLayout = function( from, to ) {
     height : from.offsetHeight + 'px'
   });
 };
-
-/**
-* Creates and returns element from html chunk
-*/
-ss.toElement = ( function() {
-  "use strict";
-
-  var div = document.createElement( 'div' );
-
-  return function( html ) {
-    div.innerHTML = html;
-    var element = div.firstChild;
-    div.removeChild( element );
-    return element;
-  };
-})();
 
 /**
 * Generates unique ID
@@ -881,8 +865,8 @@ ss.SimpleUpload.prototype = {
       ss.removeClass( self._overBtn, self._opts.focusClass );
     });
 
-    document.body.appendChild( div );
     div.appendChild( this._input );
+    document.body.appendChild( div );
   },
 
   /**
@@ -921,11 +905,20 @@ ss.SimpleUpload.prototype = {
     "use strict";
 
     var id = ss.getUID(),
-        iframe = ss.toElement( '<iframe src="javascript:false;" name="' + id + '" />' );
+        iframe;
 
-    document.body.appendChild( iframe );
+    // IE7 can only create an iframe this way, all others are the other way
+    if ( navigator.userAgent.indexOf('MSIE 7') > -1 ) {
+      iframe = document.createElement('<iframe src="javascript:false;" name="' + id + '">');
+    } else {
+      iframe = document.createElement('iframe');
+      iframe.src = 'javascript:false;';
+      iframe.name = id;
+    }
+
     iframe.style.display = 'none';
     iframe.id = id;
+    document.body.appendChild( iframe );
     return iframe;
   },
 
@@ -937,10 +930,12 @@ ss.SimpleUpload.prototype = {
   _getForm: function( iframe, key ) {
     "use strict";
 
-    var form = ss.toElement( '<form method="post" enctype="multipart/form-data"></form>' ),
+    var form = document.createElement('form'),
         url = this._opts.url;
 
-    document.body.appendChild( form );
+    form.method = 'post';
+    form.encoding = 'multipart/form-data'; // IE
+    form.enctype = 'multipart/form-data';
     form.style.display = 'none';
 
     // If we're using Nginx Upload Progress Module, append upload key to the URL
@@ -949,11 +944,11 @@ ss.SimpleUpload.prototype = {
       url = url + ( ( url.indexOf( '?' ) > -1 ) ? '&' : '?' ) +
             encodeURIComponent( this._opts.nginxProgressHeader ) +
             '=' + encodeURIComponent( key );
-
     }
 
     form.action = url;
     form.target = iframe.name;
+    document.body.appendChild( form );
     return form;
   },
 
@@ -1214,7 +1209,6 @@ ss.SimpleUpload.prototype = {
 
     var self = this,
         opts = this._opts,
-        url = opts.url,
         key = ss.getUID(),
         iframe = this._getFrame(),
         form = this._getForm( iframe, key ),

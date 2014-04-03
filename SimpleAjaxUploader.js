@@ -685,6 +685,14 @@ ss.SimpleUpload.prototype = {
   },
 
   /**
+  * Clears Queue so only most recent select file is uploaded
+  */
+  clearQueue: function() {
+    "use strict";
+    this._queue = [];
+  },
+
+  /**
   * Disables upload functionality
   */
   disable: function() {

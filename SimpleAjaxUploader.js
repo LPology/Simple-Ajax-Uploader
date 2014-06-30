@@ -755,7 +755,7 @@ ss.SimpleUpload.prototype = {
 
     // Don't allow multiple file selection in Safari -- it has a nasty bug
     // http://stackoverflow.com/q/7231054/1091949
-    if ( XhrOk && !isSafari && this._input.multiple ) {
+    if ( XhrOk && !isSafari && this._opts.multiple ) {
       this._input.multiple = true;
     }
 

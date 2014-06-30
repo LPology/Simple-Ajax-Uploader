@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 1.10.1
+ * Version 1.10.2
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2013 LPology, LLC
@@ -755,7 +755,7 @@ ss.SimpleUpload.prototype = {
 
     // Don't allow multiple file selection in Safari -- it has a nasty bug
     // http://stackoverflow.com/q/7231054/1091949
-    if ( XhrOk && !isSafari ) {
+    if ( XhrOk && !isSafari && this._input.multiple ) {
       this._input.multiple = true;
     }
 

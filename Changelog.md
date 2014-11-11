@@ -1,10 +1,10 @@
 Change Log 
 ============================
 ### Version 1.11 ###
-* Added support for PHP Session Upload Progress for PHP 5.4+ (APC was deprecated in 5.3) *
-* Added `clearInput()` method which gives the user the ability to clear all files in queue (Special thanks to <a href="https://github.com/mouse0270">mouse0270</a> for this one) *
-* Fixed bug multiple file selection bug (Special thanks to <a href="https://github.com/genintho">genintho</a> for this) *
-* Fixed bug which could allow form/input elements invalid name attributes in IE7-9 *
+* Added support for PHP Session Upload Progress for PHP 5.4+ (APC was deprecated in 5.3) 
+* Added `clearInput()` method which gives the user the ability to clear all files in queue (Special thanks to <a href="https://github.com/mouse0270">mouse0270</a> for this one) 
+* Fixed bug multiple file selection bug (Special thanks to <a href="https://github.com/genintho">genintho</a> for this) 
+* Fixed bug which could allow form/input elements invalid name attributes in IE7-9 
 
 ### Version 1.10.1 ###
 * `iframe` and `form` elements are now created with `document.createElement()` rather than the much slower HTML injection method

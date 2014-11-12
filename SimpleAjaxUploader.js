@@ -55,8 +55,8 @@ ss.obj2string = function( obj, prefix ) {
         if ( obj.hasOwnProperty( prop ) ) {
             var k = prefix ? prefix + '[' + prop + ']' : prop, v = obj[prop];
             str.push( typeof v === 'object' ?
-            ss.obj2string( v, k ) :
-            encodeURIComponent( k ) + '=' + encodeURIComponent( v ) );
+                        ss.obj2string( v, k ) :
+                        encodeURIComponent( k ) + '=' + encodeURIComponent( v ) );
         }
     }
     return str.join( '&' );

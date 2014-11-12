@@ -2,8 +2,8 @@ Change Log
 ============================
 ### Version 1.11 ###
 * Added support for PHP Session Upload Progress for PHP 5.4+ (APC was deprecated in 5.3) 
-* Added `clearQueue()` method which gives the user the ability to clear all files in queue (Special thanks to <a href="https://github.com/mouse0270">mouse0270</a> for this one) 
-* Fixed multiple file selection bug (Special thanks to <a href="https://github.com/genintho">genintho</a> for this) 
+* Added `clearQueue()` method which gives the user the ability to clear all files in queue - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/62">#62</a> - (Special thanks to <a href="https://github.com/mouse0270">mouse0270</a> for this one) 
+* Fixed multiple file selection bug - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/67">#67</a> - (Special thanks to <a href="https://github.com/genintho">genintho</a> for this) 
 * Fixed bug which could allow form/input elements to be created with invalid name/ID attributes in IE7-9 
 
 ### Version 1.10.1 ###

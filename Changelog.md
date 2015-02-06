@@ -8,8 +8,8 @@ SimpleAjaxUploader.js:
 * Fixed several minor bugs
 
 Uploader.php
--Refactored to a single class in accordance with one class, one file
--Improved error detection and handling
+* Refactored to a single class in accordance with one class, one file
+* Improved error detection and handling
 
 ### Version 1.11 ###
 * Added support for PHP Session Upload Progress for PHP 5.4+ (APC was deprecated in 5.3) 

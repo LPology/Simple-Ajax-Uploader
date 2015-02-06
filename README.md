@@ -247,7 +247,9 @@ var uploader = new ss.SimpleUpload({
 Options for drag and drop file uploads:
 
 `dropzone` - An element to serve as the drop zone (where files are dragged to be uploaded)
+
 `dzClass` - CSS class applied to drop zone element
+
 `dragClass` - CSS class applied to drop zone element when a file is dragged over
 
 Here's a simple example:

@@ -1,5 +1,16 @@
 Change Log 
 ============================
+### Version 2.0 ###
+SimpleAjaxUploader.js:
+* Improved performance and stability across all browsers (including IE7-9) courtesy of a complete overhaul
+* Added support for drag and drop file uploads
+* Added `ss.uploadSetup()` method to set default uploader option values (useful for multiple uploader instances)
+* Fixed several minor bugs
+
+Uploader.php
+-Refactored to a single class in accordance with one class, one file
+-Improved error detection and handling
+
 ### Version 1.11 ###
 * Added support for PHP Session Upload Progress for PHP 5.4+ (APC was deprecated in 5.3) 
 * Added `clearQueue()` method which gives the user the ability to clear all files in queue - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/62">#62</a> - (Special thanks to <a href="https://github.com/mouse0270">mouse0270</a> for this one) 

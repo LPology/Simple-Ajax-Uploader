@@ -24,8 +24,9 @@ var uploader = new ss.SimpleUpload({
 ### Features ###
 * Cross-browser -- works in IE7+, Firefox, Chrome, Safari, Opera
 * Supports multiple, concurrent file uploads (even in non-HTML5 browsers)
-* Built-in CORS support (<strong>new in v1.9</strong>)
-* No flash or external CSS -- under 5Kb Javascript file (minified and gzipped)
+* Built-in CORS support
+* Drag and drop file uploads (<strong>new in v2.0</strong>)
+* No flash or external CSS -- a single 6Kb Javascript file (minified and gzipped)
 * Progress bars in all browsers, including IE9 and older. Built-in support for both:
     * <a href="http://wiki.nginx.org/HttpUploadProgressModule">Nginx Upload Progress Module</a>
     * <a href="http://www.php.net/manual/en/apc.configuration.php#ini.apc.rfc1867">PHP APC File Upload Progress</a>
@@ -240,6 +241,29 @@ var uploader = new ss.SimpleUpload({
 });
 
 ```
+
+### Drag and Drop ###
+
+Options for drag and drop file uploads:
+
+`dropzone` - An element to serve as the drop zone (where files are dragged to be uploaded)
+`dzClass` - CSS class applied to drop zone element
+`dragClass` - CSS class applied to drop zone element when a file is dragged over
+
+Here's a simple example:
+
+```javascript
+var uploader = new ss.SimpleUpload({
+      dropzone: 'dragbox', // ID of element to be drop zone
+      url: 'uploadHandler.php',
+      name: 'uploadfile',
+      responseType: 'json',      
+      onComplete: function(filename, response) {
+          // do something with response...
+      }
+}); 
+```
+
 
 ### License ###
 Released under the MIT license.

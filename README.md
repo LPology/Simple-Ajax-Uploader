@@ -25,15 +25,13 @@ var uploader = new ss.SimpleUpload({
 * Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads
 * Ability to pass custom headers in request such as the Authorization header
 
+### How to Use ###
+
 <a href="https://www.lpology.com/code/ajaxuploader/">Live Demo</a><br />
 <a href="https://www.lpology.com/code/ajaxuploader/docs.php">Full API Reference</a><br />
 <a href="https://www.lpology.com/code/ajaxuploader/progress.php">How to do upload progress bars that work in IE9 (and older)</a><br />
 <a href="https://www.lpology.com/code/ajaxuploader/How-to-Cross-Domain-File-Uploading.php">CORS &mdash; Cross-domain file uploading with Simple Ajax Uploader</a>
 
-### Server-side file handling ###
-Files are uploaded by POST as either raw form data or regular multipart/form-data, depending on the browser.
-
-### How to Use ###
 There are two main ways to use the plugin:
 
 <strong>1. Single file uploading</strong> - Only one upload allowed at a time. Progress bar is an element that is re-used for each upload.<br />
@@ -182,6 +180,9 @@ var uploader = new ss.SimpleUpload({
 ```
 
 Returning <code>false</code> from <code>startXHR()</code> and <code>startNonXHR()</code> will prevent the upload from starting, just as it does with <code>onSubmit()</code> and <code>onChange()</code>.
+
+### Server-side file handling ###
+Files are uploaded by POST as either raw form data or regular multipart/form-data, depending on the browser.
 
 ### Using Uploader.php ###
 

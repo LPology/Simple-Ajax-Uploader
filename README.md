@@ -1,7 +1,7 @@
 Simple Ajax Uploader
 ============================
 
-A Javascript plugin for cross-browser Ajax file uploading. Supports drag and drop, CORS, and multiple file uploading with progress bars.
+A Javascript plugin for cross-browser Ajax file uploading. Supports drag and drop, CORS, and multiple file uploading with progress bars. Works in IE7-9, mobile, and all modern browsers.
 
 ```javascript
 var uploader = new ss.SimpleUpload({

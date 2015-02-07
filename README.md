@@ -242,17 +242,11 @@ var uploader = new ss.SimpleUpload({
 
 ### Drag and Drop ###
 
-Options for drag and drop file uploads:
-
-`dropzone` - An element to serve as the drop zone (where files are dragged to be uploaded)
-
-`dragClass` - CSS class applied to drop zone element when a file is dragged over
-
-Here's a simple example:
+Enable drag and drop uploading by passing an element to the `dropzone` option to serve as the drop zone:
 
 ```javascript
 var uploader = new ss.SimpleUpload({
-      dropzone: 'dragbox', // ID of element to be drop zone
+      dropzone: 'dragbox', // ID of element to be the drop zone
       url: 'uploadHandler.php',
       name: 'uploadfile',
       responseType: 'json',      

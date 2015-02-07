@@ -17,9 +17,10 @@ var uploader = new ss.SimpleUpload({
 * Built-in CORS support
 * Drag and drop file uploads (<strong>new in v2.0</strong>)
 * No flash or external CSS -- a single 6Kb Javascript file (minified and gzipped)
-* Progress bars in all browsers, including IE9 and older. Built-in support for both:
+* Progress bars in all browsers, including IE9 and older. Built-in support for:
     * <a href="http://wiki.nginx.org/HttpUploadProgressModule">Nginx Upload Progress Module</a>
     * <a href="http://www.php.net/manual/en/apc.configuration.php#ini.apc.rfc1867">PHP APC File Upload Progress</a>
+    * <a href="http://php.net/manual/en/session.upload-progress.php">PHP Session Upload Progress</a>
 * Use any HTML element as the upload button
 * No dependencies - use it with or without jQuery
 * Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads

@@ -29,7 +29,7 @@ var uploader = new ss.SimpleUpload({
 
 <a href="https://www.lpology.com/code/ajaxuploader/">Live Demo</a><br />
 <a href="https://www.lpology.com/code/ajaxuploader/docs.php">API Reference</a><br />
-<a href="https://www.lpology.com/code/ajaxuploader/progress.php">How to do upload progress bars that work in IE9 (and older)</a><br />
+<a href="https://www.lpology.com/code/ajaxuploader/progress.php">Upload progress bars that work in IE9 (and older)</a><br />
 <a href="https://www.lpology.com/code/ajaxuploader/How-to-Cross-Domain-File-Uploading.php">CORS &mdash; Cross-domain file uploading with Simple Ajax Uploader</a>
 
 There are two main ways to use the plugin:

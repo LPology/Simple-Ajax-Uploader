@@ -501,7 +501,6 @@ ss.SimpleUpload = function( options ) {
         button: '',
         url: '',
         dropzone: '',
-        dzClass: '',
         dragClass: '',
         cors: false,
         progressUrl: false,
@@ -1774,8 +1773,6 @@ ss.extendObj(ss.SimpleUpload.prototype, {
             self.log( 'Invalid or nonexistent element passed for drop zone' );
             return false;
         }
-
-        ss.addClass( elem, self._opts.dzClass );
 
         elem.ondragenter = function( e ) {
             if ( !self._dragFileCheck( e ) ) {

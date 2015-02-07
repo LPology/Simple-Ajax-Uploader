@@ -11,11 +11,6 @@ var uploader = new ss.SimpleUpload({
 });
 ```
 
-<a href="https://www.lpology.com/code/ajaxuploader/">Live Demo</a><br />
-<a href="https://www.lpology.com/code/ajaxuploader/docs.php">Full API Reference</a><br />
-<a href="https://www.lpology.com/code/ajaxuploader/progress.php">How to do upload progress bars that work in IE9 (and older)</a><br />
-<a href="https://www.lpology.com/code/ajaxuploader/How-to-Cross-Domain-File-Uploading.php">CORS &mdash; Cross-domain file uploading with Simple Ajax Uploader</a>
-
 ### Features ###
 * Cross-browser -- works in IE7+, Firefox, Chrome, Safari, Opera
 * Supports multiple, concurrent file uploads (even in non-HTML5 browsers)
@@ -29,6 +24,11 @@ var uploader = new ss.SimpleUpload({
 * No dependencies - use it with or without jQuery
 * Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads
 * Ability to pass custom headers in request such as the Authorization header
+
+<a href="https://www.lpology.com/code/ajaxuploader/">Live Demo</a><br />
+<a href="https://www.lpology.com/code/ajaxuploader/docs.php">Full API Reference</a><br />
+<a href="https://www.lpology.com/code/ajaxuploader/progress.php">How to do upload progress bars that work in IE9 (and older)</a><br />
+<a href="https://www.lpology.com/code/ajaxuploader/How-to-Cross-Domain-File-Uploading.php">CORS &mdash; Cross-domain file uploading with Simple Ajax Uploader</a>
 
 ### Server-side file handling ###
 Files are uploaded by POST as either raw form data or regular multipart/form-data, depending on the browser.

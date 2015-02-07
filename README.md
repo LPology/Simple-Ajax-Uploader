@@ -11,8 +11,6 @@ A Javascript plugin for cross-browser Ajax file uploading. Supports multiple fil
 ### Overview ###
 Simple Ajax Uploader allows developers to easily add Ajax file upload functionality to web applications. It abstracts away standard tasks and browser compatibility issues while preserving wide latitude for custom use.
 
-The project began as a rewrite of Andrew Valum's original Ajax Upload plugin. The goal of the project is make file uploading easy for developers and pleasant for users. Basic usage: 
-
 ```javascript
 var uploader = new ss.SimpleUpload({
       button: 'upload-btn', // HTML element used as upload button

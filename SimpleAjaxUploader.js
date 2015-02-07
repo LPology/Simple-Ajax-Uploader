@@ -520,6 +520,7 @@ ss.SimpleUpload = function( options ) {
         maxSize: false,
         name: 'file',
         data: {},
+        noParams: false,
         autoSubmit: true,
         multipart: true,
         method: 'POST',
@@ -870,13 +871,18 @@ ss.IframeUpload = {
             msgLoaded = false,
             removeLoadListener;
 
-        // If we're using Nginx Upload Progress Module, append upload key to the URL
-        // Also, preserve query string if there is one
-        url = !opts.nginxProgressUrl ?
-                opts.url :
-                url + ( ( url.indexOf( '?' ) > -1 ) ? '&' : '?' ) +
-                      encodeURIComponent( opts.nginxProgressHeader ) +
-                      '=' + encodeURIComponent( key );
+        if ( opts.noParams === true ) {
+            url = opts.url;
+
+        } else {
+            // If we're using Nginx Upload Progress Module, append upload key to the URL
+            // Also, preserve query string if there is one
+            url = !opts.nginxProgressUrl ?
+                    opts.url :
+                    url + ( ( url.indexOf( '?' ) > -1 ) ? '&' : '?' ) +
+                          encodeURIComponent( opts.nginxProgressHeader ) +
+                          '=' + encodeURIComponent( key );
+        }
 
         form = ss.getForm({
             action: url,
@@ -1445,9 +1451,9 @@ ss.XhrUpload = {
         ss.extendObj( params, this._opts.data );
 
         // Build query string while preserving any existing parameters
-        url = this._opts.url +
-                   ( ( this._opts.url.indexOf( '?' ) > -1 ) ? '&' : '?' ) +
-                   ss.obj2string( params );
+        url = this._opts.noParams === true ?
+                this._opts.url :
+                this._opts.url + ( ( this._opts.url.indexOf( '?' ) > -1 ) ? '&' : '?' ) +ss.obj2string( params );
 
         this._uploadXhr( fileObj, url, params, headers, this._sizeBox, this._progBar, this._progBox, this._pctBox, this._abortBtn, this._removeAbort );
 

@@ -42,9 +42,11 @@ class FileUpload {
                 $this->setErrorMsg($this->errorCodeToMsg($_FILES[$this->uploadName]['error']));
             }
 
-        } elseif (isset($_GET[$this->uploadName])) {
+        } elseif (isset($_GET[$this->uploadName]) || isset($_SERVER['HTTP_X_FILE_NAME'])) {
             $this->isXhr = true;
-            $this->fileName = $_GET[$this->uploadName];
+
+            $this->fileName = isset($_GET[$this->uploadName]) ?
+                    $_GET[$this->uploadName] : $_SERVER['HTTP_X_FILE_NAME'];
 
             if (isset($_SERVER['CONTENT_LENGTH'])) {
                 $this->fileSize = (int)$_SERVER['CONTENT_LENGTH'];
@@ -227,7 +229,7 @@ class FileUpload {
 
         if (!empty($this->newFileName)) {
             $this->fileName = $this->newFileName;
-            $this->savedFile = $this->uploadDir . $this->newFileName;
+            $this->savedFile = $this->uploadDir . $this->fileName;
 
             $this->fileNameWithoutExt = null;
             $this->fileExtension = null;

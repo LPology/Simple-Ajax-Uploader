@@ -522,7 +522,7 @@ ss.SimpleUpload = function( options ) {
         data: {},
         noParams: false,
         autoSubmit: true,
-        multipart: true,
+        multipart: false,
         method: 'POST',
         responseType: '',
         debug: false,

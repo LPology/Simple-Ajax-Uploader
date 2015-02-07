@@ -42,17 +42,17 @@ class FileUpload {
                 $this->setErrorMsg($this->errorCodeToMsg($_FILES[$this->uploadName]['error']));
             }
 
-        } elseif (isset($_GET[$this->uploadName]) || isset($_SERVER['HTTP_X_FILE_NAME'])) {
+        } elseif (isset($_SERVER['HTTP_X_FILE_NAME']) || isset($_GET[$this->uploadName])) {
             $this->isXhr = true;
 
-            $this->fileName = isset($_GET[$this->uploadName]) ?
-                    $_GET[$this->uploadName] : $_SERVER['HTTP_X_FILE_NAME'];
+            $this->fileName = isset($_SERVER['HTTP_X_FILE_NAME']) ?
+                                    $_SERVER['HTTP_X_FILE_NAME'] : $_GET[$this->uploadName];
 
             if (isset($_SERVER['CONTENT_LENGTH'])) {
                 $this->fileSize = (int)$_SERVER['CONTENT_LENGTH'];
 
             } else {
-                throw new Exception('Content length not supported.');
+                throw new Exception('Content length is empty.');
             }
         }
 

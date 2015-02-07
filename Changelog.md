@@ -2,14 +2,19 @@ Change Log
 ============================
 ### Version 2.0 ###
 SimpleAjaxUploader.js:
-* Improved performance and stability across all browsers (including IE7-9) courtesy of a complete overhaul
+
+Version 2 comes with improved performance and stability across all browsers (including IE7-9), courtesy of a complete code overhaul.
+
 * Added support for drag and drop file uploads
 * Added `ss.uploadSetup()` method to set default uploader option values (useful for multiple uploader instances)
-* Fixed several minor bugs
+* Added `noParams` option to disable the default behavior of appending the file name to the URL query string
+* Numerous code improvements throughout -- bug fixes, memory usage, etc.
 
 Uploader.php
-* Refactored to a single class in accordance with one class, one file
-* Improved error detection and handling
+* Refactored into a single class in accordance with one class, one file
+* Made improvements to error detection and handling
+* Added support for reading the `X-File-Name` header as an alternative to query string parameters for sending file names to the server
+* Set default value of the `$uploadName` property to be `"uploadfile"` for consistency with the examples - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/72">72</a>
 
 ### Version 1.11 ###
 * Added support for PHP Session Upload Progress for PHP 5.4+ (APC was deprecated in 5.3) 

@@ -24,7 +24,7 @@ class FileUpload {
     public $sizeLimit = 10485760;         // Max file upload size in bytes (default 10MB)
     public $newFileName;                  // Optionally save uploaded files with a new name by setting this
     public $corsInputName = 'XHR_CORS_TARGETORIGIN';
-    public $uploadName = 'file';
+    public $uploadName = 'uploadfile';
 
     function __construct($uploadName = null) {
         if ($uploadName !== null) {

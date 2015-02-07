@@ -1,9 +1,8 @@
 Change Log 
 ============================
 ### Version 2.0 ###
-SimpleAjaxUploader.js:
 
-Version 2 comes with improved performance and stability across all browsers (including IE7-9), courtesy of a complete code overhaul.
+SimpleAjaxUploader.js:
 
 * Added support for drag and drop file uploads
 * Added `ss.uploadSetup()` method to set default uploader option values (useful for multiple uploader instances)

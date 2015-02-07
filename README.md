@@ -230,8 +230,6 @@ if ($result) {
 
 ### Passing Custom Headers ###
 
-You can pass custom headers in the options upon initialization:
-
 ```javascript
 var uploader = new ss.SimpleUpload({
     customHeaders: {'Authorization': 'my-access-token'},

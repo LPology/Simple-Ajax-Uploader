@@ -65,6 +65,8 @@ class FileUpload {
                 $this->fileExtension = strtolower($pathinfo['extension']);
                 $this->fileNameWithoutExt = $pathinfo['filename'];
             }
+            
+            $this->fileName = str_replace(array('/','\\'),'_',$this->fileName);
         }
     }
 

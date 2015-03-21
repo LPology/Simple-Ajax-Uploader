@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 2.0
+ * Version 2.0.1
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2015 LPology, LLC
@@ -1013,9 +1013,10 @@ ss.IframeUpload = {
                             if ( iframe.contentWindow.document.execCommand ) {
                                 iframe.contentWindow.document.execCommand('Stop');
                             }
+                        } catch( err ) {}
 
+                        try {
                             iframe.src = 'javascript'.concat(':false;');
-
                         } catch( err ) {}
 
                         window.setTimeout(function() {
@@ -1840,13 +1841,14 @@ ss.extendObj(ss.SimpleUpload.prototype, {
         elem.ondrop = function( e ) {
             e.preventDefault();
 
+            ss.removeClass( this, self._opts.dragClass );            
+            
             if ( !self._dragFileCheck( e ) ) {
                 return false;
             }
 
             self._addFiles( e.dataTransfer.files );
-            self._cycleQueue();
-            ss.removeClass( this, self._opts.dragClass );
+            self._cycleQueue();            
         };
     }
 });

@@ -497,6 +497,7 @@ ss.SimpleUpload = function( options ) {
         focusClass: '',
         disabledClass: '',
         customHeaders: {},
+        encodeCustomHeaders: true,
         onAbort: function( filename, uploadBtn ) {},
         onChange: function( filename, extension, uploadBtn, size ) {},
         onSubmit: function( filename, extension, uploadBtn, size ) {},
@@ -1421,7 +1422,14 @@ ss.XhrUpload = {
 
         for ( var i in headers ) {
             if ( headers.hasOwnProperty( i ) ) {
-                xhr.setRequestHeader( i, encodeURIComponent(headers[ i ]) + '' );
+                var headerValue = headers[ i ];
+                // URI-encode if encodeCustomHeaders option is true or current header is not from customHeaders option
+                if (opts.encodeCustomHeaders || !opts.customHeaders.hasOwnProperty( i )) {
+                    headerValue = encodeURIComponent(headerValue);
+                }
+
+                xhr.setRequestHeader( i, headerValue + '' );
+
             }
         }
 

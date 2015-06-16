@@ -800,6 +800,17 @@ ss.SimpleUpload.prototype = {
             ss.removeClass( this._btns[i], this._opts.disabledClass );
             this._btns[i].disabled = false;
         }
+    },
+
+    /**
+     * Updates invisible button position
+     */
+    updatePosition: function() {
+        "use strict";
+
+        if ( this._btns[0] && this._input && this._input.parentNode ) {
+            ss.copyLayout(this._btns[0], this._input.parentNode);
+        }
     }
 
 };

@@ -810,7 +810,7 @@ ss.SimpleUpload.prototype = {
 
         if ( this._btns[0] && this._input && this._input.parentNode ) {
             this._overBtn = this._btns[0];
-            ss.copyLayout(this._btns[0], this._input.parentNode);
+            ss.copyLayout( this._btns[0], this._input.parentNode );
         }
     }
 

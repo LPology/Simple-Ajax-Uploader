@@ -1,5 +1,12 @@
 Change Log 
 ============================
+### Version 2.1 ###
+SimpleAjaxUploader.js:
+* Headers are no longer URL encoded by default. A new option `encodeCustomHeaders` has been added, which when set to `true` will result in custom headers being URL encoded.
+* Added `updatePosition()` method for correcting the position of the upload button after interacting with form - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/105">#105</a> - (Special thanks to <a href="https://github.com/vovayatsyuk">vovayatsyuk</a> for this.)
+* Fixed drop zone element z-index bug
+* Moved verification of drop zone element to inside of constructor
+
 ### Version 2.0.1 ###
 Uploader.php:
 * Fixed file name security vulnerability - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/91">#91</a> - (Special thanks to <a href="https://github.com/nickgardos">nickgardos</a> for this)

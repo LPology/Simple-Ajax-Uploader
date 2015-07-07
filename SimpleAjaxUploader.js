@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 2.0.1
+ * Version 2.1
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2015 LPology, LLC
@@ -497,7 +497,7 @@ ss.SimpleUpload = function( options ) {
         focusClass: '',
         disabledClass: '',
         customHeaders: {},
-        encodeCustomHeaders: true,
+        encodeCustomHeaders: false,
         onAbort: function( filename, uploadBtn ) {},
         onChange: function( filename, extension, uploadBtn, size ) {},
         onSubmit: function( filename, extension, uploadBtn, size ) {},
@@ -573,7 +573,13 @@ ss.SimpleUpload = function( options ) {
     }
 
     if ( XhrOk && this._opts.dropzone !== '' ) {
-        this.addDropZone( this._opts.dropzone );
+        this._dzone = ss.verifyElem( this._opts.dropzone );
+
+        if ( !this._dzone ) {
+            this.log( 'Invalid or nonexistent element passed for drop zone' );
+        } else {
+            this.addDropZone( this._dzone );
+        }
     }
 
     this._createInput();
@@ -1434,14 +1440,11 @@ ss.XhrUpload = {
 
         for ( var i in headers ) {
             if ( headers.hasOwnProperty( i ) ) {
-                var headerValue = headers[ i ];
-                // URI-encode if encodeCustomHeaders option is true or current header is not from customHeaders option
-                if (opts.encodeCustomHeaders || !opts.customHeaders.hasOwnProperty( i )) {
-                    headerValue = encodeURIComponent(headerValue);
+                if ( opts.encodeCustomHeaders && opts.customHeaders.hasOwnProperty( i ) ) {
+                    xhr.setRequestHeader( i, encodeURIComponent( headers[ i ] ) + '' );
+                } else {
+                    xhr.setRequestHeader( i, headers[ i ] + '' );
                 }
-
-                xhr.setRequestHeader( i, headerValue + '' );
-
             }
         }
 
@@ -1562,7 +1565,7 @@ ss.XhrUpload = {
                 'padding' : 0,
                 'opacity' : 0,
                 'direction' : 'ltr',
-                'zIndex': 2147483583
+                'zIndex': 2147483582
             });
 
             ss.addStyles( this._input, {
@@ -1829,12 +1832,9 @@ ss.extendObj(ss.SimpleUpload.prototype, {
     addDropZone: function( elem ) {
         var self = this;
 
-        elem = ss.verifyElem( elem );
-
-        if ( !elem ) {
-            self.log( 'Invalid or nonexistent element passed for drop zone' );
-            return false;
-        }
+        ss.addStyles( elem, {
+            'zIndex': 2147483583
+        });
 
         elem.ondragenter = function( e ) {
             if ( !self._dragFileCheck( e ) ) {
@@ -1861,14 +1861,14 @@ ss.extendObj(ss.SimpleUpload.prototype, {
         elem.ondrop = function( e ) {
             e.preventDefault();
 
-            ss.removeClass( this, self._opts.dragClass );            
-            
+            ss.removeClass( this, self._opts.dragClass );
+
             if ( !self._dragFileCheck( e ) ) {
                 return false;
             }
 
             self._addFiles( e.dataTransfer.files );
-            self._cycleQueue();            
+            self._cycleQueue();
         };
     }
 });

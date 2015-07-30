@@ -1315,7 +1315,7 @@ ss.XhrUpload = {
             ext = ss.getExt( filename );
             size = Math.round( files[i].size / 1024 );
 
-            if ( false === this._opts.onChange.call( this, filename, ext, size ) ) {
+            if ( false === this._opts.onChange.call( this, filename, ext, this._overBtn, size ) ) {
                 return false;
             }
 

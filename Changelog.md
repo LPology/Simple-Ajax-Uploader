@@ -1,5 +1,9 @@
 Change Log 
 ============================
+### Version 2.1.1 ###
+SimpleAjaxUploader.js:
+* Fixed `onChange()` button argument bug - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/115">#115</a> (Special thanks to <a href="https://github.com/zaygraveyard">zaygraveyard</a> for this.)
+
 ### Version 2.1 ###
 SimpleAjaxUploader.js:
 * Headers are no longer URL encoded by default. A new option `encodeCustomHeaders` has been added, which when set to `true` will result in custom headers being URL encoded.

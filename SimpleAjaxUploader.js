@@ -1615,12 +1615,12 @@ ss.XhrUpload = {
             }
 
             ss.addEvent( div, 'mouseout', function() {
+                self._input.parentNode.style.visibility = 'hidden';
+                
                 if ( self._opts.hoverClass !== '' ) {
                     ss.removeClass( self._overBtn, self._opts.hoverClass );
                     ss.removeClass( self._overBtn, self._opts.focusClass );
-                }
-
-                self._input.parentNode.style.visibility = 'hidden';
+                }                
             });
 
             if ( self._opts.focusClass !== '' ) {

@@ -2,7 +2,7 @@
 
 /**
 * Simple Ajax Uploader
-* Version 2.1.1
+* Version 2.2
 * https://github.com/LPology/Simple-Ajax-Uploader
 *
 * Copyright 2012-2015 LPology, LLC
@@ -65,7 +65,7 @@ class FileUpload {
                 $this->fileExtension = strtolower($pathinfo['extension']);
                 $this->fileNameWithoutExt = $pathinfo['filename'];
             }
-            
+
             $this->fileName = str_replace(array('/','\\'),'_',$this->fileName);
         }
     }
@@ -212,8 +212,12 @@ class FileUpload {
 
         $this->uploadDir = $this->fixDir($this->uploadDir);
 
-        if (!is_writable($this->uploadDir)) {
-            $this->setErrorMsg('Upload directory is not writable');
+        if (!file_exists($this->uploadDir)) {
+            $this->setErrorMsg('Upload directory does not exist');
+            return false;
+
+        } else if (!is_writable($this->uploadDir)) {
+            $this->setErrorMsg('Upload directory exists, but is not writable');
             return false;
         }
 

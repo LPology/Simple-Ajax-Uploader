@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 2.1.1
+ * Version 2.2
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2015 LPology, LLC
@@ -1575,7 +1575,8 @@ ss.XhrUpload = {
                 'padding' : 0,
                 'fontSize' : '480px',
                 'fontFamily' : 'sans-serif',
-                'cursor' : 'pointer'
+                'cursor' : 'pointer',
+                'height' : '100%'
             });
 
             if ( div.style.opacity !== '0' ) {
@@ -1608,16 +1609,19 @@ ss.XhrUpload = {
             });
 
             if ( self._opts.hoverClass !== '' ) {
-                ss.addEvent( this._input, 'mouseover', function() {
+                ss.addEvent( div, 'mouseover', function() {
                     ss.addClass( self._overBtn, self._opts.hoverClass );
                 });
+            }
 
-                ss.addEvent( this._input, 'mouseout', function() {
+            ss.addEvent( div, 'mouseout', function() {
+                if ( self._opts.hoverClass !== '' ) {
                     ss.removeClass( self._overBtn, self._opts.hoverClass );
                     ss.removeClass( self._overBtn, self._opts.focusClass );
-                    self._input.parentNode.style.visibility = 'hidden';
-                });
-            }
+                }
+
+                self._input.parentNode.style.visibility = 'hidden';
+            });
 
             if ( self._opts.focusClass !== '' ) {
                 ss.addEvent( this._input, 'focus', function() {

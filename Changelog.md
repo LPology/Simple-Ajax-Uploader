@@ -1,5 +1,14 @@
 Change Log 
 ============================
+### Version 2.2 ###
+SimpleAjaxUploader.js:
+* Upload buttons are now clickable for 100% of height
+* Changed mouseover and mouseout events from input field to div wrapper for better responsiveness
+* Fixed bug where file input layout visibility was not returning to invisible on mouseout if `hoverClass` option not defined
+
+Uploader.php:
+* Added check to verify that upload directory exists before checking writability in order to provide more precise error messages
+
 ### Version 2.1.1 ###
 SimpleAjaxUploader.js:
 * Fixed `onChange()` button argument bug - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/115">#115</a> (Special thanks to <a href="https://github.com/zaygraveyard">zaygraveyard</a> for this.)

@@ -9,6 +9,9 @@ SimpleAjaxUploader.js:
 Uploader.php:
 * Added check to verify that upload directory exists before checking writability in order to provide more precise error messages
 
+Documentation:
+* Added FAQ: https://www.lpology.com/code/ajaxuploader/faq.php
+
 ### Version 2.1.1 ###
 SimpleAjaxUploader.js:
 * Fixed `onChange()` button argument bug - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/115">#115</a> (Special thanks to <a href="https://github.com/zaygraveyard">zaygraveyard</a> for this.)

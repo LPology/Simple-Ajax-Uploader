@@ -26,6 +26,9 @@ var uploader = new ss.SimpleUpload({
 * Provides individual callback functions for XHR-supported browsers and for browsers that do not support XHR uploads
 * Ability to pass custom headers in request such as the Authorization header
 
+### Frequently Asked Questions ###
+Visit the new <a href="https://www.lpology.com/code/ajaxuploader/faq.php">FAQ</a> for solutions to the most common issues.
+
 ### How to Use ###
 
 <a href="https://www.lpology.com/code/ajaxuploader/">Live Demo</a><br />

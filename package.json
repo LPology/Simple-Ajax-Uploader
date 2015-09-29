@@ -20,7 +20,7 @@
   "repositories": [
     {
       "type": "git",
-      "url": "git@github.com:LPology/Simple-Ajax-Uploader.git"
+      "url": "git://github.com:LPology/Simple-Ajax-Uploader.git"
     }
   ],
   "licenses": [

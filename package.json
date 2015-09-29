@@ -1,7 +1,7 @@
 {
-  "name": "Simple Ajax Uploader",
+  "name": "Simple-Ajax-Uploader",
   "description": "A Javascript plugin for cross-browser Ajax file uploading. Supports drag and drop, CORS, and multiple file uploading with progress bars. Works in IE7-9, mobile, and all modern browsers.",
-  "version": "2.2",
+  "version": "2.2.0",
   "keywords": [
     "javascript",
     "ajax",
@@ -25,7 +25,7 @@
   ],
   "licenses": [
     {
-      "name": "MIT",
+      "type": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     }
   ],

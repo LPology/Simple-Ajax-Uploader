@@ -7,7 +7,18 @@
  * Released under the MIT license
  */
 
-;(function( window, document, undefined ) {
+;(function( name, definition ) {
+    if ( typeof module !== 'undefined' ) {
+        module.exports = definition();
+
+    } else if (typeof define === 'function' && typeof define.amd === 'object') {
+        define( definition );
+
+    } else {
+        this[name] = definition();
+    }
+
+}('ss', function() {
 
     var ss = window.ss || {},
 
@@ -1877,10 +1888,6 @@ ss.extendObj(ss.SimpleUpload.prototype, {
     }
 });
 
-if ( typeof module !== 'undefined' && module.exports ) {
-    module.exports = ss;
-} else {
-    window.ss = ss;
-}
+return ss;
 
-})( window, document );
+}));

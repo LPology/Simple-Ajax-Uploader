@@ -1,5 +1,19 @@
 Change Log 
 ============================
+### Version 2.2.1 ###
+SimpleAjaxUploader.js:
+* Added file size as argument passed to `onComplete( filename, response, uploadBtn, size )` callback function
+* Added file size as argument passed to `onError( filename, type, status, statusText, response, uploadBtn, size )` callback function
+* Added file size as argument passed to `onAbort( filename, uploadBtn, size )` callback function
+
+Package Management:
+* Added package.json
+* Added bower.json
+* Added CommonJS support
+
+Documentation:
+* Updated API reference to fix missing and incomplete SimpleAjaxUploader.js API coverage
+
 ### Version 2.2 ###
 SimpleAjaxUploader.js:
 * Upload buttons are now clickable for 100% of height

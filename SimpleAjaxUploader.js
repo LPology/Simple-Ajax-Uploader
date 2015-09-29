@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 2.2
+ * Version 2.2.1
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2015 LPology, LLC
@@ -498,15 +498,15 @@ ss.SimpleUpload = function( options ) {
         disabledClass: '',
         customHeaders: {},
         encodeCustomHeaders: false,
-        onAbort: function( filename, uploadBtn ) {},
+        onAbort: function( filename, uploadBtn, size ) {},
         onChange: function( filename, extension, uploadBtn, size ) {},
         onSubmit: function( filename, extension, uploadBtn, size ) {},
         onProgress: function( pct ) {},
         onUpdateFileSize: function( filesize ) {},
-        onComplete: function( filename, response, uploadBtn ) {},
+        onComplete: function( filename, response, uploadBtn, size ) {},
         onExtError: function( filename, extension ) {},
         onSizeError: function( filename, fileSize ) {},
-        onError: function( filename, type, status, statusText, response, uploadBtn ) {},
+        onError: function( filename, type, status, statusText, response, uploadBtn, size ) {},
         startXHR: function( filename, fileSize, uploadBtn ) {},
         endXHR: function( filename, fileSize, uploadBtn ) {},
         startNonXHR: function( filename, uploadBtn ) {},
@@ -1046,7 +1046,7 @@ ss.IframeUpload = {
                     }
 
                     self.log('Upload aborted');
-                    opts.onAbort.call( self, fileObj.name, fileObj.btn );
+                    opts.onAbort.call( self, fileObj.name, fileObj.btn, fileObj.size );
                     self._last( sizeBox, progBox, pctBox, abortBtn, removeAbort );
                 };
 
@@ -1382,7 +1382,7 @@ ss.XhrUpload = {
                             xhr.abort();
                         }
 
-                        opts.onAbort.call( self, fileObj.name, fileObj.btn );
+                        opts.onAbort.call( self, fileObj.name, fileObj.btn, fileObj.size );
                         self._last( sizeBox, progBox, pctBox, abortBtn, removeAbort );
 
                     } else {
@@ -1616,11 +1616,11 @@ ss.XhrUpload = {
 
             ss.addEvent( div, 'mouseout', function() {
                 self._input.parentNode.style.visibility = 'hidden';
-                
+
                 if ( self._opts.hoverClass !== '' ) {
                     ss.removeClass( self._overBtn, self._opts.hoverClass );
                     ss.removeClass( self._overBtn, self._opts.focusClass );
-                }                
+                }
             });
 
             if ( self._opts.focusClass !== '' ) {
@@ -1702,7 +1702,7 @@ ss.XhrUpload = {
             "use strict";
 
             this.log( 'Upload failed: ' + status + ' ' + statusText );
-            this._opts.onError.call( this, fileObj.name, errorType, status, statusText, response, fileObj.btn );
+            this._opts.onError.call( this, fileObj.name, errorType, status, statusText, response, fileObj.btn, fileObj.size );
             this._last( sizeBox, progBox, pctBox, abortBtn, removeAbort );
 
             fileObj = status = statusText = response = errorType = sizeBox = progBox = pctBox = abortBtn = removeAbort = null;
@@ -1725,7 +1725,7 @@ ss.XhrUpload = {
                 }
             }
 
-            this._opts.onComplete.call( this, fileObj.name, response, fileObj.btn );
+            this._opts.onComplete.call( this, fileObj.name, response, fileObj.btn, fileObj.size );
             this._last( sizeBox, progBox, pctBox, abortBtn, removeAbort );
 
             fileObj = status = statusText = response = sizeBox = progBox = pctBox = abortBtn = removeAbort = null;
@@ -1877,7 +1877,10 @@ ss.extendObj(ss.SimpleUpload.prototype, {
     }
 });
 
-// Expose to the global window object
-window.ss = ss;
+if ( typeof module !== 'undefined' && module.exports ) {
+    module.exports = ss;
+} else {
+    window.ss = ss;
+}
 
 })( window, document );

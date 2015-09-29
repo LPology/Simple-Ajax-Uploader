@@ -1,0 +1,33 @@
+{
+  "name": "Simple Ajax Uploader",
+  "description": "A Javascript plugin for cross-browser Ajax file uploading. Supports drag and drop, CORS, and multiple file uploading with progress bars. Works in IE7-9, mobile, and all modern browsers.",
+  "version": "2.2",
+  "keywords": [
+    "javascript",
+    "ajax",
+    "upload",
+    "cors",
+    "php",
+    "cross-browser"
+  ],
+  "maintainers": [
+    {
+      "name": "LPology, LLC",
+      "email": "info@lpology.com",
+      "web": "https://www.lpology.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "git@github.com:LPology/Simple-Ajax-Uploader.git"
+    }
+  ],
+  "licenses": [
+    {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  ],
+  "homepage": "https://github.com/LPology/Simple-Ajax-Uploader"
+}

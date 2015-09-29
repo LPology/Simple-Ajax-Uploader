@@ -17,12 +17,10 @@
       "web": "https://www.lpology.com"
     }
   ],
-  "repositories": [
-    {
-      "type": "git",
-      "url": "git://github.com:LPology/Simple-Ajax-Uploader.git"
-    }
-  ],
+    "repository": {
+    "type": "git",
+    "url": "git://github.com:LPology/Simple-Ajax-Uploader.git"
+  },
   "licenses": [
     {
       "type": "MIT",

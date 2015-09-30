@@ -1,5 +1,10 @@
 Change Log 
 ============================
+### Version 2.2.2 ###
+* Switched to an improved UMD implementation
+* `X-File-Name` request header is now encoded when `encodeCustomHeaders` is set to `true`
+* Added a few small mem leak fixes for IE9 and older
+
 ### Version 2.2.1 ###
 SimpleAjaxUploader.js:
 * Added file size as argument passed to `onComplete( filename, response, uploadBtn, size )` callback function

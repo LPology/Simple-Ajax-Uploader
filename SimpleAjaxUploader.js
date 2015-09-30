@@ -1,24 +1,26 @@
 /**
  * Simple Ajax Uploader
- * Version 2.2.1
+ * Version 2.2.2
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2015 LPology, LLC
  * Released under the MIT license
  */
 
-;(function( name, definition ) {
-    if ( typeof define === 'function' && typeof define.amd === 'object' ) {
-        define( definition );
+;(function( global, factory ) {
+    if ( typeof define === 'function' && define.amd ) {
+        define( function() {
+            return factory( global );
+        });
 
-    } else if ( typeof module !== 'undefined' && module.exports ) {
-        module.exports = definition();
+    } else if ( typeof module === 'object' && module.exports ) {
+        module.exports = factory( global );
 
     } else {
-        this[name] = definition();
+        global.ss = factory( global );
     }
 
-}('ss', function() {
+}( typeof window !== 'undefined' ? window : this, function( window ) {
 
     var ss = window.ss || {},
 
@@ -103,16 +105,21 @@ ss.addEvent = function( elem, type, fn ) {
     };
 };
 
-ss.removeEvent = function( elem, type, fn ) {
-    "use strict";
+ss.removeEvent = document.removeEventListener ?
+    function( elem, type, fn ) {
+        if ( elem.removeEventListener ) {
+            elem.removeEventListener( type, fn, false );
+        }
+    } :
+    function( elem, type, fn ) {
+        var name = 'on' + type;
 
-    if ( elem.removeEventListener ) {
-        elem.removeEventListener( type, fn, false );
+        if ( typeof elem[ name ] === 'undefined' ) {
+            elem[ name ] = null;
+        }
 
-    } else {
-        elem.detachEvent( 'on' + type, fn );
-    }
-};
+        elem.detachEvent( name, fn );
+    };
 
 ss.newXHR = function() {
     "use strict";
@@ -559,6 +566,7 @@ ss.SimpleUpload = function( options ) {
     }
 
     delete this._opts.button;
+    this._opts.button = btn = null;
 
     // No valid elements were passed to button option
     if ( this._opts.dropzone === '' && ( this._btns.length < 1 || this._btns[0] === false ) ) {
@@ -601,6 +609,34 @@ ss.SimpleUpload = function( options ) {
 
 ss.SimpleUpload.prototype = {
 
+    _killInput: function() {
+        "use strict";
+
+        if ( !this._input ) {
+            return;
+        }
+
+        if ( this._input.turnOff ) {
+            this._input.turnOff();
+        }
+
+        if ( this._input.focusOff ) {
+            this._input.focusOff();
+        }
+
+        if ( this._input.blurOff ) {
+            this._input.blurOff();
+        }
+
+        if ( this._input.parentNode.mouseOverOff ) {
+            this._input.parentNode.mouseOverOff();
+        }
+
+        ss.remove( this._input.parentNode );
+        delete this._input;
+        this._input = null;
+    },
+
     destroy: function() {
         "use strict";
 
@@ -623,8 +659,7 @@ ss.SimpleUpload.prototype = {
             this._btns[i].disabled = false;
         }
 
-        // Remove div/file input combos from the DOM
-        ss.remove( this._input.parentNode );
+        this._killInput();
 
         // Now burn it all down
         for ( var prop in this ) {
@@ -1075,7 +1110,7 @@ ss.IframeUpload = {
                 window.setTimeout( function() {
                     self._getProg( key, progBar, sizeBox, pctBox, 1 );
                     progBar = sizeBox = pctBox = null;
-                }, opts.checkProgressInterval );
+                }, 600 );
             }
 
             // Remove this file from the queue and begin next upload
@@ -1594,7 +1629,7 @@ ss.XhrUpload = {
                 div.style.filter = 'alpha(opacity=0)';
             }
 
-            ss.addEvent( this._input, 'change', function() {
+            this._input.turnOff = ss.addEvent( this._input, 'change', function() {
                 if ( !self._input || self._input.value === '' ) {
                     return;
                 }
@@ -1606,9 +1641,7 @@ ss.XhrUpload = {
                 ss.removeClass( self._overBtn, self._opts.hoverClass );
                 ss.removeClass( self._overBtn, self._opts.focusClass );
 
-                // Now that file is in upload queue, remove the file input
-                ss.remove( self._input.parentNode );
-                delete self._input;
+                self._killInput();
 
                 // Then create a new file input
                 self._createInput();
@@ -1620,12 +1653,12 @@ ss.XhrUpload = {
             });
 
             if ( self._opts.hoverClass !== '' ) {
-                ss.addEvent( div, 'mouseover', function() {
+                div.mouseOverOff = ss.addEvent( div, 'mouseover', function() {
                     ss.addClass( self._overBtn, self._opts.hoverClass );
                 });
             }
 
-            ss.addEvent( div, 'mouseout', function() {
+            div.mouseOutOff = ss.addEvent( div, 'mouseout', function() {
                 self._input.parentNode.style.visibility = 'hidden';
 
                 if ( self._opts.hoverClass !== '' ) {
@@ -1635,17 +1668,18 @@ ss.XhrUpload = {
             });
 
             if ( self._opts.focusClass !== '' ) {
-                ss.addEvent( this._input, 'focus', function() {
+                this._input.focusOff = ss.addEvent( this._input, 'focus', function() {
                     ss.addClass( self._overBtn, self._opts.focusClass );
                 });
 
-                ss.addEvent( this._input, 'blur', function() {
+                this._input.blurOff = ss.addEvent( this._input, 'blur', function() {
                     ss.removeClass( self._overBtn, self._opts.focusClass );
                 });
             }
 
-            div.appendChild( this._input );
             document.body.appendChild( div );
+            div.appendChild( this._input );
+            div = null;
         },
 
         rerouteClicks: function( elem ) {

@@ -11,7 +11,7 @@
     if ( typeof define === 'function' && typeof define.amd === 'object' ) {
         define( definition );
 
-    } else if ( typeof module !== 'undefined' ) {
+    } else if ( typeof module !== 'undefined' && module.exports ) {
         module.exports = definition();
 
     } else {
@@ -1519,7 +1519,7 @@ ss.XhrUpload = {
         params[this._opts.name] = fileObj.name;
 
         headers['X-Requested-With'] = 'XMLHttpRequest';
-        headers['X-File-Name'] = fileObj.name;
+        headers['X-File-Name'] = !this._opts.encodeCustomHeaders ? fileObj.name : encodeURIComponent( fileObj.name );
 
         if ( this._opts.responseType.toLowerCase() == 'json' ) {
             headers['Accept'] = 'application/json, text/javascript, */*; q=0.01';

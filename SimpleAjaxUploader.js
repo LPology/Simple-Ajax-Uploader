@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 2.2.2
+ * Version 2.2.3
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2015 LPology, LLC
@@ -661,12 +661,8 @@ ss.SimpleUpload.prototype = {
 
         this._killInput();
 
-        // Now burn it all down
-        for ( var prop in this ) {
-            if ( this.hasOwnProperty( prop ) ) {
-                delete this.prop;
-            }
-        }
+        // Set a flag to be checked in _last()
+        this._destroy = true;
     },
 
     /**
@@ -675,7 +671,7 @@ ss.SimpleUpload.prototype = {
     log: function( str ) {
         "use strict";
 
-        if ( this._opts.debug && window.console && window.console.log ) {
+        if ( this._opts && this._opts.debug && window.console && window.console.log ) {
             window.console.log( '[Uploader] ' + str );
         }
     },
@@ -1737,7 +1733,22 @@ ss.XhrUpload = {
                 this.enable( true );
             }
 
-            this._cycleQueue();
+            // Burn it all down if destroy() was called
+            // We have to do it here after everything is finished to avoid any errors
+            if ( this._destroy &&
+                 this._queue.length === 0 &&
+                 this._active.length === 0 )
+            {
+                for ( var prop in this ) {
+                    if ( this.hasOwnProperty( prop ) ) {
+                        delete this[ prop ];
+                    }
+                }
+
+            // Otherwise just go to the next upload as usual
+            } else {
+                this._cycleQueue();
+            }
         },
 
         /**

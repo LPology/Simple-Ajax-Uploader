@@ -1,5 +1,9 @@
 Change Log 
 ============================
+### Version 2.2.3 ###
+SimpleAjaxUploader.js:
+* Fixed bug in `destroy()` method that was throwing error in property delete loop
+
 ### Version 2.2.2 ###
 * Switched to an improved UMD implementation
 * `X-File-Name` request header is now encoded when `encodeCustomHeaders` is set to `true`

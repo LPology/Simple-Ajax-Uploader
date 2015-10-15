@@ -352,6 +352,11 @@ ss.getExt = function( file ) {
 */
 ss.hasClass = function( elem, name ) {
     "use strict";
+
+    if ( !elem || !name ) {
+        return false;
+    }
+
     return ( ' ' + elem.className + ' ' ).replace( rHasClass, ' ' ).indexOf( ' ' + name + ' ' ) >= 0;
 };
 
@@ -361,9 +366,10 @@ ss.hasClass = function( elem, name ) {
 ss.addClass = function( elem, name ) {
     "use strict";
 
-    if ( !name || name === '' ) {
+    if ( !elem || !name ) {
         return false;
     }
+
     if ( !ss.hasClass( elem, name ) ) {
         elem.className += ' ' + name;
     }
@@ -378,9 +384,14 @@ ss.removeClass = (function() {
     var c = {}; //cache regexps for performance
 
     return function( e, name ) {
+        if ( !e || !name ) {
+            return false;
+        }
+
         if ( !c[name] ) {
             c[name] = new RegExp('(?:^|\\s)' + name + '(?!\\S)');
         }
+
         e.className = e.className.replace( c[name], '' );
     };
 })();

@@ -2,7 +2,7 @@
 
 /**
 * Simple Ajax Uploader
-* Version 2.2.3
+* Version 2.2.4
 * https://github.com/LPology/Simple-Ajax-Uploader
 *
 * Copyright 2012-2015 LPology, LLC
@@ -171,6 +171,30 @@ class FileUpload {
             return "<script>window.parent.postMessage('$data','$targetOrigin');</script>";
         }
         return $data;
+    }
+
+    public function getMimeType($path) {
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $fileContents = file_get_contents($path);
+        $mime = $finfo->buffer($fileContents);
+        $fileContents = null;
+        return $mime;
+    }
+
+    public function isWebImage($path) {
+        $pathinfo = pathinfo($path);
+
+        if (array_key_exists('extension', $pathinfo)) {
+            if (!in_array(strtolower($pathinfo['extension']), array('gif', 'png', 'jpg', 'jpeg')))
+                return false;
+        }
+
+        $type = exif_imagetype($path);
+
+        if (!$type)
+            return false;
+
+        return ($type == IMAGETYPE_GIF || $type == IMAGETYPE_JPEG || $type == IMAGETYPE_PNG);
     }
 
     private function saveXhr($path) {

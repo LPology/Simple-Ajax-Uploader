@@ -1,5 +1,15 @@
 Change Log 
 ============================
+### Version 2.2.4 ###
+SimpleAjaxUploader.js:
+* Added pre-check for element and class name params to `ss.hasClass`, `ss.addClass`, and `ss.removeClass` methods
+
+Uploader.php:
+* Added `getMimeType($filename)` method for detecting the MIME Content-type of a file using the PHP finfo class
+* Added `isWebImage($filename)` method for checking whether a file is either a GIF, PNG, or JPEG using exif_imagetype
+
+More info about the new methods can be found at: https://www.lpology.com/code/ajaxuploader/phpdocs.php
+
 ### Version 2.2.3 ###
 SimpleAjaxUploader.js:
 * Fixed bug in `destroy()` method that was throwing error in property delete loop

@@ -1926,7 +1926,7 @@ ss.extendObj(ss.SimpleUpload.prototype, {
             e.preventDefault();
 
             if ( !self._dragFileCheck( e ) ) {
-                return;
+                return false;
             }
 
             ss.addClass( this, self._opts.dragClass );

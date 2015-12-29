@@ -1,5 +1,15 @@
 Change Log 
 ============================
+### Version 2.3 ###
+SimpleAjaxUploader.js:
+* Added UTF-8 encoding to XHR request headers in order to handle all characters/languages - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/126">#126</a>, <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/128">#128</a>
+* Removed `encodeCustomHeaders` option, as it is no longer necessary with newly added UTF-8 encoding for all headers
+* `onChange()` callback function now receives the selected file as its 5th argument - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/132">#132</a>
+* Added `withCredentials` option to include user credentials in upload request (default is `false`)
+* Updated `ss.trim()` to use native String.trim if available
+* Drag and drop file selection now correctly honors `return false` from `onChange()` callback function
+* Updated drag and drop functionality to cancel default action for `ondragover` and `ondragenter` per https://msdn.microsoft.com/library/ms536929(v=vs.85).aspx
+
 ### Version 2.2.4 ###
 SimpleAjaxUploader.js:
 * Added pre-check for element and class name params to `ss.hasClass`, `ss.addClass`, and `ss.removeClass` methods

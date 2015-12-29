@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 2.2.4
+ * Version 2.3
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2015 LPology, LLC
@@ -134,6 +134,11 @@ ss.newXHR = function() {
             return false;
         }
     }
+};
+
+ss.encodeUTF8 = function( str ) {
+    "use strict";
+    return unescape( encodeURIComponent( str ) );
 };
 
 ss.getIFrame = function() {
@@ -324,11 +329,20 @@ ss.getUID = function() {
 
 /**
 * Removes white space from left and right of string
+* Uses native String.trim if available
+* Adapted from www.jquery.com
 */
-ss.trim = function( text ) {
-    "use strict";
-    return text.toString().replace( rLWhitespace, '' ).replace( rTWhitespace, '' );
-};
+var trim = "".trim;
+
+ss.trim = trim && !trim.call("\uFEFF\xA0") ?
+    function( text ) {
+        return text === null ?
+            "" :
+            trim.call( text );
+    } :
+    function( text ) {
+        return text.toString().replace( rLWhitespace, '' ).replace( rTWhitespace, '' );
+    };
 
 /**
 * Extract file name from path
@@ -500,6 +514,7 @@ ss.SimpleUpload = function( options ) {
         dropzone: '',
         dragClass: '',
         cors: false,
+        withCredentials: false,
         progressUrl: false,
         sessionProgressUrl: false,
         nginxProgressUrl: false,
@@ -526,9 +541,9 @@ ss.SimpleUpload = function( options ) {
         focusClass: '',
         disabledClass: '',
         customHeaders: {},
-        encodeCustomHeaders: false,
+        encodeHeaders: true,
         onAbort: function( filename, uploadBtn, size ) {},
-        onChange: function( filename, extension, uploadBtn, size ) {},
+        onChange: function( filename, extension, uploadBtn, size, file ) {},
         onSubmit: function( filename, extension, uploadBtn, size ) {},
         onProgress: function( pct ) {},
         onUpdateFileSize: function( filesize ) {},
@@ -588,7 +603,7 @@ ss.SimpleUpload = function( options ) {
         this._opts.maxUploads = 1;
     }
 
-    // An array of objects, each containing two items, a file and a reference
+    // An array of objects, each containing two items: a file and a reference
     // to the button which triggered the upload: { file: uploadFile, btn: button }
     this._queue = [];
 
@@ -865,13 +880,16 @@ ss.SimpleUpload.prototype = {
     /**
      * Updates invisible button position
      */
-    updatePosition: function() {
+    updatePosition: function( btn ) {
         "use strict";
 
-        if ( this._btns[0] && this._input && this._input.parentNode ) {
-            this._overBtn = this._btns[0];
-            ss.copyLayout( this._btns[0], this._input.parentNode );
+        btn = !btn ? this._btns[0] : btn;
+
+        if ( btn && this._input && this._input.parentNode ) {
+            ss.copyLayout( btn, this._input.parentNode );
         }
+
+        btn = null;
     }
 
 };
@@ -896,7 +914,7 @@ ss.IframeUpload = {
         var filename = ss.getFilename( file.value ),
             ext = ss.getExt( filename );
 
-        if ( false === this._opts.onChange.call( this, filename, ext, this._overBtn ) ) {
+        if ( false === this._opts.onChange.call( this, filename, ext, this._overBtn, undefined, file ) ) {
             return false;
         }
 
@@ -1368,7 +1386,7 @@ ss.XhrUpload = {
             ext = ss.getExt( filename );
             size = Math.round( files[i].size / 1024 );
 
-            if ( false === this._opts.onChange.call( this, filename, ext, this._overBtn, size ) ) {
+            if ( false === this._opts.onChange.call( this, filename, ext, this._overBtn, size, files[i] ) ) {
                 return false;
             }
 
@@ -1411,25 +1429,20 @@ ss.XhrUpload = {
             progBar.style.width = '0%';
         }
 
-        opts.onProgress.call( this, 0 );
-
         // Borrows heavily from jQuery ajax transport
         callback = function( _, isAbort ) {
-            var status,
-                statusText;
+            var statusText;
 
             // Firefox throws exceptions when accessing properties
             // of an xhr when a network error occurred
             try {
                 // Was never called and is aborted or complete
                 if ( callback && ( isAbort || xhr.readyState === 4 ) ) {
-
                     callback = undefined;
                     xhr.onreadystatechange = function() {};
 
                     // If it's an abort
                     if ( isAbort ) {
-
                         // Abort it manually if needed
                         if ( xhr.readyState !== 4 ) {
                             xhr.abort();
@@ -1443,25 +1456,22 @@ ss.XhrUpload = {
                             ss.removeEvent( abortBtn, 'click', cancel );
                         }
 
-                        status = xhr.status;
-
                         // Firefox throws an exception when accessing
                         // statusText for faulty cross-domain requests
                         try {
                             statusText = xhr.statusText;
-
                         } catch( e ) {
                             // We normalize with Webkit giving an empty statusText
                             statusText = '';
                         }
 
-                        if ( status >= 200 && status < 300 ) {
+                        if ( xhr.status >= 200 && xhr.status < 300 ) {
                             opts.endXHR.call( self, fileObj.name, fileObj.size, fileObj.btn );
-                            self._finish( fileObj, status, statusText, xhr.responseText, sizeBox, progBox, pctBox, abortBtn, removeAbort );
+                            self._finish( fileObj, xhr.status, statusText, xhr.responseText, sizeBox, progBox, pctBox, abortBtn, removeAbort );
 
                             // We didn't get a 2xx status so throw an error
                         } else {
-                            self._errorFinish( fileObj, status, statusText, xhr.responseText, 'error', progBox, sizeBox, pctBox, abortBtn, removeAbort );
+                            self._errorFinish( fileObj, xhr.status, statusText, xhr.responseText, 'error', progBox, sizeBox, pctBox, abortBtn, removeAbort );
                         }
                     }
                 }
@@ -1488,13 +1498,15 @@ ss.XhrUpload = {
 
         xhr.onreadystatechange = callback;
         xhr.open( opts.method.toUpperCase(), url, true );
+        xhr.withCredentials = !!opts.withCredentials;
 
         ss.extendObj( headers, opts.customHeaders );
 
         for ( var i in headers ) {
             if ( headers.hasOwnProperty( i ) ) {
-                if ( opts.encodeCustomHeaders && opts.customHeaders.hasOwnProperty( i ) ) {
-                    xhr.setRequestHeader( i, encodeURIComponent( headers[ i ] ) + '' );
+                if ( opts.encodeHeaders ) {
+                    xhr.setRequestHeader( i, ss.encodeUTF8( headers[ i ] + '' ) );
+
                 } else {
                     xhr.setRequestHeader( i, headers[ i ] + '' );
                 }
@@ -1503,7 +1515,7 @@ ss.XhrUpload = {
 
         ss.addEvent( xhr.upload, 'progress', function( event ) {
             if ( event.lengthComputable ) {
-                var pct = Math.round( ( event.loaded / event.total ) * 100 );
+                var pct = Math.round( event.loaded / event.total * 100 );
 
                 opts.onProgress.call( self, pct );
 
@@ -1516,6 +1528,8 @@ ss.XhrUpload = {
                 }
             }
         });
+
+        opts.onProgress.call( this, 0 );
 
         if ( opts.multipart === true ) {
             var formData = new FormData();
@@ -1561,7 +1575,7 @@ ss.XhrUpload = {
         params[this._opts.name] = fileObj.name;
 
         headers['X-Requested-With'] = 'XMLHttpRequest';
-        headers['X-File-Name'] = !this._opts.encodeCustomHeaders ? fileObj.name : encodeURIComponent( fileObj.name );
+        headers['X-File-Name'] = fileObj.name;
 
         if ( this._opts.responseType.toLowerCase() == 'json' ) {
             headers['Accept'] = 'application/json, text/javascript, */*; q=0.01';
@@ -1618,7 +1632,7 @@ ss.XhrUpload = {
                 'padding' : 0,
                 'opacity' : 0,
                 'direction' : 'ltr',
-                'zIndex': 2147483582
+                'zIndex': 16777270
             });
 
             ss.addStyles( this._input, {
@@ -1904,18 +1918,24 @@ ss.extendObj(ss.SimpleUpload.prototype, {
         var self = this;
 
         ss.addStyles( elem, {
-            'zIndex': 2147483583
+            'zIndex': 16777271
         });
 
         elem.ondragenter = function( e ) {
+            e.stopPropagation();
+            e.preventDefault();
+
             if ( !self._dragFileCheck( e ) ) {
-                return false;
+                return;
             }
+
             ss.addClass( this, self._opts.dragClass );
             return false;
         };
 
-        elem.ondragover = function() {
+        elem.ondragover = function( e ) {
+            e.stopPropagation();
+            e.preventDefault();
             return false;
         };
 
@@ -1930,16 +1950,18 @@ ss.extendObj(ss.SimpleUpload.prototype, {
         };
 
         elem.ondrop = function( e ) {
+            e.stopPropagation();
             e.preventDefault();
 
             ss.removeClass( this, self._opts.dragClass );
 
             if ( !self._dragFileCheck( e ) ) {
-                return false;
+                return;
             }
 
-            self._addFiles( e.dataTransfer.files );
-            self._cycleQueue();
+            if ( false !== self._addFiles( e.dataTransfer.files ) ) {
+                self._cycleQueue();
+            }
         };
     }
 });

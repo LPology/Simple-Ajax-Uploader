@@ -8,6 +8,7 @@
  */
 
 ;(function( global, factory ) {
+    /* globals define, module */
     if ( typeof define === 'function' && define.amd ) {
         define( function() {
             return factory( global );
@@ -138,6 +139,7 @@ ss.newXHR = function() {
 
 ss.encodeUTF8 = function( str ) {
     "use strict";
+    /*jshint nonstandard:true*/
     return unescape( encodeURIComponent( str ) );
 };
 
@@ -198,6 +200,7 @@ ss.getHidden = function( name, value ) {
 */
 ss.parseJSON = function( data ) {
     "use strict";
+    /*jshint evil:true*/
 
     if ( !data ) {
         return false;
@@ -320,7 +323,7 @@ ss.copyLayout = function( from, to ) {
 ss.getUID = function() {
     "use strict";
 
-    /*jslint bitwise: true*/
+    /*jshint bitwise: false*/
     return 'axxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(uidReplace, function(c) {
         var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
         return v.toString(16);
@@ -463,6 +466,7 @@ ss.remove = function( elem ) {
 */
 ss.verifyElem = function( elem ) {
     "use strict";
+    /* globals jQuery */
 
     if ( typeof jQuery !== 'undefined' && elem instanceof jQuery ) {
         elem = elem[0];

@@ -3,6 +3,7 @@ Change Log
 ### Version 2.3 ###
 SimpleAjaxUploader.js:
 * Added UTF-8 encoding to XHR request headers in order to handle all characters/languages - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/126">#126</a>, <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/128">#128</a>
+* Added `encodeHeaders` option to enable/disable UTF-8 encoding of XHR request headers (default is `true`)
 * Removed `encodeCustomHeaders` option, as it is no longer necessary with newly added UTF-8 encoding for all headers
 * `onChange()` callback function now receives the selected file as its 5th argument - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/132">#132</a>
 * Added `withCredentials` option to include user credentials in upload request (default is `false`)

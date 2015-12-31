@@ -143,6 +143,16 @@ For multiple file uploads, we use an additional function: `setProgressContainer(
 
 In the example, the element set to be removed with `setProgressContainer()` is the outer container for the progress elements. As a result, progress bars will be removed from the DOM after each upload is completed.
 
+### Form Integration ###
+
+To integrate the plugin with an existing form so that file uploads include all input fields contained in the form, simply pass the form element to the `form` option, or use the `setForm( form )` instance method.
+
+Form integration respects any HTML5 validation attributes. Invalid input values will prevent the upload from occurring.
+
+By default, the plugin will override native submission of the form. Submit attempts will be caught and instead files will be uploaded along with the form data. To disable this behavior, set the `overrideSubmit` to `false`. Setting `overrideSubmit` to `false` will require that the `submit` instance method be manually called in order to upload files and form data together.
+
+<strong>Note:</strong> Only use form integration if a file upload is required to be submitted with the form.
+
 ### Cross-Browser Helper Functions ###
 
 To ease the pain of supporting older browsers, the plugin includes a set of callback functions which allow specific behavior to be defined based on whether the user's browser supports XHR uploads/HTML5 File API:

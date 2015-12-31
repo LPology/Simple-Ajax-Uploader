@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 2.3
+ * Version 2.4
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2015 LPology, LLC
@@ -8,7 +8,7 @@
  */
 
 ;(function( global, factory ) {
-    /* globals define, module */
+    /*globals define, module */
     if ( typeof define === 'function' && define.amd ) {
         define( function() {
             return factory( global );
@@ -23,40 +23,40 @@
 
 }( typeof window !== 'undefined' ? window : this, function( window ) {
 
-    var ss = window.ss || {},
+var ss = window.ss || {},
 
-        // ss.trim()
-        rLWhitespace = /^\s+/,
-        rTWhitespace = /\s+$/,
+    // ss.trim()
+    rLWhitespace = /^\s+/,
+    rTWhitespace = /\s+$/,
 
-        // ss.getUID
-        uidReplace = /[xy]/g,
+    // ss.getUID
+    uidReplace = /[xy]/g,
 
-        // ss.getFilename()
-        rPath = /.*(\/|\\)/,
+    // ss.getFilename()
+    rPath = /.*(\/|\\)/,
 
-        // ss.getExt()
-        rExt = /.*[.]/,
+    // ss.getExt()
+    rExt = /.*[.]/,
 
-        // ss.hasClass()
-        rHasClass = /[\t\r\n]/g,
+    // ss.hasClass()
+    rHasClass = /[\t\r\n]/g,
 
-        // Check for Safari -- it doesn't like multi file uploading. At all.
-        // http://stackoverflow.com/a/9851769/1091949
-        isSafari = Object.prototype.toString.call( window.HTMLElement ).indexOf( 'Constructor' ) > 0,
+    // Check for Safari -- it doesn't like multi file uploading. At all.
+    // http://stackoverflow.com/a/9851769/1091949
+    isSafari = Object.prototype.toString.call( window.HTMLElement ).indexOf( 'Constructor' ) > 0,
 
-        isIE7 = ( navigator.userAgent.indexOf('MSIE 7') !== -1 ),
+    isIE7 = ( navigator.userAgent.indexOf('MSIE 7') !== -1 ),
 
-        // Check whether XHR uploads are supported
-        input = document.createElement( 'input' ),
+    // Check whether XHR uploads are supported
+    input = document.createElement( 'input' ),
 
-        XhrOk;
+    XhrOk;
 
-    input.type = 'file';
+input.type = 'file';
 
-    XhrOk = ( 'multiple' in input &&
-              typeof File !== 'undefined' &&
-              typeof ( new XMLHttpRequest() ).upload !== 'undefined' );
+XhrOk = ( 'multiple' in input &&
+          typeof File !== 'undefined' &&
+          typeof ( new XMLHttpRequest() ).upload !== 'undefined' );
 
 
 /**
@@ -263,7 +263,7 @@ ss.getBox = function( elem ) {
     if ( elem.getBoundingClientRect ) {
         box = elem.getBoundingClientRect();
         docElem = document.documentElement;
-        top = box.top  + ( window.pageYOffset || docElem.scrollTop )  - ( docElem.clientTop  || 0 );
+        top = box.top + ( window.pageYOffset || docElem.scrollTop )  - ( docElem.clientTop  || 0 );
         left = box.left + ( window.pageXOffset || docElem.scrollLeft ) - ( docElem.clientLeft || 0 );
 
     } else {
@@ -344,7 +344,24 @@ ss.trim = trim && !trim.call("\uFEFF\xA0") ?
             trim.call( text );
     } :
     function( text ) {
-        return text.toString().replace( rLWhitespace, '' ).replace( rTWhitespace, '' );
+        return text === null ?
+            "" :
+            text.toString().replace( rLWhitespace, '' ).replace( rTWhitespace, '' );
+    };
+
+var arr = [];
+
+ss.indexOf = arr.indexOf ?
+    function( array, elem ) {
+        return array.indexOf( elem );
+    } :
+    function( array, elem ) {
+        for ( var i = 0, len = array.length; i < len; i++ ) {
+            if ( array[i] === elem ) {
+                return i;
+            }
+        }
+        return -1;
     };
 
 /**
@@ -361,6 +378,105 @@ ss.getFilename = function( path ) {
 ss.getExt = function( file ) {
     "use strict";
     return ( -1 !== file.indexOf( '.' ) ) ? file.replace( rExt, '' ) : '';
+};
+
+/**
+* Checks whether an element is visible
+*/
+ss.isVisible = function( elem ) {
+    "use strict";
+
+    if ( elem.nodeType !== 1 || elem == document.body ) {
+        elem = null;
+        return true;
+    }
+
+    if ( elem.offsetWidth > 0 ||
+         elem.offsetHeight > 0 ||
+         ss.getStyle( elem, 'display' ).toLowerCase() != 'none' )
+    {
+        return ss.isVisible( elem.parentNode );
+    }
+
+    elem = null;
+    return false;
+};
+
+ss.getStyle = function( elem, style ) {
+    "use strict";
+
+    if ( window.getComputedStyle ) {
+        var cs = elem.ownerDocument.defaultView.getComputedStyle( elem, null );
+        return cs.getPropertyValue( style );
+
+    } else if ( elem.currentStyle && elem.currentStyle[ style ] ) {
+        return elem.currentStyle[ style ];
+    }
+};
+
+/**
+* Accepts a form element and returns an object with key/value pairs for the form fields
+*/
+ss.getFormObj = function( form ) {
+    "use strict";
+
+    var elems = form.elements,
+        ignore = ['button', 'submit', 'image', 'reset'],
+        inputs = {},
+        obj;
+
+    for ( var i = 0, len = elems.length; i < len; i++ ) {
+        obj = {};
+
+        if ( elems[ i ].name && !elems[ i ].disabled && ss.indexOf( ignore, elems[ i ].type ) === -1 ) {
+            if ( (elems[ i ].type == 'checkbox' || elems[ i ].type == 'radio') &&
+                 !elems[ i ].checked )
+            {
+                continue;
+            }
+
+            obj[ elems[ i ].name ] = ss.val( elems[ i ] );
+            ss.extendObj( inputs, obj );
+        }
+    }
+
+    return inputs;
+};
+
+/**
+* Accepts a form input element and returns its value
+*/
+ss.val = function( elem ) {
+    "use strict";
+
+    if ( !elem ) {
+        return;
+    }
+
+    if ( elem.nodeName.toUpperCase() == 'SELECT' ) {
+        var options = elem.options,
+            index = elem.selectedIndex,
+            one = elem.type === 'select-one' || index < 0,
+            values = one ? null : [],
+            value;
+
+        for ( var i = 0, len = options.length; i < len; i++ ) {
+            if ( ( options[ i ].selected || i === index ) && !options[ i ].disabled ) {
+                value = !options[ i ].value ? options[ i ].text : options[ i ].value;
+
+                if ( one ) {
+                    return value;
+                }
+
+                values.push( value );
+            }
+        }
+
+        return values;
+
+    } else {
+        return elem.value;
+    }
 };
 
 /**
@@ -466,7 +582,7 @@ ss.remove = function( elem ) {
 */
 ss.verifyElem = function( elem ) {
     "use strict";
-    /* globals jQuery */
+    /*globals jQuery */
 
     if ( typeof jQuery !== 'undefined' && elem instanceof jQuery ) {
         elem = elem[0];
@@ -508,15 +624,13 @@ ss.uploadSetup = function( options ) {
 ss.SimpleUpload = function( options ) {
     "use strict";
 
-    var i,
-        len,
-        btn;
-
     this._opts = {
         button: '',
         url: '',
         dropzone: '',
         dragClass: '',
+        form: '',
+        overrideSubmit: true,
         cors: false,
         withCredentials: false,
         progressUrl: false,
@@ -529,15 +643,16 @@ ss.SimpleUpload = function( options ) {
         keyParamName: 'APC_UPLOAD_PROGRESS',
         sessionProgressName: 'PHP_SESSION_UPLOAD_PROGRESS',
         nginxProgressHeader: 'X-Progress-ID',
+        customProgressHeaders: {},
         corsInputName: 'XHR_CORS_TARGETORIGIN',
         allowedExtensions: [],
         accept: '',
         maxSize: false,
         name: '',
         data: {},
-        noParams: false,
+        noParams: true,
         autoSubmit: true,
-        multipart: false,
+        multipart: true,
         method: 'POST',
         responseType: '',
         debug: false,
@@ -546,6 +661,7 @@ ss.SimpleUpload = function( options ) {
         disabledClass: '',
         customHeaders: {},
         encodeHeaders: true,
+        autoCalibrate: true,
         onAbort: function( filename, uploadBtn, size ) {},
         onChange: function( filename, extension, uploadBtn, size, file ) {},
         onSubmit: function( filename, extension, uploadBtn, size ) {},
@@ -561,51 +677,8 @@ ss.SimpleUpload = function( options ) {
         endNonXHR: function( filename, uploadBtn ) {}
     };
 
-    // Include any setup options
-    ss.extendObj( this._opts, ss._options );
-
-    // Then add options for this instance
-    ss.extendObj( this._opts, options );
-
-    options = null;
-
-    this._btns = [];
-
-    // An array of buttons was passed
-    if ( this._opts.button instanceof Array ) {
-        len = this._opts.button.length;
-
-        for ( i = 0; i < len; i++ ) {
-            btn = ss.verifyElem( this._opts.button[i] );
-
-            if ( btn !== false ) {
-                this._btns.push( this.rerouteClicks( btn ) );
-
-            } else {
-                this.log( 'Button with array index ' + i + ' is invalid' );
-            }
-        }
-
-    // A single button was passed
-    } else {
-        btn = ss.verifyElem( this._opts.button );
-
-        if ( btn !== false ) {
-            this._btns.push( this.rerouteClicks( btn ) );
-        }
-    }
-
-    delete this._opts.button;
-    this._opts.button = btn = null;
-
-    // No valid elements were passed to button option
-    if ( this._opts.dropzone === '' && ( this._btns.length < 1 || this._btns[0] === false ) ) {
-        throw new Error( "Invalid button. Make sure the element you're passing exists." );
-    }
-
-    if ( this._opts.multiple === false ) {
-        this._opts.maxUploads = 1;
-    }
+    ss.extendObj( this._opts, ss._options ); // Include any setup options
+    ss.extendObj( this._opts, options ); // Then add options for this instance
 
     // An array of objects, each containing two items: a file and a reference
     // to the button which triggered the upload: { file: uploadFile, btn: button }
@@ -615,57 +688,36 @@ ss.SimpleUpload = function( options ) {
     this._disabled = false; // if disabled, clicking on button won't do anything
     this._maxFails = 10; // max allowed failed progress updates requests in iframe mode
     this._progKeys = {}; // contains the currently active upload ID progress keys
+    this._sizeFlags = {}; // Cache progress keys after setting sizeBox for fewer trips to the DOM
+    this._btns = [];
 
-    if ( !XhrOk ) {
-        // Cache progress keys after we set sizeBox for fewer trips to the DOM
-        this._sizeFlags = {};
+    this.addButton( this._opts.button );
+
+    delete this._opts.button;
+    this._opts.button = options = null;
+
+    if ( this._opts.multiple === false ) {
+        this._opts.maxUploads = 1;
     }
 
-    if ( XhrOk && this._opts.dropzone !== '' ) {
-        this._dzone = ss.verifyElem( this._opts.dropzone );
+    if ( this._opts.dropzone !== '' ) {
+        this.addDZ( this._opts.dropzone );
+    }
 
-        if ( !this._dzone ) {
-            this.log( 'Invalid or nonexistent element passed for drop zone' );
-        } else {
-            this.addDropZone( this._dzone );
-        }
+    if ( this._opts.dropzone === '' && this._btns.length < 1 ) {
+        throw new Error( "Invalid upload button. Make sure the element you're passing exists." );
+    }
+
+    if ( this._opts.form !== '' ) {
+        this.setForm( this._opts.form );
     }
 
     this._createInput();
-
     this._manDisabled = false;
     this.enable( true );
 };
 
 ss.SimpleUpload.prototype = {
-
-    _killInput: function() {
-        "use strict";
-
-        if ( !this._input ) {
-            return;
-        }
-
-        if ( this._input.turnOff ) {
-            this._input.turnOff();
-        }
-
-        if ( this._input.focusOff ) {
-            this._input.focusOff();
-        }
-
-        if ( this._input.blurOff ) {
-            this._input.blurOff();
-        }
-
-        if ( this._input.parentNode.mouseOverOff ) {
-            this._input.parentNode.mouseOverOff();
-        }
-
-        ss.remove( this._input.parentNode );
-        delete this._input;
-        this._input = null;
-    },
 
     destroy: function() {
         "use strict";
@@ -725,6 +777,53 @@ ss.SimpleUpload.prototype = {
     },
 
     /**
+    * Designate an element as an upload button
+    */
+    addButton: function( button ) {
+        var btn;
+
+        // An array of buttons was passed
+        if ( button instanceof Array ) {
+
+            for ( var i = 0, len = button.length; i < len; i++ ) {
+                btn = ss.verifyElem( button[i] );
+
+                if ( btn !== false ) {
+                    this._btns.push( this.rerouteClicks( btn ) );
+
+                } else {
+                    this.log( 'Button with array index ' + i + ' is invalid' );
+                }
+            }
+
+        // A single button was passed
+        } else {
+            btn = ss.verifyElem( button );
+
+            if ( btn !== false ) {
+                this._btns.push( this.rerouteClicks( btn ) );
+            }
+        }
+    },
+
+    /**
+    * Designate an element as a drop zone
+    */
+    addDZ: function( dropzone ) {
+        if ( !XhrOk ) {
+            return;
+        }
+
+        dropzone = ss.verifyElem( dropzone );
+
+        if ( !dropzone ) {
+            this.log( 'Invalid or nonexistent element passed for drop zone' );
+        } else {
+            this.addDropZone( dropzone );
+        }
+    },
+
+    /**
     * Designate an element as a progress bar
     * The CSS width % of the element will be updated as the upload progresses
     */
@@ -774,23 +873,47 @@ ss.SimpleUpload.prototype = {
         }
     },
 
+    setForm: function( form ) {
+        "use strict";
+
+        this._form = ss.verifyElem( form );
+
+        if ( !this._form || this._form.nodeName.toUpperCase() != 'FORM' ) {
+            this.log( 'Invalid or nonexistent element passed for form' );
+
+        } else {
+            var self = this;
+            this._opts.autoSubmit = false;
+
+            if ( this._opts.overrideSubmit ) {
+                ss.addEvent( this._form, 'submit', function( e ) {
+                    if ( e.preventDefault ) {
+                        e.preventDefault();
+
+                    } else if ( window.event ) {
+                        window.event.returnValue = false;
+                    }
+
+                    if ( self._validateForm() ) {
+                        self.submit();
+                    }
+                });
+
+                this._form.submit = function() {
+                    if ( self._validateForm() ) {
+                        self.submit();
+                    }
+                };
+            }
+        }
+    },
+
     /**
     * Returns number of files currently in queue
     */
     getQueueSize: function() {
         "use strict";
         return this._queue.length;
-    },
-
-    /**
-    * Enables uploader and submits next file for upload
-    */
-    _cycleQueue: function() {
-        "use strict";
-
-        if ( this._queue.length > 0 && this._opts.autoSubmit ) {
-            this.submit();
-        }
     },
 
     /**
@@ -894,11 +1017,103 @@ ss.SimpleUpload.prototype = {
         }
 
         btn = null;
+    },
+
+    rerouteClicks: function( elem ) {
+        "use strict";
+
+        var self = this;
+
+        // ss.addEvent() returns a function to detach, which
+        // allows us to call elem.off() to remove mouseover listener
+        elem.off = ss.addEvent( elem, 'mouseover', function() {
+            if ( self._disabled ) {
+                return;
+            }
+
+            if ( !self._input ) {
+                self._createInput();
+            }
+
+            self._overBtn = elem;
+            ss.copyLayout( elem, self._input.parentNode );
+            self._input.parentNode.style.visibility = 'visible';
+        });
+
+        if ( self._opts.autoCalibrate && !ss.isVisible( elem ) ) {
+            self.log('Upload button not visible');
+
+            var interval = function() {
+                if ( ss.isVisible( elem ) ) {
+                    self.log('Upload button now visible');
+
+                    window.setTimeout(function() {
+                        self.updatePosition( elem );
+
+                        if ( self._btns.length === 1 ) {
+                            self._input.parentNode.style.visibility = 'hidden';
+                        }
+                    }, 200);
+
+                } else {
+                    window.setTimeout( interval, 500 );
+                }
+            };
+
+            window.setTimeout( interval, 500 );
+        }
+
+        return elem;
+    },
+
+    /**
+    * Validates input and directs to either XHR method or iFrame method
+    */
+    submit: function() {
+        "use strict";
+
+        if ( this._disabled ||
+            this._active >= this._opts.maxUploads ||
+            this._queue.length < 1 )
+        {
+            return;
+        }
+
+        if ( !this._checkFile( this._queue[0] ) ) {
+            return;
+        }
+
+        // User returned false to cancel upload
+        if ( false === this._opts.onSubmit.call( this, this._queue[0].name, this._queue[0].ext, this._queue[0].btn, this._queue[0].size ) ) {
+            return;
+        }
+
+        // Increment the active upload counter
+        this._active++;
+
+        // Disable uploading if multiple file uploads are not enabled
+        // or if queue is disabled and we've reached max uploads
+        if ( this._opts.multiple === false ||
+            this._opts.queue === false && this._active >= this._opts.maxUploads )
+        {
+            this.disable( true );
+        }
+
+        this._initUpload( this._queue[0] );
     }
 
 };
 
 ss.IframeUpload = {
+
+    _detachEvents: {},
+
+    _detach: function( id ) {
+        if ( this._detachEvents[ id ] ) {
+            this._detachEvents[ id ]();
+            delete this._detachEvents[ id ];
+        }
+    },
 
     /**
     * Accepts a URI string and returns the hostname
@@ -948,8 +1163,6 @@ ss.IframeUpload = {
             url,
             msgLoaded = false,
             iframeLoaded = false,
-            removeMessageListener,
-            removeLoadListener,
             cancel;
 
         if ( opts.noParams === true ) {
@@ -961,8 +1174,7 @@ ss.IframeUpload = {
             url = !opts.nginxProgressUrl ?
                     opts.url :
                     url + ( ( url.indexOf( '?' ) > -1 ) ? '&' : '?' ) +
-                          encodeURIComponent( opts.nginxProgressHeader ) +
-                          '=' + encodeURIComponent( key );
+                          encodeURIComponent( opts.nginxProgressHeader ) + '=' + encodeURIComponent( key );
         }
 
         form = ss.getForm({
@@ -971,7 +1183,6 @@ ss.IframeUpload = {
             method: opts.method
         });
 
-        // Begin progress bars at 0%
         opts.onProgress.call( this, 0 );
 
         if ( pctBox ) {
@@ -985,27 +1196,24 @@ ss.IframeUpload = {
         // For CORS, add a listener for the "message" event, which will be
         // triggered by the Javascript snippet in the server response
         if ( opts.cors ) {
-            removeMessageListener = ss.addEvent( window, 'message', function( event ) {
+            var msgId = ss.getUID();
+
+            self._detachEvents[ msgId ] = ss.addEvent( window, 'message', function( event ) {
                 // Make sure event.origin matches the upload URL
                 if ( self._getHost( event.origin ) != self._getHost( opts.url ) ) {
                     self.log('Non-matching origin: ' + event.origin);
                     return;
                 }
 
-                // Set message event success flag to true
                 msgLoaded = true;
-
-                // Remove listener for message event
-                removeMessageListener();
-
+                self._detach( msgId );
                 opts.endNonXHR.call( self, fileObj.name, fileObj.btn );
-
                 self._finish( fileObj,  '', '', event.data, sizeBox, progBox, pctBox, abortBtn, removeAbort );
             });
         }
 
-        var remove = ss.addEvent( iframe, 'load', function() {
-            remove();
+        self._detachEvents[ iframe.id ] = ss.addEvent( iframe, 'load', function() {
+            self._detach( iframe.id );
 
             if ( opts.sessionProgressUrl ) {
                 form.appendChild( ss.getHidden( opts.sessionProgressName, key ) );
@@ -1016,8 +1224,11 @@ ss.IframeUpload = {
                 form.appendChild( ss.getHidden( opts.keyParamName, key ) );
             }
 
-            // We get any additional data here after startNonXHR()
-            // in case the data was changed with setData() prior to submitting
+            if ( self._form ) {
+                ss.extendObj( opts.data, ss.getFormObj( self._form ) );
+            }
+
+            // Get additional data after startNonXHR() in case setData() was called prior to submitting
             for ( var prop in opts.data ) {
                 if ( opts.data.hasOwnProperty( prop ) ) {
                     form.appendChild( ss.getHidden( prop, opts.data[prop] ) );
@@ -1032,18 +1243,16 @@ ss.IframeUpload = {
 
             form.appendChild( fileObj.file );
 
-            removeLoadListener = ss.addEvent( iframe, 'load', function() {
-                if ( !iframe.parentNode || iframeLoaded ) {
+            self._detachEvents[ fileObj.id ] = ss.addEvent( iframe, 'load', function() {
+                if ( !iframe || !iframe.parentNode || iframeLoaded ) {
                     return;
                 }
 
+                self._detach( fileObj.id );
                 iframeLoaded = true;
 
-                delete self._progKeys[key];
-                delete self._sizeFlags[key];
-
-                // Remove listener for iframe load event
-                removeLoadListener();
+                delete self._progKeys[ key ];
+                delete self._sizeFlags[ key ];
 
                 if ( abortBtn ) {
                     ss.removeEvent( abortBtn, 'click', cancel );
@@ -1054,7 +1263,6 @@ ss.IframeUpload = {
                 // If iframe loads without "message" event, we assume there was an error
                 if ( opts.cors ) {
                     window.setTimeout(function() {
-                        ss.remove( form );
                         ss.remove( iframe );
 
                         // If msgLoaded has not been set to true after "message" event fires, we
@@ -1063,15 +1271,18 @@ ss.IframeUpload = {
                             self._errorFinish( fileObj, '', '', false, 'error', progBox, sizeBox, pctBox, abortBtn, removeAbort );
                         }
 
-                        opts = key = form = iframe = sizeBox = progBox = pctBox = abortBtn = removeAbort = null;
+                        fileObj = opts = key = iframe = sizeBox = progBox = pctBox = abortBtn = removeAbort = null;
                     }, 600);
                 }
 
-                // Ordinary, non-CORS upload
+                // Non-CORS upload
                 else {
                     try {
                         var doc = iframe.contentDocument ? iframe.contentDocument : iframe.contentWindow.document,
                             response = doc.body.innerHTML;
+
+                        ss.remove( iframe );
+                        iframe = null;
 
                         opts.endNonXHR.call( self, fileObj.name, fileObj.btn );
 
@@ -1081,12 +1292,6 @@ ss.IframeUpload = {
                     } catch ( e ) {
                         self._errorFinish( fileObj, '', e.message, false, 'error', progBox, sizeBox, pctBox, abortBtn, removeAbort );
                     }
-
-                    window.setTimeout(function() {
-                        ss.remove( form );
-                        ss.remove( iframe );
-                        form = iframe = null;
-                    }, 0);
 
                     fileObj = opts = key = sizeBox = progBox = pctBox = null;
                 }
@@ -1101,7 +1306,7 @@ ss.IframeUpload = {
 
                     if ( iframe ) {
                         iframeLoaded = true;
-                        removeLoadListener();
+                        self._detach( fileObj.id );
 
                         try {
                             if ( iframe.contentWindow.document.execCommand ) {
@@ -1114,10 +1319,9 @@ ss.IframeUpload = {
                         } catch( err ) {}
 
                         window.setTimeout(function() {
-                            ss.remove( form );
                             ss.remove( iframe );
-                            form = iframe = null;
-                        }, 0);
+                            iframe = null;
+                        }, 1);
                     }
 
                     self.log('Upload aborted');
@@ -1131,21 +1335,22 @@ ss.IframeUpload = {
             self.log( 'Commencing upload using iframe' );
             form.submit();
 
+            // Remove form and begin next upload
+            window.setTimeout(function() {
+                ss.remove( form );
+                form = null;
+                self.removeCurrent( fileObj.id );
+            }, 1);
+
             if ( self._hasProgUrl ) {
                 // Add progress key to active key array
                 self._progKeys[key] = 1;
 
-                // Start timer for first progress update
                 window.setTimeout( function() {
                     self._getProg( key, progBar, sizeBox, pctBox, 1 );
                     progBar = sizeBox = pctBox = null;
                 }, 600 );
             }
-
-            // Remove this file from the queue and begin next upload
-            window.setTimeout(function() {
-                self.removeCurrent( fileObj.id );
-            }, 0);
 
         });// end load
 
@@ -1197,8 +1402,7 @@ ss.IframeUpload = {
                 statusText;
 
             try {
-                // XDomainRequest doesn't have readyState so we
-                // just assume that it finished correctly
+                // XDR doesn't have readyState so we just assume that it finished correctly
                 if ( callback && ( opts.cors || xhr.readyState === 4 ) ) {
                     callback = undefined;
                     xhr.onreadystatechange = function() {};
@@ -1207,13 +1411,11 @@ ss.IframeUpload = {
                         statusText = xhr.statusText;
                         status = xhr.status;
                     } catch( e ) {
-                        // We normalize with Webkit giving an empty statusText
                         statusText = '';
                         status = '';
                     }
 
-                    // XDomainRequest also doesn't have status, so we
-                    // again just assume that everything is fine
+                    // XDR also doesn't have status, so just assume that everything is fine
                     if ( opts.cors || ( status >= 200 && status < 300 ) ) {
                         response = ss.parseJSON( xhr.responseText );
 
@@ -1326,6 +1528,7 @@ ss.IframeUpload = {
 
         } else {
             var method = !opts.sessionProgressUrl ? 'GET' : 'POST',
+                headers = {},
                 params;
 
             xhr = ss.newXHR();
@@ -1335,16 +1538,29 @@ ss.IframeUpload = {
             // PHP session progress updates must be a POST request
             if ( opts.sessionProgressUrl ) {
                 params = encodeURIComponent( opts.sessionProgressName ) + '=' + encodeURIComponent( key );
-                xhr.setRequestHeader( 'Content-type', 'application/x-www-form-urlencoded' );
+                headers['Content-Type'] = 'application/x-www-form-urlencoded';
             }
 
             // Set the upload progress header for Nginx
             if ( opts.nginxProgressUrl ) {
-                xhr.setRequestHeader( opts.nginxProgressHeader, key );
+                headers[opts.nginxProgressHeader] = key;
             }
 
-            xhr.setRequestHeader( 'X-Requested-With', 'XMLHttpRequest' );
-            xhr.setRequestHeader( 'Accept', 'application/json, text/javascript, */*; q=0.01' );
+            headers['X-Requested-With'] = 'XMLHttpRequest';
+            headers['Accept'] = 'application/json, text/javascript, */*; q=0.01';
+
+            ss.extendObj( headers, opts.customProgressHeaders );
+
+            for ( var i in headers ) {
+                if ( headers.hasOwnProperty( i ) ) {
+                    if ( opts.encodeHeaders ) {
+                        xhr.setRequestHeader( i, ss.encodeUTF8( headers[ i ] + '' ) );
+
+                    } else {
+                        xhr.setRequestHeader( i, headers[ i ] + '' );
+                    }
+                }
+            }
 
            xhr.send( ( opts.sessionProgressUrl &&  params ) || null );
         }
@@ -1368,7 +1584,7 @@ ss.IframeUpload = {
 
         this._uploadIframe( fileObj, this._progBox, this._sizeBox, this._progBar, this._pctBox, this._abortBtn, this._removeAbort );
 
-        this._progBox = this._sizeBox = this._progBar = this._pctBox = this._abortBtn = this._removeAbort = null;
+        fileObj = this._progBox = this._sizeBox = this._progBar = this._pctBox = this._abortBtn = this._removeAbort = null;
     }
 };
 
@@ -1437,8 +1653,6 @@ ss.XhrUpload = {
         callback = function( _, isAbort ) {
             var statusText;
 
-            // Firefox throws exceptions when accessing properties
-            // of an xhr when a network error occurred
             try {
                 // Was never called and is aborted or complete
                 if ( callback && ( isAbort || xhr.readyState === 4 ) ) {
@@ -1460,8 +1674,6 @@ ss.XhrUpload = {
                             ss.removeEvent( abortBtn, 'click', cancel );
                         }
 
-                        // Firefox throws an exception when accessing
-                        // statusText for faulty cross-domain requests
                         try {
                             statusText = xhr.statusText;
                         } catch( e ) {
@@ -1589,13 +1801,17 @@ ss.XhrUpload = {
             headers['Content-Type'] = 'application/octet-stream';
         }
 
+        if ( this._form ) {
+            ss.extendObj( params, ss.getFormObj( this._form ) );
+        }
+
         // We get the any additional data here after startXHR()
         ss.extendObj( params, this._opts.data );
 
         // Build query string while preserving any existing parameters
         url = this._opts.noParams === true ?
                 this._opts.url :
-                this._opts.url + ( ( this._opts.url.indexOf( '?' ) > -1 ) ? '&' : '?' ) +ss.obj2string( params );
+                this._opts.url + ( ( this._opts.url.indexOf( '?' ) > -1 ) ? '&' : '?' ) + ss.obj2string( params );
 
         this._uploadXhr( fileObj, url, params, headers, this._sizeBox, this._progBar, this._progBox, this._pctBox, this._abortBtn, this._removeAbort );
 
@@ -1604,307 +1820,7 @@ ss.XhrUpload = {
 
 };
 
-(function(){
-    ss.extendObj( ss.SimpleUpload.prototype, {
-
-        _createInput: function() {
-            "use strict";
-
-            var self = this,
-                div = document.createElement( 'div' );
-
-            this._input = document.createElement( 'input' );
-            this._input.type = 'file';
-            this._input.name = this._opts.name;
-
-            // Don't allow multiple file selection in Safari -- it has a nasty bug
-            // http://stackoverflow.com/q/7231054/1091949
-            if ( XhrOk && !isSafari && this._opts.multiple ) {
-                this._input.multiple = true;
-            }
-
-            // Check support for file input accept attribute
-            if ( 'accept' in this._input && this._opts.accept !== '' ) {
-                this._input.accept = this._opts.accept;
-            }
-
-            ss.addStyles( div, {
-                'display' : 'block',
-                'position' : 'absolute',
-                'overflow' : 'hidden',
-                'margin' : 0,
-                'padding' : 0,
-                'opacity' : 0,
-                'direction' : 'ltr',
-                'zIndex': 16777270
-            });
-
-            ss.addStyles( this._input, {
-                'position' : 'absolute',
-                'right' : 0,
-                'margin' : 0,
-                'padding' : 0,
-                'fontSize' : '480px',
-                'fontFamily' : 'sans-serif',
-                'cursor' : 'pointer',
-                'height' : '100%'
-            });
-
-            if ( div.style.opacity !== '0' ) {
-                div.style.filter = 'alpha(opacity=0)';
-            }
-
-            this._input.turnOff = ss.addEvent( this._input, 'change', function() {
-                if ( !self._input || self._input.value === '' ) {
-                    return;
-                }
-
-                if ( false === self._addFiles( XhrOk ? self._input.files : self._input ) ) {
-                    return;
-                }
-
-                ss.removeClass( self._overBtn, self._opts.hoverClass );
-                ss.removeClass( self._overBtn, self._opts.focusClass );
-
-                self._killInput();
-
-                // Then create a new file input
-                self._createInput();
-
-                // Submit if autoSubmit option is true
-                if ( self._opts.autoSubmit ) {
-                    self.submit();
-                }
-            });
-
-            if ( self._opts.hoverClass !== '' ) {
-                div.mouseOverOff = ss.addEvent( div, 'mouseover', function() {
-                    ss.addClass( self._overBtn, self._opts.hoverClass );
-                });
-            }
-
-            div.mouseOutOff = ss.addEvent( div, 'mouseout', function() {
-                self._input.parentNode.style.visibility = 'hidden';
-
-                if ( self._opts.hoverClass !== '' ) {
-                    ss.removeClass( self._overBtn, self._opts.hoverClass );
-                    ss.removeClass( self._overBtn, self._opts.focusClass );
-                }
-            });
-
-            if ( self._opts.focusClass !== '' ) {
-                this._input.focusOff = ss.addEvent( this._input, 'focus', function() {
-                    ss.addClass( self._overBtn, self._opts.focusClass );
-                });
-
-                this._input.blurOff = ss.addEvent( this._input, 'blur', function() {
-                    ss.removeClass( self._overBtn, self._opts.focusClass );
-                });
-            }
-
-            document.body.appendChild( div );
-            div.appendChild( this._input );
-            div = null;
-        },
-
-        rerouteClicks: function( elem ) {
-            "use strict";
-
-            var self = this;
-
-            // ss.addEvent() returns a function to detach, which
-            // allows us to call elem.off() to remove mouseover listener
-            elem.off = ss.addEvent( elem, 'mouseover', function() {
-                if ( self._disabled ) {
-                    return;
-                }
-
-                if ( !self._input ) {
-                    self._createInput();
-                }
-
-                self._overBtn = elem;
-                ss.copyLayout( elem, self._input.parentNode );
-                self._input.parentNode.style.visibility = 'visible';
-            });
-
-            return elem;
-        },
-
-        /**
-        * Final cleanup function after upload ends
-        */
-        _last: function( sizeBox, progBox, pctBox, abortBtn, removeAbort ) {
-            "use strict";
-
-            if ( sizeBox ) {
-               sizeBox.innerHTML = '';
-            }
-
-            if ( pctBox ) {
-                pctBox.innerHTML = '';
-            }
-
-            if ( abortBtn && removeAbort ) {
-                ss.remove( abortBtn );
-            }
-
-            if ( progBox ) {
-                ss.remove( progBox );
-            }
-
-            // Decrement the active upload counter
-            this._active--;
-
-            sizeBox = progBox = pctBox = abortBtn = removeAbort = null;
-
-            if ( this._disabled ) {
-                this.enable( true );
-            }
-
-            // Burn it all down if destroy() was called
-            // We have to do it here after everything is finished to avoid any errors
-            if ( this._destroy &&
-                 this._queue.length === 0 &&
-                 this._active.length === 0 )
-            {
-                for ( var prop in this ) {
-                    if ( this.hasOwnProperty( prop ) ) {
-                        delete this[ prop ];
-                    }
-                }
-
-            // Otherwise just go to the next upload as usual
-            } else {
-                this._cycleQueue();
-            }
-        },
-
-        /**
-        * Completes upload request if an error is detected
-        */
-        _errorFinish: function( fileObj, status, statusText, response, errorType, progBox, sizeBox, pctBox, abortBtn, removeAbort ) {
-            "use strict";
-
-            this.log( 'Upload failed: ' + status + ' ' + statusText );
-            this._opts.onError.call( this, fileObj.name, errorType, status, statusText, response, fileObj.btn, fileObj.size );
-            this._last( sizeBox, progBox, pctBox, abortBtn, removeAbort );
-
-            fileObj = status = statusText = response = errorType = sizeBox = progBox = pctBox = abortBtn = removeAbort = null;
-        },
-
-        /**
-        * Completes upload request if the transfer was successful
-        */
-        _finish: function( fileObj, status, statusText, response, sizeBox, progBox, pctBox, abortBtn, removeAbort ) {
-            "use strict";
-
-            this.log( 'Server response: ' + response );
-
-            if ( this._opts.responseType.toLowerCase() == 'json' ) {
-                response = ss.parseJSON( response );
-
-                if ( response === false ) {
-                    this._errorFinish( fileObj, status, statusText, false, 'parseerror', progBox, sizeBox, abortBtn, removeAbort );
-                    return;
-                }
-            }
-
-            this._opts.onComplete.call( this, fileObj.name, response, fileObj.btn, fileObj.size );
-            this._last( sizeBox, progBox, pctBox, abortBtn, removeAbort );
-
-            fileObj = status = statusText = response = sizeBox = progBox = pctBox = abortBtn = removeAbort = null;
-        },
-
-        /**
-        * Verifies that file is allowed
-        * Checks file extension and file size if limits are set
-        */
-        _checkFile: function( fileObj ) {
-            "use strict";
-
-            var extOk = false,
-                i = this._opts.allowedExtensions.length;
-
-            // Only file extension if allowedExtensions is set
-            if ( i > 0 ) {
-                while ( i-- ) {
-                    if ( this._opts.allowedExtensions[i].toLowerCase() == fileObj.ext.toLowerCase() ) {
-                        extOk = true;
-                        break;
-                    }
-                }
-
-                if ( !extOk ) {
-                    this.removeCurrent( fileObj.id );
-                    this.log( 'File extension not permitted' );
-                    this._opts.onExtError.call( this, fileObj.name, fileObj.ext );
-                    return false;
-                }
-            }
-
-            if ( fileObj.size &&
-                this._opts.maxSize !== false &&
-                fileObj.size > this._opts.maxSize )
-            {
-                this.removeCurrent( fileObj.id );
-                this.log( fileObj.name + ' exceeds ' + this._opts.maxSize + 'K limit' );
-                this._opts.onSizeError.call( this, fileObj.name, fileObj.size );
-                return false;
-            }
-
-            fileObj = null;
-
-            return true;
-        },
-
-        /**
-        * Validates input and directs to either XHR method or iFrame method
-        */
-        submit: function() {
-            "use strict";
-
-            if ( this._disabled ||
-                this._active >= this._opts.maxUploads ||
-                this._queue.length < 1 )
-            {
-                return;
-            }
-
-            if ( !this._checkFile( this._queue[0] ) ) {
-                return;
-            }
-
-            // User returned false to cancel upload
-            if ( false === this._opts.onSubmit.call( this, this._queue[0].name, this._queue[0].ext, this._queue[0].btn, this._queue[0].size ) ) {
-                return;
-            }
-
-            // Increment the active upload counter
-            this._active++;
-
-            // Disable uploading if multiple file uploads are not enabled
-            // or if queue is disabled and we've reached max uploads
-            if ( this._opts.multiple === false ||
-                this._opts.queue === false && this._active >= this._opts.maxUploads )
-            {
-                this.disable( true );
-            }
-
-            this._initUpload( this._queue[0] );
-        }
-    });
-
-    if ( XhrOk ) {
-        ss.extendObj( ss.SimpleUpload.prototype, ss.XhrUpload );
-
-    } else {
-        ss.extendObj( ss.SimpleUpload.prototype, ss.IframeUpload );
-    }
-
-}());
-
-ss.extendObj(ss.SimpleUpload.prototype, {
+ss.DragAndDrop = {
 
     _dragFileCheck: function( e ) {
         if ( e.dataTransfer.types ) {
@@ -1968,7 +1884,297 @@ ss.extendObj(ss.SimpleUpload.prototype, {
             }
         };
     }
+};
+
+ss.extendObj( ss.SimpleUpload.prototype, {
+
+    _createInput: function() {
+        "use strict";
+
+        var self = this,
+            div = document.createElement( 'div' );
+
+        this._input = document.createElement( 'input' );
+        this._input.type = 'file';
+        this._input.name = this._opts.name;
+
+        // Don't allow multiple file selection in Safari -- it has a nasty bug
+        // http://stackoverflow.com/q/7231054/1091949
+        if ( XhrOk && !isSafari && this._opts.multiple ) {
+            this._input.multiple = true;
+        }
+
+        // Check support for file input accept attribute
+        if ( 'accept' in this._input && this._opts.accept !== '' ) {
+            this._input.accept = this._opts.accept;
+        }
+
+        ss.addStyles( div, {
+            'display' : 'block',
+            'position' : 'absolute',
+            'overflow' : 'hidden',
+            'margin' : 0,
+            'padding' : 0,
+            'opacity' : 0,
+            'direction' : 'ltr',
+            'zIndex': 16777270
+        });
+
+        if ( div.style.opacity !== '0' ) {
+            div.style.filter = 'alpha(opacity=0)';
+        }
+
+        ss.addStyles( this._input, {
+            'position' : 'absolute',
+            'right' : 0,
+            'margin' : 0,
+            'padding' : 0,
+            'fontSize' : '480px',
+            'fontFamily' : 'sans-serif',
+            'cursor' : 'pointer',
+            'height' : '100%',
+            'zIndex': 16777270
+        });
+
+        this._input.turnOff = ss.addEvent( this._input, 'change', function() {
+            if ( !self._input || self._input.value === '' ) {
+                return;
+            }
+
+            if ( false === self._addFiles( XhrOk ? self._input.files : self._input ) ) {
+                return;
+            }
+
+            ss.removeClass( self._overBtn, self._opts.hoverClass );
+            ss.removeClass( self._overBtn, self._opts.focusClass );
+
+            self._killInput();
+
+            // Then create a new file input
+            self._createInput();
+
+            // Submit if autoSubmit option is true
+            if ( self._opts.autoSubmit ) {
+                self.submit();
+            }
+        });
+
+        if ( self._opts.hoverClass !== '' ) {
+            div.mouseOverOff = ss.addEvent( div, 'mouseover', function() {
+                ss.addClass( self._overBtn, self._opts.hoverClass );
+            });
+        }
+
+        div.mouseOutOff = ss.addEvent( div, 'mouseout', function() {
+            self._input.parentNode.style.visibility = 'hidden';
+
+            if ( self._opts.hoverClass !== '' ) {
+                ss.removeClass( self._overBtn, self._opts.hoverClass );
+                ss.removeClass( self._overBtn, self._opts.focusClass );
+            }
+        });
+
+        if ( self._opts.focusClass !== '' ) {
+            this._input.focusOff = ss.addEvent( this._input, 'focus', function() {
+                ss.addClass( self._overBtn, self._opts.focusClass );
+            });
+
+            this._input.blurOff = ss.addEvent( this._input, 'blur', function() {
+                ss.removeClass( self._overBtn, self._opts.focusClass );
+            });
+        }
+
+        div.appendChild( this._input );
+        document.body.appendChild( div );
+        div = null;
+    },
+
+    /**
+    * Final cleanup function after upload ends
+    */
+    _last: function( sizeBox, progBox, pctBox, abortBtn, removeAbort ) {
+        "use strict";
+
+        if ( sizeBox ) {
+           sizeBox.innerHTML = '';
+        }
+
+        if ( pctBox ) {
+            pctBox.innerHTML = '';
+        }
+
+        if ( abortBtn && removeAbort ) {
+            ss.remove( abortBtn );
+        }
+
+        if ( progBox ) {
+            ss.remove( progBox );
+        }
+
+        // Decrement the active upload counter
+        this._active--;
+
+        sizeBox = progBox = pctBox = abortBtn = removeAbort = null;
+
+        if ( this._disabled ) {
+            this.enable( true );
+        }
+
+        // Burn it all down if destroy() was called
+        // We have to do it here after everything is finished to avoid any errors
+        if ( this._destroy &&
+             this._queue.length === 0 &&
+             this._active.length === 0 )
+        {
+            for ( var prop in this ) {
+                if ( this.hasOwnProperty( prop ) ) {
+                    delete this[ prop ];
+                }
+            }
+
+        // Otherwise just go to the next upload as usual
+        } else {
+            this._cycleQueue();
+        }
+    },
+
+    /**
+    * Completes upload request if an error is detected
+    */
+    _errorFinish: function( fileObj, status, statusText, response, errorType, progBox, sizeBox, pctBox, abortBtn, removeAbort ) {
+        "use strict";
+
+        this.log( 'Upload failed: ' + status + ' ' + statusText );
+        this._opts.onError.call( this, fileObj.name, errorType, status, statusText, response, fileObj.btn, fileObj.size );
+        this._last( sizeBox, progBox, pctBox, abortBtn, removeAbort );
+
+        fileObj = status = statusText = response = errorType = sizeBox = progBox = pctBox = abortBtn = removeAbort = null;
+    },
+
+    /**
+    * Completes upload request if the transfer was successful
+    */
+    _finish: function( fileObj, status, statusText, response, sizeBox, progBox, pctBox, abortBtn, removeAbort ) {
+        "use strict";
+
+        this.log( 'Server response: ' + response );
+
+        if ( this._opts.responseType.toLowerCase() == 'json' ) {
+            response = ss.parseJSON( response );
+
+            if ( response === false ) {
+                this._errorFinish( fileObj, status, statusText, false, 'parseerror', progBox, sizeBox, abortBtn, removeAbort );
+                return;
+            }
+        }
+
+        this._opts.onComplete.call( this, fileObj.name, response, fileObj.btn, fileObj.size );
+        this._last( sizeBox, progBox, pctBox, abortBtn, removeAbort );
+        fileObj = status = statusText = response = sizeBox = progBox = pctBox = abortBtn = removeAbort = null;
+    },
+
+    /**
+    * Verifies that file is allowed
+    * Checks file extension and file size if limits are set
+    */
+    _checkFile: function( fileObj ) {
+        "use strict";
+
+        var extOk = false,
+            i = this._opts.allowedExtensions.length;
+
+        // Only file extension if allowedExtensions is set
+        if ( i > 0 ) {
+            while ( i-- ) {
+                if ( this._opts.allowedExtensions[i].toLowerCase() == fileObj.ext.toLowerCase() ) {
+                    extOk = true;
+                    break;
+                }
+            }
+
+            if ( !extOk ) {
+                this.removeCurrent( fileObj.id );
+                this.log( 'File extension not permitted' );
+                this._opts.onExtError.call( this, fileObj.name, fileObj.ext );
+                return false;
+            }
+        }
+
+        if ( fileObj.size &&
+            this._opts.maxSize !== false &&
+            fileObj.size > this._opts.maxSize )
+        {
+            this.removeCurrent( fileObj.id );
+            this.log( fileObj.name + ' exceeds ' + this._opts.maxSize + 'K limit' );
+            this._opts.onSizeError.call( this, fileObj.name, fileObj.size );
+            return false;
+        }
+
+        fileObj = null;
+
+        return true;
+    },
+
+    _killInput: function() {
+        "use strict";
+
+        if ( !this._input ) {
+            return;
+        }
+
+        if ( this._input.turnOff ) {
+            this._input.turnOff();
+        }
+
+        if ( this._input.focusOff ) {
+            this._input.focusOff();
+        }
+
+        if ( this._input.blurOff ) {
+            this._input.blurOff();
+        }
+
+        if ( this._input.parentNode.mouseOverOff ) {
+            this._input.parentNode.mouseOverOff();
+        }
+
+        ss.remove( this._input.parentNode );
+        delete this._input;
+        this._input = null;
+    },
+
+    /**
+    * Enables uploader and submits next file for upload
+    */
+    _cycleQueue: function() {
+        "use strict";
+
+        if ( this._queue.length > 0 && this._opts.autoSubmit ) {
+            this.submit();
+        }
+    },
+
+    _validateForm: function() {
+        "use strict";
+
+        if ( this._form.checkValidity && !this._form.checkValidity() ) {
+            return false;
+
+        } else {
+            return true;
+        }
+    }
+
 });
+
+if ( XhrOk ) {
+    ss.extendObj( ss.SimpleUpload.prototype, ss.XhrUpload );
+
+} else {
+    ss.extendObj( ss.SimpleUpload.prototype, ss.IframeUpload );
+}
+
+ss.extendObj( ss.SimpleUpload.prototype, ss.DragAndDrop );
 
 return ss;
 

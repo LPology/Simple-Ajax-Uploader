@@ -1,5 +1,17 @@
 Change Log 
 ============================
+### Version 2.4 ###
+SimpleAjaxUploader.js:
+* `multipart` option now defaults to `true`
+* `noParams` option now defaults to `true`
+* Added form integration functionality -- new option `form` and new method `setForm()`. See README.md for details
+* Added `addButton()` method for adding upload buttons - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/104">#104</a>
+* Added `addDZ()` method for designating an element as a drop zone
+* Added `customProgressHeaders` option to include additional, custom request headers to upload progress update requests in legacy browsers
+* Added `autoCalibrate` option (default `true`). When `autoCalibrate` is `true`, upload buttons which are not visible at initialization will be auto reset with `updatePosition()` upon becoming visible
+* Improved event handler management for iFrame uploads
+* Reconfigured code structure into more logical format
+
 ### Version 2.3 ###
 SimpleAjaxUploader.js:
 * Added UTF-8 encoding to XHR request headers in order to handle all characters/languages - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/126">#126</a>, <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/128">#128</a>

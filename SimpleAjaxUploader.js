@@ -2150,7 +2150,7 @@ ss.extendObj( ss.SimpleUpload.prototype, {
         "use strict";
 
         if ( this._queue.length > 0 && this._opts.autoSubmit ) {
-            this.submit();
+            this.submit( undefined, true );
         }
     },
 

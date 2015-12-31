@@ -9,6 +9,7 @@ SimpleAjaxUploader.js:
 * Added `addDZ()` method for designating an element as a drop zone
 * Added `customProgressHeaders` option to include additional, custom request headers to upload progress update requests in legacy browsers
 * Added `autoCalibrate` option (default `true`). When `autoCalibrate` is `true`, upload buttons which are not visible at initialization will be auto reset with `updatePosition()` upon becoming visible
+* Added `onBlankSubmit()` callback function to be called when user attempts to submit without selecting a file
 * Improved event handler management for iFrame uploads
 * Reconfigured code structure into more logical format
 

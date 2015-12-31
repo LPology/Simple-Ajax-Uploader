@@ -662,6 +662,7 @@ ss.SimpleUpload = function( options ) {
         customHeaders: {},
         encodeHeaders: true,
         autoCalibrate: true,
+        onBlankSubmit: function() {},
         onAbort: function( filename, uploadBtn, size ) {},
         onChange: function( filename, extension, uploadBtn, size, file ) {},
         onSubmit: function( filename, extension, uploadBtn, size ) {},
@@ -1069,8 +1070,13 @@ ss.SimpleUpload.prototype = {
     /**
     * Validates input and directs to either XHR method or iFrame method
     */
-    submit: function() {
+    submit: function( _, auto ) {
         "use strict";
+
+        if ( !auto && this._queue.length < 1 ) {
+            this._opts.onBlankSubmit.call( this );
+            return;
+        }
 
         if ( this._disabled ||
             this._active >= this._opts.maxUploads ||

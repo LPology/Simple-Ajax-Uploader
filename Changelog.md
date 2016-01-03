@@ -5,7 +5,7 @@ SimpleAjaxUploader.js:
 * `multipart` option now defaults to `true`
 * `noParams` option now defaults to `true`
 
-<strong>Note:</strong> one or both of the above changes may be potentially breaking for anyone not using the included Uploader.php class. If this is the case, the fix is to explicitly set both of these options to `false` in your plugin settings. More info: <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/137">#137</a>
+<strong>Note:</strong> One or both of the above changes may be potentially breaking for anyone not using the included Uploader.php class. If this is the case, the fix is to explicitly set both of these options to `false` in your plugin settings. More info: <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/137">#137</a>
 
 * Added form integration functionality -- new option `form` and new method `setForm()`. See README.md for details
 * Added `addButton()` method for adding upload buttons - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/104">#104</a>

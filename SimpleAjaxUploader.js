@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 2.4
+ * Version 2.5.0
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2015 LPology, LLC
@@ -1793,8 +1793,6 @@ ss.XhrUpload = {
             this._active--;
             return;
         }
-
-        params[this._opts.name] = fileObj.name;
 
         headers['X-Requested-With'] = 'XMLHttpRequest';
         headers['X-File-Name'] = fileObj.name;

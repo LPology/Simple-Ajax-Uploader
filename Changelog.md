@@ -1,5 +1,8 @@
 Change Log 
 ============================
+### Version 2.5.0 ###
+* Removed additional name parameter from XHR uploads - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/141">#141</a> (Special thanks to <a href="https://github.com/djxhero">djxhero</a> for this one)
+
 ### Version 2.4 ###
 SimpleAjaxUploader.js:
 * `multipart` option now defaults to `true`

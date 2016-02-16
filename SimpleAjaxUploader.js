@@ -1,9 +1,9 @@
 /**
  * Simple Ajax Uploader
- * Version 2.5.0
+ * Version 2.5.1
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
- * Copyright 2012-2015 LPology, LLC
+ * Copyright 2012-2016 LPology, LLC
  * Released under the MIT license
  */
 
@@ -1091,6 +1091,7 @@ ss.SimpleUpload.prototype = {
 
         // User returned false to cancel upload
         if ( false === this._opts.onSubmit.call( this, this._queue[0].name, this._queue[0].ext, this._queue[0].btn, this._queue[0].size ) ) {
+            this.removeCurrent( this._queue[0].id );
             return;
         }
 

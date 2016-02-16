@@ -1,6 +1,11 @@
 Change Log 
 ============================
+### Version 2.5.1 ###
+SimpleAjaxUploader.js:
+* When returning `false` from `onSubmit()`, files will now be removed from queue automatically
+
 ### Version 2.5.0 ###
+SimpleAjaxUploader.js:
 * Removed additional name parameter from XHR uploads - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/141">#141</a> (Special thanks to <a href="https://github.com/djxhero">djxhero</a> for this one)
 
 ### Version 2.4 ###

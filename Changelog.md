@@ -6,7 +6,7 @@ SimpleAjaxUploader.js:
 * Fixed check of the internal variable which tracks active upload count to check as integer rather than `length` property - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/150">#150</a> (Special thanks to <a href="https://github.com/benzamin">benzamin</a> for this)
 
 Examples:
-* Cleaned up buggy code in examples - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/150">#150</a> (Special thanks to <a href="https://github.com/benzamin">benzamin</a> for this)
+* Cleaned up buggy code in README examples - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/150">#150</a> (Special thanks to <a href="https://github.com/benzamin">benzamin</a> for this)
 
 ### Version 2.5.1 ###
 SimpleAjaxUploader.js:

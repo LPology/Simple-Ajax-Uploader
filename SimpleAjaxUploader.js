@@ -2029,7 +2029,7 @@ ss.extendObj( ss.SimpleUpload.prototype, {
         // We have to do it here after everything is finished to avoid any errors
         if ( this._destroy &&
              this._queue.length === 0 &&
-             this._active.length === 0 )
+             this._active === 0 )
         {
             for ( var prop in this ) {
                 if ( this.hasOwnProperty( prop ) ) {

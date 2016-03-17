@@ -105,11 +105,12 @@ var uploader = new ss.SimpleUpload({
               bar = document.createElement('div'), // actual progress bar
               fileSize = document.createElement('div'), // container for upload file size
               wrapper = document.createElement('div'), // container for this progress bar
-              progressBox = document.getElementById('progressBox'); // on page container for progress bars
+              //declare somewhere: <div id="progressBox"></div> where you want to show the progress-bar(s)
+              progressBox = document.getElementById('progressBox'); //on page container for progress bars
           
           // Assign each element its corresponding class
-          progress.className = 'progress';
-          bar.className = 'bar';            
+          progress.className = 'progress progress-striped';
+          bar.className = 'progress-bar progress-bar-success';
           fileSize.className = 'size';
           wrapper.className = 'wrapper';
           

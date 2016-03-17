@@ -1756,14 +1756,22 @@ ss.XhrUpload = {
 
         if ( opts.multipart === true ) {
             var formData = new FormData();
-
+            
+            var hasFile = false;
+            
             for ( var prop in params ) {
                 if ( params.hasOwnProperty( prop ) ) {
+                    if (prop === opts.name) {
+                        hasFile = true;
+                    }
                     formData.append( prop, params[prop] );
                 }
             }
-
-            formData.append( opts.name, fileObj.file );
+            
+            if (!hasFile) {
+                formData.append( opts.name, fileObj.file );
+            }
+            
             this.log( 'Commencing upload using multipart form' );
             xhr.send( formData );
 

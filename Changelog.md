@@ -1,5 +1,13 @@
 Change Log 
 ============================
+### Version 2.5.2 ###
+SimpleAjaxUploader.js:
+* Added param check before appending file to allow for manually appended files - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/155">#155</a> (Special thanks to <a href="https://github.com/ablipan">ablipan</a> for this)
+* Fixed check of the internal variable which tracks active upload count to check as integer rather than `length` property - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/150">#150</a> (Special thanks to <a href="https://github.com/benzamin">benzamin</a> for this)
+
+Examples:
+* Cleaned up buggy code in examples - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/150">#150</a> (Special thanks to <a href="https://github.com/benzamin">benzamin</a> for this)
+
 ### Version 2.5.1 ###
 SimpleAjaxUploader.js:
 * When returning `false` from `onSubmit()`, files will now be removed from queue automatically

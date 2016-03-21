@@ -1849,6 +1849,7 @@ ss.DragAndDrop = {
 
     addDropZone: function( elem ) {
         var self = this;
+        var depthCounter = 0;
 
         ss.addStyles( elem, {
             'zIndex': 16777271
@@ -1863,6 +1864,7 @@ ss.DragAndDrop = {
             }
 
             ss.addClass( this, self._opts.dragClass );
+            depthCounter++;
             return false;
         };
 
@@ -1878,7 +1880,10 @@ ss.DragAndDrop = {
         };
 
         elem.ondragleave = function() {
-            ss.removeClass( this, self._opts.dragClass );
+            depthCounter--;
+            if (depthCounter === 0){
+              ss.removeClass( this, self._opts.dragClass );
+            }
             return false;
         };
 

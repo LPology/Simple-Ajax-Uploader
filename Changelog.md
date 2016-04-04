@@ -1,5 +1,9 @@
 Change Log 
 ============================
+### Version 2.5.3 ###
+SimpleAjaxUploader.js:
+* Fixed issue with `dragleave` firing when hovering a child element - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/156">#156</a> - (Special thanks to <a href="https://github.com/JulesDoe">JulesDoe</a> for this)
+
 ### Version 2.5.2 ###
 SimpleAjaxUploader.js:
 * Added param check before appending file to allow for manually appended files - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/155">#155</a> (Special thanks to <a href="https://github.com/ablipan">ablipan</a> for this)

@@ -386,12 +386,16 @@ ss.getExt = function( file ) {
 ss.isVisible = function( elem ) {
     "use strict";
 
+    if ( !elem ) {
+        return false;
+    }
+
     if ( elem.nodeType !== 1 || elem == document.body ) {
         elem = null;
         return true;
     }
 
-    if ( elem && elem.parentNode &&
+    if ( elem.parentNode &&
         ( elem.offsetWidth > 0 ||
          elem.offsetHeight > 0 ||
          ss.getStyle( elem, 'display' ).toLowerCase() != 'none' ) )

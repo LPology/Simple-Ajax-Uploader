@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 2.5.3
+ * Version 2.5.4
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2016 LPology, LLC
@@ -391,9 +391,10 @@ ss.isVisible = function( elem ) {
         return true;
     }
 
-    if ( elem.offsetWidth > 0 ||
+    if ( elem && elem.parentNode &&
+        ( elem.offsetWidth > 0 ||
          elem.offsetHeight > 0 ||
-         ss.getStyle( elem, 'display' ).toLowerCase() != 'none' )
+         ss.getStyle( elem, 'display' ).toLowerCase() != 'none' ) )
     {
         return ss.isVisible( elem.parentNode );
     }

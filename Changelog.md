@@ -1,5 +1,9 @@
 Change Log 
 ============================
+### Version 2.5.4 ###
+SimpleAjaxUploader.js:
+* Added check for parent node inside of `ss.isVisible()` - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/160">#160</a>
+
 ### Version 2.5.3 ###
 SimpleAjaxUploader.js:
 * Fixed issue with `dragleave` firing when hovering a child element - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/156">#156</a> - (Special thanks to <a href="https://github.com/JulesDoe">JulesDoe</a> for this)

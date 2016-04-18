@@ -367,7 +367,7 @@ ss.indexOf = arr.indexOf ?
 /**
 * Removes an element from an array
 */
-ss.array_delete = function( array, elem ) {
+ss.arrayDelete = function( array, elem ) {
     var index = ss.indexOf( array, elem );
 
     if ( index > -1 ) {
@@ -1907,7 +1907,7 @@ ss.DragAndDrop = {
         };
 
         elem.ondragleave = function( e ) {
-            ss.array_delete( collection, e.target );
+            ss.arrayDelete( collection, e.target );
 
             if ( collection.length === 0 ) {
                 ss.removeClass( this, self._opts.dragClass );
@@ -1920,7 +1920,7 @@ ss.DragAndDrop = {
             e.stopPropagation();
             e.preventDefault();
 
-            ss.array_delete( collection, e.target );
+            ss.arrayDelete( collection, e.target );
 
             if ( collection.length === 0 ) {
                 ss.removeClass( this, self._opts.dragClass );

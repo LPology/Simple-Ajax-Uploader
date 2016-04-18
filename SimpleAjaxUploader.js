@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 2.5.4
+ * Version 2.5.5
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2016 LPology, LLC
@@ -363,6 +363,17 @@ ss.indexOf = arr.indexOf ?
         }
         return -1;
     };
+
+/**
+* Removes an element from an array
+*/
+ss.array_delete = function( array, elem ) {
+    var index = ss.indexOf( array, elem );
+
+    if ( index > -1 ) {
+        array.splice( index, 1 );
+    }
+};
 
 /**
 * Extract file name from path
@@ -1854,7 +1865,7 @@ ss.DragAndDrop = {
 
     addDropZone: function( elem ) {
         var self = this,
-            depthCounter = 0;
+            collection = [];
 
         ss.addStyles( elem, {
             'zIndex': 16777271
@@ -1868,14 +1879,25 @@ ss.DragAndDrop = {
                 return false;
             }
 
-            ss.addClass( this, self._opts.dragClass );
-            depthCounter++;
+            if ( collection.length === 0 ) {
+                ss.addClass( this, self._opts.dragClass );
+            }
+
+            if ( ss.indexOf( collection, e.target ) === -1 ) {
+                collection.push( e.target );
+            }
+
             return false;
         };
 
         elem.ondragover = function( e ) {
             e.stopPropagation();
             e.preventDefault();
+
+            if ( self._dragFileCheck( e ) ) {
+                e.dataTransfer.dropEffect = 'copy';
+            }
+
             return false;
         };
 
@@ -1884,11 +1906,13 @@ ss.DragAndDrop = {
             return false;
         };
 
-        elem.ondragleave = function() {
-            depthCounter--;
-            if ( depthCounter === 0 ){
-              ss.removeClass( this, self._opts.dragClass );
+        elem.ondragleave = function( e ) {
+            ss.array_delete( collection, e.target );
+
+            if ( collection.length === 0 ) {
+                ss.removeClass( this, self._opts.dragClass );
             }
+
             return false;
         };
 
@@ -1896,8 +1920,11 @@ ss.DragAndDrop = {
             e.stopPropagation();
             e.preventDefault();
 
-            ss.removeClass( this, self._opts.dragClass );
-            depthCounter = 0;
+            ss.array_delete( collection, e.target );
+
+            if ( collection.length === 0 ) {
+                ss.removeClass( this, self._opts.dragClass );
+            }
 
             if ( !self._dragFileCheck( e ) ) {
                 return;

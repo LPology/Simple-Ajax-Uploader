@@ -2,7 +2,7 @@
 
 /**
 * Simple Ajax Uploader
-* Version 2.5.4
+* Version 2.5.5
 * https://github.com/LPology/Simple-Ajax-Uploader
 *
 * Copyright 2012-2016 LPology, LLC
@@ -57,17 +57,32 @@ class FileUpload {
         }
 
         if ($this->fileName) {
+            $this->fileName = $this->sanitizeFilename($this->fileName);
             $pathinfo = pathinfo($this->fileName);
 
-            if (array_key_exists('extension', $pathinfo) &&
-                array_key_exists('filename', $pathinfo))
+            if (isset($pathinfo['extension']) &&
+                isset($pathinfo['filename']))
             {
                 $this->fileExtension = strtolower($pathinfo['extension']);
                 $this->fileNameWithoutExt = $pathinfo['filename'];
             }
-
-            $this->fileName = str_replace(array('/','\\'),'_',$this->fileName);
         }
+    }
+
+    private function sanitizeFilename($name) {
+        $name = trim($this->basename(stripslashes($name)), ".\x00..\x20");
+
+        // Use timestamp for empty filenames
+        if (!$name) {
+            $name = str_replace('.', '-', microtime(true));
+        }
+
+        return $name;
+    }
+
+    private function basename($filepath, $suffix = null) {
+        $splited = preg_split('/\//', rtrim($filepath, '/ '));
+        return substr(basename('X'.$splited[count($splited)-1], $suffix), 1);
     }
 
     public function getFileName() {
@@ -184,7 +199,7 @@ class FileUpload {
     public function isWebImage($path) {
         $pathinfo = pathinfo($path);
 
-        if (array_key_exists('extension', $pathinfo)) {
+        if (isset($pathinfo['extension'])) {
             if (!in_array(strtolower($pathinfo['extension']), array('gif', 'png', 'jpg', 'jpeg')))
                 return false;
         }
@@ -266,10 +281,10 @@ class FileUpload {
 
             $pathinfo = pathinfo($this->fileName);
 
-            if (array_key_exists('filename', $pathinfo))
+            if (isset($pathinfo['filename']))
                 $this->fileNameWithoutExt = $pathinfo['filename'];
 
-            if (array_key_exists('extension', $pathinfo))
+            if (isset($pathinfo['extension']))
                 $this->fileExtension = strtolower($pathinfo['extension']);
         }
 

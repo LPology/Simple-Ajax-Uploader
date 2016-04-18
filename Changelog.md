@@ -1,5 +1,14 @@
 Change Log 
 ============================
+### Version 2.5.5 ###
+SimpleAjaxUploader.js:
+* Improved drag detection to work around Firefox bug which causes `dragenter` to fire twice (https://bugzilla.mozilla.org/show_bug.cgi?id=804036)
+* Set `dataTransfer.dropEffect` to `copy` during `dragover` event
+
+Uploader.php:
+* Improved filename sanitation
+* Replaced instances of `array_key_exists` with the faster `isset`
+
 ### Version 2.5.4 ###
 SimpleAjaxUploader.js:
 * Added check for parent node inside of `ss.isVisible()` - <a href="https://github.com/LPology/Simple-Ajax-Uploader/issues/160">#160</a>

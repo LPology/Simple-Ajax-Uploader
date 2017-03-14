@@ -1,5 +1,17 @@
 Change Log 
 ============================
+### Version 2.6 ###
+SimpleAjaxUploader.js:
+* Added keyboard support for file button. Pressing Enter while focused on file select button now opens file dialog box - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/183">#183</a> (Special thanks to <a href="https://github.com/phy25">phy25</a> for this.)
+* Added new `multipleSelect` option to allow/disallow multiple file selection (default `false`)
+* Modified `multiple` option to now only control whether multiple, concurrent uploads are permitted
+* Added new `onDone( filename, status, statusText, response, uploadBtn, size )` method which fires after each individual upload finishes
+* Added new `onAllDone()` method which fires when all active uploads finish
+* Added JSHint comments to suppress "better written in dot notation" warnings
+
+Uploader.php:
+* Added `getFileNameWithoutExt` method - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/182">#182</a> (Special thanks to <a href="https://github.com/sainrew">sainrew</a> for this)
+
 ### Version 2.5.5 ###
 SimpleAjaxUploader.js:
 * Improved drag detection to work around Firefox bug which causes `dragenter` to fire twice (https://bugzilla.mozilla.org/show_bug.cgi?id=804036)

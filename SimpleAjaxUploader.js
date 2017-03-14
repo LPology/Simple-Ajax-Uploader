@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 2.6
+ * Version 2.6.1
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2017 LPology, LLC
@@ -1070,6 +1070,10 @@ ss.SimpleUpload.prototype = {
                 e.preventDefault();
             }
 
+            if ( self._disabled ) {
+                return;
+            }
+
             if ( !self._input ) {
                 self._createInput();
             }
@@ -1427,7 +1431,7 @@ ss.IframeUpload = {
             url,
             callback;
 
-        if ( !key ) {
+        if ( !key || !opts ) {
             return;
         }
 

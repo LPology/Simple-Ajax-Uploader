@@ -1,5 +1,10 @@
 Change Log 
 ============================
+### Version 2.6.1 ###
+SimpleAjaxUploader.js:
+* Added disabled status check to file button keyboard support
+* Fixed bug in `_getProg` method where undefined error was occurring after `destroy()` method has been called
+
 ### Version 2.6 ###
 SimpleAjaxUploader.js:
 * Added keyboard support for file button. Pressing Enter while focused on file select button now opens file dialog box - <a href="https://github.com/LPology/Simple-Ajax-Uploader/pull/183">#183</a> (Special thanks to <a href="https://github.com/phy25">phy25</a> for this.)

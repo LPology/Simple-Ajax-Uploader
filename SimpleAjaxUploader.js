@@ -1039,11 +1039,9 @@ ss.SimpleUpload.prototype = {
     rerouteClicks: function( elem ) {
         "use strict";
 
-        var self = this;
+        var self = this, detachOver, detachClick;
 
-        // ss.addEvent() returns a function to detach, which
-        // allows us to call elem.off() to remove mouseover listener
-        elem.off = ss.addEvent( elem, 'mouseover', function() {
+        detachOver = ss.addEvent( elem, 'mouseover', function() {
             if ( self._disabled ) {
                 return;
             }
@@ -1056,6 +1054,21 @@ ss.SimpleUpload.prototype = {
             ss.copyLayout( elem, self._input.parentNode );
             self._input.parentNode.style.visibility = 'visible';
         });
+        
+        // Support keyboard interaction
+        detachClick = ss.addEvent( elem, 'click', function( e ){
+            e.preventDefault();
+            
+            if ( !self._input ) {
+                self._createInput();
+            }
+            self._overBtn = elem;
+            self._input.click();
+        });
+        
+        // ss.addEvent() returns a function to detach, which
+        // allows us to call elem.off() to remove mouseover listener
+        elem.off = function(){detachOver();detachClick();};
 
         if ( self._opts.autoCalibrate && !ss.isVisible( elem ) ) {
             self.log('Upload button not visible');

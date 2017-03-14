@@ -93,6 +93,10 @@ class FileUpload {
         return $this->fileSize;
     }
 
+    public function getFileNameWithoutExt() {
+        return $this->fileNameWithoutExt;
+    }
+
     public function getExtension() {
         return $this->fileExtension;
     }

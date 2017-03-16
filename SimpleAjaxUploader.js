@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 2.6.1
+ * Version 2.6.2
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2017 LPology, LLC
@@ -1857,7 +1857,7 @@ ss.XhrUpload = {
         }
 
         headers['X-Requested-With'] = 'XMLHttpRequest';
-        headers['X-File-Name'] = fileObj.name;
+        headers['X-File-Name'] = ss.encodeUTF8( fileObj.name );
 
         if ( this._opts.responseType.toLowerCase() == 'json' ) {
             headers['Accept'] = 'application/json, text/javascript, */*; q=0.01';

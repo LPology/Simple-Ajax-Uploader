@@ -693,7 +693,7 @@ ss.SimpleUpload = function( options ) {
         onDone: function( filename, status, textStatus, response, uploadBtn, size ) {},
         onAllDone: function() {},
         onExtError: function( filename, extension ) {},
-        onSizeError: function( filename, fileSize ) {},
+        onSizeError: function( filename, fileSize, uploadBtn ) {},
         onError: function( filename, type, status, statusText, response, uploadBtn, size ) {},
         startXHR: function( filename, fileSize, uploadBtn ) {},
         endXHR: function( filename, fileSize, uploadBtn ) {},
@@ -2202,7 +2202,7 @@ ss.extendObj( ss.SimpleUpload.prototype, {
         {
             this.removeCurrent( fileObj.id );
             this.log( fileObj.name + ' exceeds ' + this._opts.maxSize + 'K limit' );
-            this._opts.onSizeError.call( this, fileObj.name, fileObj.size );
+            this._opts.onSizeError.call( this, fileObj.name, fileObj.size, fileObj.btn );
             return false;
         }
 

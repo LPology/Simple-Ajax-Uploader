@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 2.6.2
+ * Version 2.6.3
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2017 LPology, LLC
@@ -310,7 +310,7 @@ ss.copyLayout = function( from, to ) {
     var box = ss.getBox( from );
 
     ss.addStyles( to, {
-        position: 'absolute',
+        position: 'relative',
         left : box.left + 'px',
         top : box.top + 'px',
         width : from.offsetWidth + 'px',
@@ -1999,7 +1999,7 @@ ss.extendObj( ss.SimpleUpload.prototype, {
 
         ss.addStyles( div, {
             'display' : 'block',
-            'position' : 'absolute',
+            'position' : 'relative',
             'overflow' : 'hidden',
             'margin' : 0,
             'padding' : 0,
@@ -2013,7 +2013,7 @@ ss.extendObj( ss.SimpleUpload.prototype, {
         }
 
         ss.addStyles( this._input, {
-            'position' : 'absolute',
+            'position' : 'relative',
             'right' : 0,
             'margin' : 0,
             'padding' : 0,
@@ -2275,3 +2275,4 @@ ss.extendObj( ss.SimpleUpload.prototype, ss.DragAndDrop );
 return ss;
 
 }));
+

@@ -1,6 +1,6 @@
 /**
  * Simple Ajax Uploader
- * Version 2.6.3
+ * Version 2.6.4
  * https://github.com/LPology/Simple-Ajax-Uploader
  *
  * Copyright 2012-2017 LPology, LLC
@@ -1998,7 +1998,7 @@ ss.extendObj( ss.SimpleUpload.prototype, {
         }
 
         ss.addStyles( div, {
-            'display' : 'block',
+            'display' : 'none',
             'position' : 'relative',
             'overflow' : 'hidden',
             'margin' : 0,

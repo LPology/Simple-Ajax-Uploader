@@ -1,5 +1,8 @@
 Change Log 
 ============================
+### Version 2.6.3 ###
+* Set `position:relative` instead of absolute for compatibility with latest chrome update
+
 ### Version 2.6.2 ###
 * Added UTF-8 encoding to `X-File-Name` request header
 

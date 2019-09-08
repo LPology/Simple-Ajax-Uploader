@@ -1,5 +1,11 @@
 Change Log 
 ============================
+### Version 2.6.5 ###
+* Made additional updates to fix from 2.6.3 for fixing chrome update issue
+
+### Version 2.6.4 ###
+* Added fix for large space being added to bottom of page
+
 ### Version 2.6.3 ###
 * Set `position:relative` instead of absolute for compatibility with latest chrome update
 

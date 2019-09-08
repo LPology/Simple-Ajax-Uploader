@@ -1,5 +1,8 @@
 Change Log 
 ============================
+### Version 2.6.6 ###
+* Only set `visibility` to `visible` during `mouseover` event 
+
 ### Version 2.6.5 ###
 * Made additional updates to fix from 2.6.3 for fixing chrome update issue
 

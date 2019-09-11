@@ -1,4 +1,4 @@
-Change Log 
+Change Log  
 ============================
 ### Version 2.6.6 ###
 * Only set `visibility` to `visible` during `mouseover` event 
